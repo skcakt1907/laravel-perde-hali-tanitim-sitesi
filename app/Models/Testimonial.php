@@ -9,9 +9,10 @@ class Testimonial extends Model
 {
     use HasTranslations;
 
-    protected $fillable = [
-        'name', 'title', 'title_tr', 'comment', 'comment_tr', 'stars', 'photo', 'durum',
-    ];
+    /** Çevrilebilir alanlar — `_<dil>` kolonları HasTranslations tarafından eklenir */
+    protected array $translatable = ['title', 'comment'];
+
+    protected $fillable = ['name', 'title', 'comment', 'stars', 'photo', 'durum'];
 
     protected $casts = ['durum' => 'boolean'];
 

@@ -43,34 +43,14 @@
         </div>
     </div>
 
-    <div class="lang-tabs">
-        <button type="button" class="lang-tab active" data-lang-tab="hero" data-locale="de"
-                onclick="langTab('hero', 'de')"><span class="flag">DE</span> Almanca</button>
-        <button type="button" class="lang-tab" data-lang-tab="hero" data-locale="tr"
-                onclick="langTab('hero', 'tr')"><span class="flag">TR</span> Türkçe</button>
-    </div>
-
-    <div class="lang-panel" data-lang-panel="hero" data-locale="de">
-        <div class="form-group">
-            <label class="form-label">Başlık (Almanca)</label>
-            <textarea name="hero_baslik" rows="2" class="form-textarea">{{ $s('hero_baslik') }}</textarea>
-        </div>
-        <div class="form-group mb-0">
-            <label class="form-label">Metin (Almanca)</label>
-            <textarea name="hero_metin" rows="3" class="form-textarea">{{ $s('hero_metin') }}</textarea>
-        </div>
-    </div>
-
-    <div class="lang-panel" data-lang-panel="hero" data-locale="tr" hidden>
-        <div class="form-group">
-            <label class="form-label">Başlık (Türkçe)</label>
-            <textarea name="hero_baslik_tr" rows="2" class="form-textarea">{{ $s('hero_baslik_tr') }}</textarea>
-        </div>
-        <div class="form-group mb-0">
-            <label class="form-label">Metin (Türkçe)</label>
-            <textarea name="hero_metin_tr" rows="3" class="form-textarea">{{ $s('hero_metin_tr') }}</textarea>
-        </div>
-    </div>
+    @include('admin.ayarlar._partials.lang-tabs', [
+        'group'    => 'hero',
+        'settings' => $settings,
+        'fields'   => [
+            ['name' => 'hero_baslik', 'label' => 'Başlık', 'type' => 'textarea', 'rows' => 2],
+            ['name' => 'hero_metin',  'label' => 'Metin',  'type' => 'textarea', 'rows' => 3],
+        ],
+    ])
 </div>
 
 <div class="section">

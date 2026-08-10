@@ -16,7 +16,7 @@
     <div class="table-scroll">
         <table class="data-table">
             <thead>
-            <tr><th style="width:64px">Sıra</th><th style="width:56px">İkon</th><th>Ad (DE)</th><th>Ad (TR)</th><th>Slug</th><th>Ürün</th><th>Durum</th><th>İşlem</th></tr>
+            <tr><th style="width:64px">Sıra</th><th style="width:56px">İkon</th><th>Ad (ana dil)</th><th>Çeviriler</th><th>Slug</th><th>Ürün</th><th>Durum</th><th>İşlem</th></tr>
             </thead>
             <tbody>
             @forelse($categories as $c)
@@ -24,7 +24,7 @@
                     <td>{{ $c->sira }}</td>
                     <td><i class="bi {{ $c->icon ?: 'bi-tag' }}" style="font-size:20px;color:var(--brand)"></i></td>
                     <td><span class="cell-strong">{{ $c->name }}</span></td>
-                    <td>{{ $c->name_tr ?: '—' }}</td>
+                    <td>@include('admin._partials.lang-status', ['model' => $c, 'field' => 'name'])</td>
                     <td><code>{{ $c->slug }}</code></td>
                     <td>{{ $c->products_count }}</td>
                     <td>

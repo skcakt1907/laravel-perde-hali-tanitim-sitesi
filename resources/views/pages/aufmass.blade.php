@@ -80,8 +80,9 @@
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="privacy" value="1" id="a-privacy" required>
                                 <label class="form-check-label" for="a-privacy">
+                                    {{ __('site.form.privacy_before') }}
                                     <a href="{{ route('legal', 'datenschutz') }}" target="_blank">{{ __('site.legal.datenschutz') }}</a>
-                                    {{ app()->getLocale() === 'tr' ? 'metnini okudum ve kabul ediyorum.' : 'habe ich gelesen und akzeptiere sie.' }} *
+                                    {{ __('site.form.privacy_after') }} *
                                 </label>
                             </div>
                         </div>

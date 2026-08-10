@@ -10,10 +10,11 @@ class Project extends Model
 {
     use HasTranslations;
 
-    protected $fillable = [
-        'title', 'title_tr', 'slug', 'location', 'kind', 'kind_tr', 'cover', 'images',
-        'summary', 'summary_tr', 'content', 'content_tr', 'tarih', 'featured', 'sira', 'durum',
-    ];
+    /** Çevrilebilir alanlar — `_<dil>` kolonları HasTranslations tarafından eklenir */
+    protected array $translatable = ['title', 'kind', 'summary', 'content'];
+
+    protected $fillable = ['title', 'slug', 'location', 'kind', 'cover', 'images',
+        'summary', 'content', 'tarih', 'featured', 'sira', 'durum'];
 
     protected $casts = [
         'images'   => 'array',

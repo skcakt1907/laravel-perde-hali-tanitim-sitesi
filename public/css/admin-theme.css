@@ -679,7 +679,9 @@ body.theme-dark .section-title { color: var(--brand-dark); }
     border-radius: 6px;
 }
 
-.lang-box.tr > .lang-tag { background: var(--text); color: var(--text-inverse); }
+/* İkincil diller (ana dil dışındakiler) koyu etiketle ayrışır */
+.lang-box.tr > .lang-tag,
+.lang-box.secondary > .lang-tag { background: var(--text); color: var(--text-inverse); }
 .lang-box .form-group:last-child { margin-bottom: 0; }
 
 /* ─── TABLO ───────────────────────────────────────────────── */

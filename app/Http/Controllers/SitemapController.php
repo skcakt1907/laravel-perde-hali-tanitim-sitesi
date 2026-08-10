@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Middleware\SetLocale;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Project;
 use App\Models\Service;
+use App\Support\Locales;
 
 class SitemapController extends Controller
 {
@@ -16,7 +16,7 @@ class SitemapController extends Controller
         $urls = [];
 
         // Her dil için ayrı URL kümesi — arama motorları iki sürümü de görsün
-        foreach (array_keys(SetLocale::SUPPORTED) as $locale) {
+        foreach (Locales::codes() as $locale) {
             $l = ['locale' => $locale];
 
             foreach (['home', 'catalog', 'services', 'gallery', 'blog', 'about', 'contact', 'aufmass'] as $name) {

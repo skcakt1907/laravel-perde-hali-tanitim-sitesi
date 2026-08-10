@@ -2,7 +2,7 @@
     <a class="pc-img" href="{{ route('product', $product) }}">
         <img src="{{ $product->image_url }}" alt="{{ $product->t('name') }}" loading="lazy">
         @if($product->featured)
-            <span class="pc-badge">{{ app()->getLocale() === 'tr' ? 'Öne çıkan' : 'Beliebt' }}</span>
+            <span class="pc-badge">{{ __('site.catalog.featured') }}</span>
         @endif
     </a>
     <div class="pc-body">

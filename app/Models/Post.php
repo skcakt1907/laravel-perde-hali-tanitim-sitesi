@@ -9,10 +9,10 @@ class Post extends Model
 {
     use HasTranslations;
 
-    protected $fillable = [
-        'title', 'title_tr', 'slug', 'category', 'category_tr', 'image',
-        'summary', 'summary_tr', 'content', 'content_tr', 'tarih', 'durum',
-    ];
+    /** Çevrilebilir alanlar — `_<dil>` kolonları HasTranslations tarafından eklenir */
+    protected array $translatable = ['title', 'category', 'summary', 'content'];
+
+    protected $fillable = ['title', 'slug', 'category', 'image', 'summary', 'content', 'tarih', 'durum'];
 
     protected $casts = ['durum' => 'boolean', 'tarih' => 'date'];
 

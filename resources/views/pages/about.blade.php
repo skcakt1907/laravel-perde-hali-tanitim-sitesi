@@ -19,7 +19,7 @@
                     <img src="{{ setting('hakkimizda_gorsel', asset('img/demo/about.jpg')) }}" alt="{{ setting('site_adi') }}">
                     <div class="exp-badge">
                         <span class="num">{{ setting('istatistik_yil', '15') }}+</span>
-                        <span class="lbl">{{ app()->getLocale() === 'tr' ? 'yıl deneyim' : 'Jahre Erfahrung' }}</span>
+                        <span class="lbl">{{ __('site.stats.years_short') }}</span>
                     </div>
                 </div>
             </div>

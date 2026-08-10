@@ -38,41 +38,15 @@
         </div>
     </div>
 
-    <div class="lang-tabs">
-        <button type="button" class="lang-tab active" data-lang-tab="about" data-locale="de"
-                onclick="langTab('about', 'de')"><span class="flag">DE</span> Almanca</button>
-        <button type="button" class="lang-tab" data-lang-tab="about" data-locale="tr"
-                onclick="langTab('about', 'tr')"><span class="flag">TR</span> Türkçe</button>
-    </div>
-
-    <div class="lang-panel" data-lang-panel="about" data-locale="de">
-        <div class="form-group">
-            <label class="form-label">Başlık (Almanca)</label>
-            <input type="text" name="hakkimizda_baslik" class="form-input" value="{{ $s('hakkimizda_baslik') }}">
-        </div>
-        <div class="form-group">
-            <label class="form-label">Metin (Almanca)</label>
-            <textarea name="hakkimizda_metin" rows="7" class="form-textarea">{{ $s('hakkimizda_metin') }}</textarea>
-        </div>
-        <div class="form-group mb-0">
-            <label class="form-label">Maddeler (Almanca) — her satır bir madde</label>
-            <textarea name="hakkimizda_maddeler" rows="6" class="form-textarea">{{ $s('hakkimizda_maddeler') }}</textarea>
-        </div>
-    </div>
-
-    <div class="lang-panel" data-lang-panel="about" data-locale="tr" hidden>
-        <div class="form-group">
-            <label class="form-label">Başlık (Türkçe)</label>
-            <input type="text" name="hakkimizda_baslik_tr" class="form-input" value="{{ $s('hakkimizda_baslik_tr') }}">
-        </div>
-        <div class="form-group">
-            <label class="form-label">Metin (Türkçe)</label>
-            <textarea name="hakkimizda_metin_tr" rows="7" class="form-textarea">{{ $s('hakkimizda_metin_tr') }}</textarea>
-        </div>
-        <div class="form-group mb-0">
-            <label class="form-label">Maddeler (Türkçe)</label>
-            <textarea name="hakkimizda_maddeler_tr" rows="6" class="form-textarea">{{ $s('hakkimizda_maddeler_tr') }}</textarea>
-        </div>
-    </div>
+    @include('admin.ayarlar._partials.lang-tabs', [
+        'group'    => 'about',
+        'settings' => $settings,
+        'fields'   => [
+            ['name' => 'hakkimizda_baslik',   'label' => 'Başlık'],
+            ['name' => 'hakkimizda_metin',    'label' => 'Metin', 'type' => 'textarea', 'rows' => 7],
+            ['name' => 'hakkimizda_maddeler', 'label' => 'Maddeler (her satır bir madde)',
+             'type' => 'textarea', 'rows' => 6],
+        ],
+    ])
 </div>
 @endsection

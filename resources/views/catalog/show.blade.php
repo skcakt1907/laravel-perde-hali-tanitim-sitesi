@@ -52,7 +52,7 @@
                     @endif
                 </div>
 
-                @if($attrs = $product->attributes)
+                @if($attrs = $product->attributes_for)
                     <h5 class="mt-4">{{ __('site.catalog.properties') }}</h5>
                     <ul class="pd-attrs">
                         @foreach($attrs as $key => $value)

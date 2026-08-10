@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 const ADMIN = { email: 'admin@ornek-perde.nl', password: 'admin123' };
-const LOCALES = ['de', 'tr'];
+const LOCALES = ['de', 'en', 'tr'];
 
 async function loginAs(page, email, password) {
     await page.goto('/giris');
@@ -11,7 +11,7 @@ async function loginAs(page, email, password) {
     await page.waitForLoadState('networkidle');
 }
 
-test.describe('Ön yüz — iki dil', () => {
+test.describe('Ön yüz — çok dil', () => {
     test('kök URL varsayılan dile yönlenir', async ({ page }) => {
         await page.goto('/');
         await expect(page).toHaveURL(/\/de$/);
@@ -35,15 +35,52 @@ test.describe('Ön yüz — iki dil', () => {
         });
     }
 
-    test('dil değiştirici aynı sayfada dili çevirir', async ({ page }) => {
+    test('dil değiştirici bulunulan sayfada dili çevirir', async ({ page }) => {
         await page.goto('/de/produkte/plissees');
-        await page.click('.lang-switch a:not(.active)');
+
+        await page.click('.lang-switch a[hreflang="tr"]');
         await expect(page).toHaveURL(/\/tr\/produkte\/plissees$/);
+
+        await page.click('.lang-switch a[hreflang="en"]');
+        await expect(page).toHaveURL(/\/en\/produkte\/plissees$/);
     });
 
-    test('Türkçe sayfa Türkçe ürün adını gösterir', async ({ page }) => {
-        await page.goto('/tr/produkt/wabenplissee-sand-thermo');
-        await expect(page.locator('h1.pd-title')).toContainText('Plise');
+    test('her dil kendi ürün adını gösterir', async ({ page }) => {
+        const beklenen = { de: 'Wabenplissee', en: 'Honeycomb', tr: 'Plise' };
+
+        for (const [locale, metin] of Object.entries(beklenen)) {
+            await page.goto(`/${locale}/produkt/wabenplissee-sand-thermo`);
+            await expect(page.locator('h1.pd-title'), `${locale} ürün adı`).toContainText(metin);
+        }
+    });
+
+    test('üç dil için de hreflang alternatifi basılır', async ({ page }) => {
+        await page.goto('/en/produkte');
+
+        for (const locale of LOCALES) {
+            await expect(page.locator(`link[rel="alternate"][hreflang="${locale}"]`)).toHaveCount(1);
+        }
+    });
+
+    test('İngilizce sayfa İngilizce arayüz metni gösterir', async ({ page }) => {
+        await page.goto('/en');
+        await expect(page.locator('.navbar')).toContainText('Products');
+        await expect(page.locator('.stats')).toContainText('Years of experience');
+    });
+
+    test('özellik tablosu her dilde çevrilmiş görünür', async ({ page }) => {
+        const beklenen = {
+            de: ['Lichtdurchlässigkeit', 'Wabenstruktur'],
+            en: ['Light transmission', 'Honeycomb structure'],
+            tr: ['Işık geçirgenliği', 'Petek yapı'],
+        };
+
+        for (const [locale, kelimeler] of Object.entries(beklenen)) {
+            await page.goto(`/${locale}/produkt/wabenplissee-sand-thermo`);
+            for (const kelime of kelimeler) {
+                await expect(page.locator('.pd-attrs'), `${locale}: ${kelime}`).toContainText(kelime);
+            }
+        }
     });
 
     test('geçersiz dil öneki 404', async ({ page }) => {
@@ -51,9 +88,13 @@ test.describe('Ön yüz — iki dil', () => {
         expect(resp.status()).toBe(404);
     });
 
-    test('fiyatsız ürün "Preis auf Anfrage" gösterir', async ({ page }) => {
-        await page.goto('/de/produkt/laeufer-vintage-mass');
-        await expect(page.locator('.pd-price')).toContainText('Anfrage');
+    test('fiyatsız ürün her dilde kendi "sorunuz" metnini gösterir', async ({ page }) => {
+        const beklenen = { de: 'Anfrage', en: 'on request', tr: 'sorunuz' };
+
+        for (const [locale, metin] of Object.entries(beklenen)) {
+            await page.goto(`/${locale}/produkt/laeufer-vintage-mass`);
+            await expect(page.locator('.pd-price'), `${locale} fiyat metni`).toContainText(metin);
+        }
     });
 });
 
@@ -112,23 +153,65 @@ test.describe('Yönetim paneli', () => {
         }
     });
 
-    test('ürün formunda iki dilli alanlar var', async ({ page }) => {
+    test('ürün formunda her dil için alan var', async ({ page }) => {
         await loginAs(page, ADMIN.email, ADMIN.password);
         await page.goto('/yonetim/products/create');
+
         await expect(page.locator('input[name="name"]')).toBeVisible();
-        await expect(page.locator('input[name="name_tr"]')).toBeVisible();
-        await expect(page.locator('textarea[name="description_tr"]')).toBeVisible();
+
+        for (const locale of ['en', 'tr']) {
+            await expect(page.locator(`input[name="name_${locale}"]`), `name_${locale}`).toBeVisible();
+            await expect(page.locator(`textarea[name="description_${locale}"]`), `description_${locale}`).toBeVisible();
+        }
     });
 
-    test('Türkçe alan kaydedilip TR sayfada görünüyor', async ({ page }) => {
+    test('ürün formunda her dil için özellik alanı var', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/products/wabenplissee-sand-thermo/edit');
+
+        await expect(page.locator('textarea[name="attributes_raw"]')).toBeVisible();
+        for (const locale of ['en', 'tr']) {
+            await expect(page.locator(`textarea[name="attributes_raw_${locale}"]`)).toBeVisible();
+        }
+
+        // TR özellik tablosunu değiştir → sitede TR sayfada görünsün
+        await page.fill('textarea[name="attributes_raw_tr"]', 'Malzeme: PW test kumaş');
+        await page.click('form button[type="submit"]');
+        await expect(page.locator('.alert-success')).toContainText('güncellendi');
+
+        await page.goto('/tr/produkt/wabenplissee-sand-thermo');
+        await expect(page.locator('.pd-attrs')).toContainText('PW test kumaş');
+
+        // Almanca tablo etkilenmemeli
+        await page.goto('/de/produkt/wabenplissee-sand-thermo');
+        await expect(page.locator('.pd-attrs')).toContainText('Lichtdurchlässigkeit');
+    });
+
+    test('çeviri alanları kaydedilip ilgili dilde görünüyor', async ({ page }) => {
         await loginAs(page, ADMIN.email, ADMIN.password);
         await page.goto('/yonetim/products/aluminiumjalousie-25mm/edit');
         await page.fill('input[name="name_tr"]', 'PW Alüminyum Jaluzi');
+        await page.fill('input[name="name_en"]', 'PW Aluminium Blind');
         await page.click('form button[type="submit"]');
         await expect(page.locator('.alert-success')).toContainText('güncellendi');
 
         await page.goto('/tr/produkt/aluminiumjalousie-25mm');
         await expect(page.locator('h1.pd-title')).toContainText('PW Alüminyum Jaluzi');
+
+        await page.goto('/en/produkt/aluminiumjalousie-25mm');
+        await expect(page.locator('h1.pd-title')).toContainText('PW Aluminium Blind');
+    });
+
+    test('boş çeviri ana dile düşer', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/products/store-tuell-goldschimmer/edit');
+        await page.fill('input[name="name_en"]', '');
+        await page.click('form button[type="submit"]');
+        await expect(page.locator('.alert-success')).toBeVisible();
+
+        // İngilizcesi boş → Almanca ad gösterilmeli
+        await page.goto('/en/produkt/store-tuell-goldschimmer');
+        await expect(page.locator('h1.pd-title')).toContainText('Store Tüll');
     });
 
     test('ölçü talebi durumu güncellenebiliyor', async ({ page }) => {
@@ -214,16 +297,18 @@ test.describe('Ayarlar — bölümler', () => {
         await expect(page.locator('.page-title')).toContainText('Genel');
     });
 
-    test('DE / TR sekmesi alan panelini değiştirir', async ({ page }) => {
+    test('dil sekmeleri alan panelini değiştirir (üç dil)', async ({ page }) => {
         await loginAs(page, ADMIN.email, ADMIN.password);
         await page.goto('/yonetim/settings/hakkimizda');
 
+        await expect(page.locator('[data-lang-tab="about"]')).toHaveCount(3);
         await expect(page.locator('textarea[name="hakkimizda_metin"]')).toBeVisible();
-        await expect(page.locator('textarea[name="hakkimizda_metin_tr"]')).toBeHidden();
 
-        await page.click('[data-lang-tab="about"][data-locale="tr"]');
-        await expect(page.locator('textarea[name="hakkimizda_metin_tr"]')).toBeVisible();
-        await expect(page.locator('textarea[name="hakkimizda_metin"]')).toBeHidden();
+        for (const locale of ['en', 'tr']) {
+            await page.click(`[data-lang-tab="about"][data-locale="${locale}"]`);
+            await expect(page.locator(`textarea[name="hakkimizda_metin_${locale}"]`)).toBeVisible();
+            await expect(page.locator('textarea[name="hakkimizda_metin"]')).toBeHidden();
+        }
     });
 
     test('bölüm kaydediliyor ve değer sitede görünüyor', async ({ page }) => {
@@ -284,10 +369,11 @@ test.describe('Güvenlik — yetki kontrolü', () => {
         expect(body).toContain('Disallow: /yonetim');
     });
 
-    test('sitemap iki dili de içerir', async ({ request }) => {
+    test('sitemap tüm dilleri içerir', async ({ request }) => {
         const resp = await request.get('/sitemap.xml');
         const body = await resp.text();
-        expect(body).toContain('/de/produkte');
-        expect(body).toContain('/tr/produkte');
+        for (const locale of LOCALES) {
+            expect(body, `${locale} sitemap`).toContain(`/${locale}/produkte`);
+        }
     });
 });

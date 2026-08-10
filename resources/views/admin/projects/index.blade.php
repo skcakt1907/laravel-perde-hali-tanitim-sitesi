@@ -19,7 +19,7 @@
     <div class="table-scroll">
         <table class="data-table">
             <thead>
-            <tr><th style="width:64px"></th><th>Başlık (DE)</th><th>Başlık (TR)</th><th>Tür</th><th>Yer</th><th>Tarih</th><th>Durum</th><th>İşlem</th></tr>
+            <tr><th style="width:64px"></th><th>Başlık (ana dil)</th><th>Çeviriler</th><th>Tür</th><th>Yer</th><th>Tarih</th><th>Durum</th><th>İşlem</th></tr>
             </thead>
             <tbody>
             @forelse($projects as $p)
@@ -31,7 +31,7 @@
                             <div class="cell-sub"><i data-lucide="star" style="width:11px;height:11px"></i> öne çıkan</div>
                         @endif
                     </td>
-                    <td>{{ $p->title_tr ?: '—' }}</td>
+                    <td>@include('admin._partials.lang-status', ['model' => $p, 'field' => 'title'])</td>
                     <td>@if($p->kind)<span class="badge badge-brand">{{ $p->kind }}</span>@else — @endif</td>
                     <td>{{ $p->location ?: '—' }}</td>
                     <td>{{ optional($p->tarih)->format('m.Y') ?: '—' }}</td>

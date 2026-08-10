@@ -156,10 +156,10 @@
     <div class="container">
         <div class="row g-4">
             @foreach([
-                ['bi-calendar-check', setting('istatistik_yil', '15'), app()->getLocale() === 'tr' ? 'Yıl deneyim' : 'Jahre Erfahrung'],
-                ['bi-window', setting('istatistik_pencere', '12.000'), app()->getLocale() === 'tr' ? 'Monte edilen pencere' : 'Montierte Fenster'],
-                ['bi-emoji-smile', setting('istatistik_musteri', '3.400'), app()->getLocale() === 'tr' ? 'Mutlu müşteri' : 'Zufriedene Kunden'],
-                ['bi-truck', setting('istatistik_bolge', '100'), app()->getLocale() === 'tr' ? 'km hizmet yarıçapı' : 'km Einsatzradius'],
+                ['bi-calendar-check', setting('istatistik_yil', '15'), __('site.stats.years')],
+                ['bi-window', setting('istatistik_pencere', '12.000'), __('site.stats.windows')],
+                ['bi-emoji-smile', setting('istatistik_musteri', '3.400'), __('site.stats.customers')],
+                ['bi-truck', setting('istatistik_bolge', '100'), __('site.stats.radius')],
             ] as [$icon, $num, $lbl])
                 <div class="col-lg-3 col-6">
                     <div class="stat">

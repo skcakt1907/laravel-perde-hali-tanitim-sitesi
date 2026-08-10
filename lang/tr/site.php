@@ -78,6 +78,8 @@ return [
         'properties'  => 'Özellikler',
         'related'     => 'Benzer modeller',
         'ask_product' => 'Bu model için danışmanlık alın',
+        'count'       => 'model',
+        'featured'    => 'Öne çıkan',
     ],
 
     /* ---- Galeri ---- */
@@ -150,6 +152,17 @@ return [
         'note'    => 'Mesaj',
         'message' => 'Mesaj',
         'optional'=> 'isteğe bağlı',
+        'privacy_before' => '',
+        'privacy_after'  => 'metnini okudum ve kabul ediyorum.',
+    ],
+
+    /* ---- Sayı şeridi ---- */
+    'stats' => [
+        'years'       => 'Yıl deneyim',
+        'windows'     => 'Monte edilen pencere',
+        'customers'   => 'Mutlu müşteri',
+        'radius'      => 'km hizmet yarıçapı',
+        'years_short' => 'yıl deneyim',
     ],
 
     /* ---- Alt bilgi ---- */

@@ -9,10 +9,10 @@ class Service extends Model
 {
     use HasTranslations;
 
-    protected $fillable = [
-        'title', 'title_tr', 'slug', 'icon', 'image',
-        'summary', 'summary_tr', 'content', 'content_tr', 'sira', 'durum',
-    ];
+    /** Çevrilebilir alanlar — `_<dil>` kolonları HasTranslations tarafından eklenir */
+    protected array $translatable = ['title', 'summary', 'content'];
+
+    protected $fillable = ['title', 'slug', 'icon', 'image', 'summary', 'content', 'sira', 'durum'];
 
     protected $casts = ['durum' => 'boolean'];
 

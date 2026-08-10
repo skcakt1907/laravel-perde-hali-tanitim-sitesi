@@ -9,10 +9,10 @@ class Category extends Model
 {
     use HasTranslations;
 
-    protected $fillable = [
-        'parent_id', 'name', 'name_tr', 'slug', 'icon', 'image',
-        'description', 'description_tr', 'sira', 'durum',
-    ];
+    /** Çevrilebilir alanlar — `_<dil>` kolonları HasTranslations tarafından eklenir */
+    protected array $translatable = ['name', 'description'];
+
+    protected $fillable = ['parent_id', 'name', 'slug', 'icon', 'image', 'description', 'sira', 'durum'];
 
     protected $casts = [
         'durum' => 'boolean',

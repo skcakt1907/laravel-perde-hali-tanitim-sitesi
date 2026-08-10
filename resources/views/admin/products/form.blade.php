@@ -6,7 +6,7 @@
     <div>
         <h1 class="page-title">{{ $product->exists ? 'Ürün Düzenle' : 'Yeni Ürün' }}</h1>
         <div class="page-subtitle">
-            {{ $product->exists ? $product->name : 'Almanca alanlar zorunlu; Türkçe boş kalırsa site Almanca gösterir.' }}
+            {{ $product->exists ? $product->name : 'Ana dil (Almanca) alanları zorunlu; diğer diller boş kalırsa site ana dili gösterir.' }}
         </div>
     </div>
     <div class="page-actions">
@@ -22,51 +22,50 @@
     <div class="grid-8-4">
         <div>
             <div class="card mb-4">
-                <div class="lang-box">
-                    <span class="lang-tag"><i data-lucide="globe" style="width:12px;height:12px"></i> DE — Almanca (ana dil)</span>
-                    <div class="form-group">
-                        <label class="form-label">Ürün adı <span class="required">*</span></label>
-                        <input name="name" class="form-input" value="{{ old('name', $product->name) }}" required
-                               placeholder="z. B. Wabenplissee Sand Thermo">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Kısa açıklama</label>
-                        <input name="short_desc" class="form-input" value="{{ old('short_desc', $product->short_desc) }}">
-                        <div class="form-help">Ürün kartlarında ve detay sayfasının başında görünür.</div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Detaylı açıklama</label>
-                        <textarea name="description" class="form-textarea" rows="6">{{ old('description', $product->description) }}</textarea>
-                    </div>
-                </div>
-
-                <div class="lang-box tr">
-                    <span class="lang-tag"><i data-lucide="globe" style="width:12px;height:12px"></i> TR — Türkçe</span>
-                    <div class="form-group">
-                        <label class="form-label">Ürün adı</label>
-                        <input name="name_tr" class="form-input" value="{{ old('name_tr', $product->name_tr) }}"
-                               placeholder="örn. Petek Plise — Kum">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Kısa açıklama</label>
-                        <input name="short_desc_tr" class="form-input" value="{{ old('short_desc_tr', $product->short_desc_tr) }}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Detaylı açıklama</label>
-                        <textarea name="description_tr" class="form-textarea" rows="6">{{ old('description_tr', $product->description_tr) }}</textarea>
-                        <div class="form-help">Boş bırakılan Türkçe alanlar sitede Almanca metinle gösterilir.</div>
-                    </div>
-                </div>
+                @include('admin._partials.lang-fields', [
+                    'model'  => $product,
+                    'fields' => [
+                        ['name' => 'name', 'label' => 'Ürün adı', 'required' => true,
+                         'placeholder' => 'z. B. Wabenplissee Sand Thermo',
+                         'placeholder_en' => 'e.g. Honeycomb Pleated Blind, Sand',
+                         'placeholder_tr' => 'örn. Petek Plise — Kum'],
+                        ['name' => 'short_desc', 'label' => 'Kısa açıklama',
+                         'help' => 'Ürün kartlarında ve detay sayfasının başında görünür.'],
+                        ['name' => 'description', 'label' => 'Detaylı açıklama', 'type' => 'textarea', 'rows' => 6],
+                    ],
+                ])
             </div>
 
             <div class="card">
                 <div class="section-title"><i data-lucide="list"></i> Özellikler</div>
-                <div class="form-group mb-0">
-                    <label class="form-label">Her satır <code>anahtar: değer</code></label>
-                    <textarea name="attributes_raw" class="form-textarea" rows="6"
-                              placeholder="Material: 100% Polyester&#10;Lichtdurchlässigkeit: halbtransparent&#10;Montage: Wand oder Decke&#10;Pflege: 30° Feinwäsche">{{ old('attributes_raw', $product->attributes ? collect($product->attributes)->map(fn ($v, $k) => "$k: $v")->implode("\n") : '') }}</textarea>
-                    <div class="form-help">Almanca yazın — ürün detayında tablo olarak aynen görünür.</div>
+                <div class="form-help" style="margin-top:0;margin-bottom:14px">
+                    Her satır <code>anahtar: değer</code>. Her dil ayrı yazılır; bir dil boş
+                    bırakılırsa o dilde ana dilin tablosu gösterilir.
                 </div>
+
+                @foreach(\App\Support\Locales::labels() as $code => $label)
+                    @php
+                        $isPrimary = $code === \App\Support\Locales::primary();
+                        $field     = $isPrimary ? 'attributes_raw' : 'attributes_raw_' . $code;
+                        $current   = $isPrimary
+                            ? $product->attributes_list
+                            : ($product->{'attributes_' . $code} ?? []);
+                        $satirlar  = collect($current)->map(fn ($v, $k) => "$k: $v")->implode("\n");
+                        $ipucu     = [
+                            'de' => "Material: 100% Polyester\nLichtdurchlässigkeit: halbtransparent\nMontage: Wand oder Decke",
+                            'en' => "Material: 100% polyester\nLight transmission: semi-transparent\nFitting: wall or ceiling",
+                            'tr' => "Malzeme: %100 polyester\nIşık geçirgenliği: yarı şeffaf\nMontaj: duvar veya tavan",
+                        ][$code] ?? '';
+                    @endphp
+
+                    <div class="lang-box {{ $isPrimary ? '' : 'secondary' }}">
+                        <span class="lang-tag">{{ strtoupper($code) }} — {{ $label }}{{ $isPrimary ? ' (ana dil)' : '' }}</span>
+                        <div class="form-group mb-0">
+                            <textarea name="{{ $field }}" class="form-textarea" rows="6"
+                                      placeholder="{{ $ipucu }}">{{ old($field, $satirlar) }}</textarea>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
 

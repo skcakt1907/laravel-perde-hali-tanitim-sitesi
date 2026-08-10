@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Middleware\SetLocale;
 use App\Models\Setting;
+use App\Support\Locales;
 
 if (! function_exists('setting')) {
     function setting(string $key, $default = null)
@@ -16,7 +16,7 @@ if (! function_exists('tsetting')) {
      */
     function tsetting(string $key, $default = null)
     {
-        if (app()->getLocale() !== config('app.fallback_locale')) {
+        if (app()->getLocale() !== Locales::primary()) {
             $value = Setting::get($key . '_' . app()->getLocale());
 
             if (filled($value)) {
@@ -39,7 +39,7 @@ if (! function_exists('locales')) {
     /** @return array<string,string> */
     function locales(): array
     {
-        return SetLocale::SUPPORTED;
+        return Locales::labels();
     }
 }
 

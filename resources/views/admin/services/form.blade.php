@@ -43,41 +43,18 @@ if ($seciliIkon && ! isset($iconlar[$seciliIkon])) {
 
     <div class="grid-8-4">
         <div class="card">
-            <div class="lang-box">
-                <span class="lang-tag">DE — Almanca</span>
-                <div class="form-group">
-                    <label class="form-label">Başlık <span class="required">*</span></label>
-                    <input name="title" class="form-input" value="{{ old('title', $service->title) }}" required
-                           placeholder="z. B. Kostenloses Aufmaß & Beratung">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Özet</label>
-                    <textarea name="summary" class="form-textarea" rows="3">{{ old('summary', $service->summary) }}</textarea>
-                    <div class="form-help">Hizmet kartlarında görünen kısa metin.</div>
-                </div>
-                <div class="form-group mb-0">
-                    <label class="form-label">Detay metni</label>
-                    <textarea name="content" class="form-textarea" rows="8">{{ old('content', $service->content) }}</textarea>
-                </div>
-            </div>
-
-            <div class="lang-box tr" style="margin-bottom:0">
-                <span class="lang-tag">TR — Türkçe</span>
-                <div class="form-group">
-                    <label class="form-label">Başlık</label>
-                    <input name="title_tr" class="form-input" value="{{ old('title_tr', $service->title_tr) }}"
-                           placeholder="örn. Ücretsiz ölçü & danışmanlık">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Özet</label>
-                    <textarea name="summary_tr" class="form-textarea" rows="3">{{ old('summary_tr', $service->summary_tr) }}</textarea>
-                </div>
-                <div class="form-group mb-0">
-                    <label class="form-label">Detay metni</label>
-                    <textarea name="content_tr" class="form-textarea" rows="8">{{ old('content_tr', $service->content_tr) }}</textarea>
-                    <div class="form-help">Boş bırakılırsa sitede Almanca metin gösterilir.</div>
-                </div>
-            </div>
+            @include('admin._partials.lang-fields', [
+                'model'  => $service,
+                'fields' => [
+                    ['name' => 'title', 'label' => 'Başlık', 'required' => true,
+                     'placeholder' => 'z. B. Kostenloses Aufmaß & Beratung',
+                     'placeholder_en' => 'e.g. Free Measuring & Advice',
+                     'placeholder_tr' => 'örn. Ücretsiz ölçü & danışmanlık'],
+                    ['name' => 'summary', 'label' => 'Özet', 'type' => 'textarea', 'rows' => 3,
+                     'help' => 'Hizmet kartlarında görünen kısa metin.'],
+                    ['name' => 'content', 'label' => 'Detay metni', 'type' => 'textarea', 'rows' => 8],
+                ],
+            ])
         </div>
 
         <div>

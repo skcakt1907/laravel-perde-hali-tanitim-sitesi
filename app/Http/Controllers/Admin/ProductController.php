@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use App\Support\HandlesUploads;
+use App\Support\Locales;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,8 +18,12 @@ class ProductController extends Controller
         $query = Product::with('category')->orderBy('sira')->latest();
 
         if ($request->filled('q')) {
-            $query->where(fn ($q) => $q->where('name', 'like', '%' . $request->q . '%')
-                ->orWhere('name_tr', 'like', '%' . $request->q . '%'));
+            $like = '%' . $request->q . '%';
+            $query->where(function ($q) use ($like) {
+                foreach (Locales::expand(['name']) as $col) {
+                    $q->orWhere($col, 'like', $like);
+                }
+            });
         }
         if ($request->filled('kategori')) {
             $query->where('category_id', $request->kategori);
@@ -83,17 +88,16 @@ class ProductController extends Controller
 
     protected function payload(Request $request): array
     {
-        $data = $request->validate([
-            'name'            => 'required|string|max:200',
-            'name_tr'         => 'nullable|string|max:200',
+        // Çeviri alanları (name_en, name_tr, …) Locales listesinden türer.
+        $data = $request->validate(Product::translationRules([
+            'name'        => 'required|string|max:200',
+            'short_desc'  => 'nullable|string|max:500',
+            'description' => 'nullable|string',
+        ]) + [
             'category_id'     => 'nullable|exists:categories,id',
             'brand'           => 'nullable|string|max:100',
             'sku'             => 'nullable|string|max:60',
             'cover'           => 'nullable|string|max:500',
-            'short_desc'      => 'nullable|string|max:500',
-            'short_desc_tr'   => 'nullable|string|max:500',
-            'description'     => 'nullable|string',
-            'description_tr'  => 'nullable|string',
             'price'           => 'nullable|numeric|min:0',
             'price_unit'      => 'nullable|string|max:30',
             'sira'            => 'nullable|integer|min:0',
@@ -106,6 +110,11 @@ class ProductController extends Controller
         $data['featured']   = $request->boolean('featured');
         $data['durum']      = $request->boolean('durum');
         $data['attributes'] = $this->parseAttributes($request->input('attributes_raw'));
+
+        // Her dil için ayrı özellik tablosu (boş kalırsa null → sitede ana dile düşülür)
+        foreach (Locales::secondary() as $locale) {
+            $data['attributes_' . $locale] = $this->parseAttributes($request->input('attributes_raw_' . $locale));
+        }
 
         unset($data['image_file'], $data['gallery_files']);
 

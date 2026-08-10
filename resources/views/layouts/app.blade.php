@@ -19,7 +19,7 @@
     <meta property="og:description" content="@yield('meta', tsetting('site_aciklama'))">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="@yield('og_image', asset('img/og-image.jpg'))">
-    <meta property="og:locale" content="{{ app()->getLocale() === 'tr' ? 'tr_TR' : 'de_DE' }}">
+    <meta property="og:locale" content="{{ \App\Support\Locales::ogLocale() }}">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

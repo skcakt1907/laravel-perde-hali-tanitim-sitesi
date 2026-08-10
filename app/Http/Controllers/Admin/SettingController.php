@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Support\Locales;
 use Illuminate\Http\Request;
 
 /**
@@ -12,84 +13,100 @@ use Illuminate\Http\Request;
  * Her sayfa yalnızca kendi anahtarlarını gönderir; `update()` de yalnızca o sayfanın
  * BEYAZ LİSTESİNDEKİ anahtarları yazar. Böylece formdan gelen rastgele bir alan
  * ayarlar tablosuna sızamaz ve başka sayfanın ayarı yanlışlıkla ezilmez.
+ *
+ * `t_keys` çok dilli ayarlardır: `Locales` listesine göre `_en`, `_tr` … soneklerine
+ * açılır. Yeni dil eklenince burada değişiklik gerekmez.
  */
 class SettingController extends Controller
 {
     /**
-     * sayfa => [başlık, alt başlık, ikon, izinli ayar anahtarları]
+     * sayfa => [başlık, alt başlık, ikon, grup, tek dilli anahtarlar, çok dilli anahtarlar]
+     *
+     * @return array<string,array<string,mixed>>
      */
-    public const PAGES = [
-        'genel' => [
-            'title' => 'Genel Ayarlar',
-            'subtitle' => 'Site adı ve arama motorlarında görünen açıklama',
-            'icon' => 'settings',
-            'group' => 'SİTE',
-            'keys' => ['site_adi', 'site_aciklama', 'site_aciklama_tr'],
-        ],
-        'iletisim' => [
-            'title' => 'İletişim',
-            'subtitle' => 'Telefon, e-posta, adres, çalışma saatleri ve harita',
-            'icon' => 'phone',
-            'group' => 'SİTE',
-            'keys' => [
-                'telefon', 'whatsapp', 'eposta', 'adres',
-                'calisma_saatleri', 'calisma_saatleri_tr', 'harita_embed',
+    public static function pages(): array
+    {
+        $pages = [
+            'genel' => [
+                'title'    => 'Genel Ayarlar',
+                'subtitle' => 'Site adı ve arama motorlarında görünen açıklama',
+                'icon'     => 'settings',
+                'group'    => 'SİTE',
+                'keys'     => ['site_adi'],
+                't_keys'   => ['site_aciklama'],
             ],
-        ],
-        'sosyal' => [
-            'title' => 'Sosyal Medya',
-            'subtitle' => 'Alt bilgide ve iletişim bölümünde görünen hesaplar',
-            'icon' => 'share-2',
-            'group' => 'SİTE',
-            'keys' => ['instagram', 'facebook'],
-        ],
-        'anasayfa' => [
-            'title' => 'Anasayfa',
-            'subtitle' => 'Üst bölüm (hero) görseli, başlık, metin ve sayı şeridi',
-            'icon' => 'panel-top',
-            'group' => 'İÇERİK',
-            'keys' => [
-                'hero_gorsel', 'hero_baslik', 'hero_metin', 'hero_baslik_tr', 'hero_metin_tr',
-                'istatistik_yil', 'istatistik_pencere', 'istatistik_musteri', 'istatistik_bolge',
+            'iletisim' => [
+                'title'    => 'İletişim',
+                'subtitle' => 'Telefon, e-posta, adres, çalışma saatleri ve harita',
+                'icon'     => 'phone',
+                'group'    => 'SİTE',
+                'keys'     => ['telefon', 'whatsapp', 'eposta', 'adres', 'harita_embed'],
+                't_keys'   => ['calisma_saatleri'],
             ],
-        ],
-        'hakkimizda' => [
-            'title' => 'Hakkımızda',
-            'subtitle' => 'Hakkımızda sayfasının görseli, metni ve maddeleri',
-            'icon' => 'users',
-            'group' => 'İÇERİK',
-            'keys' => [
-                'hakkimizda_gorsel',
-                'hakkimizda_baslik', 'hakkimizda_metin', 'hakkimizda_maddeler',
-                'hakkimizda_baslik_tr', 'hakkimizda_metin_tr', 'hakkimizda_maddeler_tr',
+            'sosyal' => [
+                'title'    => 'Sosyal Medya',
+                'subtitle' => 'Alt bilgide ve iletişim bölümünde görünen hesaplar',
+                'icon'     => 'share-2',
+                'group'    => 'SİTE',
+                'keys'     => ['instagram', 'facebook'],
+                't_keys'   => [],
             ],
-        ],
-        'kunye' => [
-            'title' => 'Künye / Yasal',
-            'subtitle' => 'Impressum ve yasal sayfalarda görünen firma bilgileri',
-            'icon' => 'scale',
-            'group' => 'YASAL',
-            'keys' => ['firma_unvan', 'yetkili', 'kvk_no', 'btw_no'],
-        ],
-    ];
+            'anasayfa' => [
+                'title'    => 'Anasayfa',
+                'subtitle' => 'Üst bölüm (hero) görseli, başlık, metin ve sayı şeridi',
+                'icon'     => 'panel-top',
+                'group'    => 'İÇERİK',
+                'keys'     => [
+                    'hero_gorsel',
+                    'istatistik_yil', 'istatistik_pencere', 'istatistik_musteri', 'istatistik_bolge',
+                ],
+                't_keys' => ['hero_baslik', 'hero_metin'],
+            ],
+            'hakkimizda' => [
+                'title'    => 'Hakkımızda',
+                'subtitle' => 'Hakkımızda sayfasının görseli, metni ve maddeleri',
+                'icon'     => 'users',
+                'group'    => 'İÇERİK',
+                'keys'     => ['hakkimizda_gorsel'],
+                't_keys'   => ['hakkimizda_baslik', 'hakkimizda_metin', 'hakkimizda_maddeler'],
+            ],
+            'kunye' => [
+                'title'    => 'Künye / Yasal',
+                'subtitle' => 'Impressum ve yasal sayfalarda görünen firma bilgileri',
+                'icon'     => 'scale',
+                'group'    => 'YASAL',
+                'keys'     => ['firma_unvan', 'yetkili', 'kvk_no', 'btw_no'],
+                't_keys'   => [],
+            ],
+        ];
+
+        // Çok dilli anahtarları dil soneklerine aç ve beyaz listeye kat
+        foreach ($pages as $key => $page) {
+            $pages[$key]['allowed'] = array_merge($page['keys'], Locales::expand($page['t_keys']));
+        }
+
+        return $pages;
+    }
 
     public function edit(string $page = 'genel')
     {
-        abort_unless(isset(self::PAGES[$page]), 404);
+        $pages = self::pages();
+        abort_unless(isset($pages[$page]), 404);
 
         return view('admin.ayarlar.' . $page, [
             'page'     => $page,
-            'meta'     => self::PAGES[$page],
+            'meta'     => $pages[$page],
             'settings' => Setting::pluck('deger', 'anahtar')->toArray(),
         ]);
     }
 
     public function update(Request $request, string $page)
     {
-        abort_unless(isset(self::PAGES[$page]), 404);
+        $pages = self::pages();
+        abort_unless(isset($pages[$page]), 404);
 
         // Yalnızca bu sayfaya ait anahtarlar yazılır (beyaz liste).
-        foreach (self::PAGES[$page]['keys'] as $key) {
+        foreach ($pages[$page]['allowed'] as $key) {
             if ($request->has($key)) {
                 Setting::put($key, $request->input($key));
             }
@@ -99,6 +116,6 @@ class SettingController extends Controller
 
         return redirect()
             ->route('admin.settings.edit', $page)
-            ->with('success', self::PAGES[$page]['title'] . ' kaydedildi.');
+            ->with('success', $pages[$page]['title'] . ' kaydedildi.');
     }
 }

@@ -19,50 +19,22 @@
 
     <div class="grid-8-4">
         <div class="card">
-            <div class="lang-box">
-                <span class="lang-tag">DE — Almanca</span>
-                <div class="form-group">
-                    <label class="form-label">Başlık <span class="required">*</span></label>
-                    <input name="title" class="form-input" value="{{ old('title', $project->title) }}" required
-                           placeholder="z. B. Plissees für ein Reihenhaus">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">İşin türü (galeri filtresi)</label>
-                    <input name="kind" class="form-input" value="{{ old('kind', $project->kind) }}"
-                           placeholder="Plissees / Rollos / Teppiche">
-                    <div class="form-help">Galeri sayfasındaki filtre çipleri bu değerden üretilir — mevcutlarla aynı yazın.</div>
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Özet</label>
-                    <textarea name="summary" class="form-textarea" rows="3">{{ old('summary', $project->summary) }}</textarea>
-                </div>
-                <div class="form-group mb-0">
-                    <label class="form-label">Detay metni</label>
-                    <textarea name="content" class="form-textarea" rows="7">{{ old('content', $project->content) }}</textarea>
-                </div>
-            </div>
-
-            <div class="lang-box tr" style="margin-bottom:0">
-                <span class="lang-tag">TR — Türkçe</span>
-                <div class="form-group">
-                    <label class="form-label">Başlık</label>
-                    <input name="title_tr" class="form-input" value="{{ old('title_tr', $project->title_tr) }}">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">İşin türü</label>
-                    <input name="kind_tr" class="form-input" value="{{ old('kind_tr', $project->kind_tr) }}"
-                           placeholder="Plise / Stor / Halı">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Özet</label>
-                    <textarea name="summary_tr" class="form-textarea" rows="3">{{ old('summary_tr', $project->summary_tr) }}</textarea>
-                </div>
-                <div class="form-group mb-0">
-                    <label class="form-label">Detay metni</label>
-                    <textarea name="content_tr" class="form-textarea" rows="7">{{ old('content_tr', $project->content_tr) }}</textarea>
-                    <div class="form-help">Boş bırakılırsa sitede Almanca metin gösterilir.</div>
-                </div>
-            </div>
+            @include('admin._partials.lang-fields', [
+                'model'  => $project,
+                'fields' => [
+                    ['name' => 'title', 'label' => 'Başlık', 'required' => true,
+                     'placeholder' => 'z. B. Plissees für ein Reihenhaus',
+                     'placeholder_en' => 'e.g. Pleated blinds for a terraced house',
+                     'placeholder_tr' => 'örn. Sıra evde plise perde'],
+                    ['name' => 'kind', 'label' => 'İşin türü (galeri filtresi)',
+                     'placeholder' => 'Plissees / Rollos / Teppiche',
+                     'placeholder_en' => 'Pleated Blinds / Roller Blinds / Rugs',
+                     'placeholder_tr' => 'Plise / Stor / Halı',
+                     'help' => 'Galeri sayfasındaki filtre çipleri bu değerden üretilir — mevcutlarla aynı yazın.'],
+                    ['name' => 'summary', 'label' => 'Özet', 'type' => 'textarea', 'rows' => 3],
+                    ['name' => 'content', 'label' => 'Detay metni', 'type' => 'textarea', 'rows' => 7],
+                ],
+            ])
         </div>
 
         <div>

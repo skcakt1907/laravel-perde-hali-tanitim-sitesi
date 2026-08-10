@@ -27,7 +27,7 @@
             <div class="form-help">Form bildirimleri bu adrese gönderilir.</div>
         </div>
 
-        <div class="form-group full">
+        <div class="form-group full mb-0">
             <label class="form-label">Adres</label>
             <textarea name="adres" rows="2" class="form-textarea">{{ $s('adres') }}</textarea>
             <div class="form-help">Boş bırakılırsa adres blokları sitede hiç gösterilmez (kırık görünmez).</div>
@@ -38,29 +38,17 @@
 <div class="section">
     <div class="section-title"><i data-lucide="clock"></i><span>Çalışma Saatleri</span></div>
 
-    <div class="lang-tabs">
-        <button type="button" class="lang-tab active" data-lang-tab="saat" data-locale="de"
-                onclick="langTab('saat', 'de')"><span class="flag">DE</span> Almanca</button>
-        <button type="button" class="lang-tab" data-lang-tab="saat" data-locale="tr"
-                onclick="langTab('saat', 'tr')"><span class="flag">TR</span> Türkçe</button>
-    </div>
-
-    <div class="lang-panel" data-lang-panel="saat" data-locale="de">
-        <div class="form-group mb-0">
-            <label class="form-label">Çalışma saatleri (Almanca)</label>
-            <textarea name="calisma_saatleri" rows="3" class="form-textarea"
-                      placeholder="Mo–Fr 09:00–18:00&#10;Sa 10:00–16:00 (nach Absprache)">{{ $s('calisma_saatleri') }}</textarea>
-            <div class="form-help">Her satır alt alta gösterilir.</div>
-        </div>
-    </div>
-
-    <div class="lang-panel" data-lang-panel="saat" data-locale="tr" hidden>
-        <div class="form-group mb-0">
-            <label class="form-label">Çalışma saatleri (Türkçe)</label>
-            <textarea name="calisma_saatleri_tr" rows="3" class="form-textarea"
-                      placeholder="Pzt–Cum 09:00–18:00&#10;Cmt 10:00–16:00 (randevu ile)">{{ $s('calisma_saatleri_tr') }}</textarea>
-        </div>
-    </div>
+    @include('admin.ayarlar._partials.lang-tabs', [
+        'group'    => 'saat',
+        'settings' => $settings,
+        'fields'   => [
+            ['name' => 'calisma_saatleri', 'label' => 'Çalışma saatleri', 'type' => 'textarea', 'rows' => 3,
+             'placeholder' => "Mo–Fr 09:00–18:00\nSa 10:00–16:00 (nach Absprache)",
+             'placeholder_en' => "Mon–Fri 09:00–18:00\nSat 10:00–16:00 (by appointment)",
+             'placeholder_tr' => "Pzt–Cum 09:00–18:00\nCmt 10:00–16:00 (randevu ile)",
+             'help' => 'Her satır alt alta gösterilir.'],
+        ],
+    ])
 </div>
 
 <div class="section">

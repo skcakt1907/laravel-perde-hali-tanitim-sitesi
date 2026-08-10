@@ -78,6 +78,8 @@ return [
         'properties'  => 'Eigenschaften',
         'related'     => 'Ähnliche Modelle',
         'ask_product' => 'Zu diesem Modell beraten lassen',
+        'count'       => 'Modelle',
+        'featured'    => 'Beliebt',
     ],
 
     /* ---- Galerie ---- */
@@ -150,6 +152,17 @@ return [
         'note'    => 'Nachricht',
         'message' => 'Nachricht',
         'optional'=> 'optional',
+        'privacy_before' => '',
+        'privacy_after'  => 'habe ich gelesen und akzeptiere sie.',
+    ],
+
+    /* ---- Zahlenband ---- */
+    'stats' => [
+        'years'       => 'Jahre Erfahrung',
+        'windows'     => 'Montierte Fenster',
+        'customers'   => 'Zufriedene Kunden',
+        'radius'      => 'km Einsatzradius',
+        'years_short' => 'Jahre Erfahrung',
     ],
 
     /* ---- Footer ---- */

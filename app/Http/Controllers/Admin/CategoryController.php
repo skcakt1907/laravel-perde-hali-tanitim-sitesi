@@ -63,15 +63,14 @@ class CategoryController extends Controller
 
     protected function payload(Request $request): array
     {
-        $data = $request->validate([
-            'name'           => 'required|string|max:120',
-            'name_tr'        => 'nullable|string|max:120',
-            'icon'           => 'nullable|string|max:60',
-            'image'          => 'nullable|string|max:500',
-            'sira'           => 'nullable|integer|min:0',
-            'description'    => 'nullable|string|max:500',
-            'description_tr' => 'nullable|string|max:500',
-            'image_file'     => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:4096',
+        $data = $request->validate(Category::translationRules([
+            'name'        => 'required|string|max:120',
+            'description' => 'nullable|string|max:500',
+        ]) + [
+            'icon'       => 'nullable|string|max:60',
+            'image'      => 'nullable|string|max:500',
+            'sira'       => 'nullable|integer|min:0',
+            'image_file' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:4096',
         ]);
 
         $data['sira']  = $data['sira'] ?? 0;

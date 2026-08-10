@@ -66,17 +66,14 @@ class ProjectController extends Controller
 
     protected function payload(Request $request): array
     {
-        $data = $request->validate([
-            'title'           => 'required|string|max:200',
-            'title_tr'        => 'nullable|string|max:200',
+        $data = $request->validate(Project::translationRules([
+            'title'   => 'required|string|max:200',
+            'kind'    => 'nullable|string|max:80',
+            'summary' => 'nullable|string|max:500',
+            'content' => 'nullable|string',
+        ]) + [
             'location'        => 'nullable|string|max:120',
-            'kind'            => 'nullable|string|max:80',
-            'kind_tr'         => 'nullable|string|max:80',
             'cover'           => 'nullable|string|max:500',
-            'summary'         => 'nullable|string|max:500',
-            'summary_tr'      => 'nullable|string|max:500',
-            'content'         => 'nullable|string',
-            'content_tr'      => 'nullable|string',
             'tarih'           => 'nullable|date',
             'sira'            => 'nullable|integer|min:0',
             'image_file'      => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:4096',

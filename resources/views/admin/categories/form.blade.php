@@ -45,33 +45,17 @@ if ($seciliIkon && ! isset($iconlar[$seciliIkon])) {
 
     <div class="grid-8-4">
         <div class="card">
-            <div class="lang-box">
-                <span class="lang-tag">DE — Almanca</span>
-                <div class="form-group">
-                    <label class="form-label">Kategori adı <span class="required">*</span></label>
-                    <input name="name" class="form-input" value="{{ old('name', $category->name) }}" required
-                           placeholder="z. B. Plissees">
-                </div>
-                <div class="form-group mb-0">
-                    <label class="form-label">Açıklama</label>
-                    <textarea name="description" class="form-textarea" rows="3">{{ old('description', $category->description) }}</textarea>
-                    <div class="form-help">Kategori sayfasının başlığı altında ve anasayfa kartında görünür.</div>
-                </div>
-            </div>
-
-            <div class="lang-box tr" style="margin-bottom:0">
-                <span class="lang-tag">TR — Türkçe</span>
-                <div class="form-group">
-                    <label class="form-label">Kategori adı</label>
-                    <input name="name_tr" class="form-input" value="{{ old('name_tr', $category->name_tr) }}"
-                           placeholder="örn. Plise Perde">
-                </div>
-                <div class="form-group mb-0">
-                    <label class="form-label">Açıklama</label>
-                    <textarea name="description_tr" class="form-textarea" rows="3">{{ old('description_tr', $category->description_tr) }}</textarea>
-                    <div class="form-help">Boş bırakılırsa sitede Almanca metin gösterilir.</div>
-                </div>
-            </div>
+            @include('admin._partials.lang-fields', [
+                'model'  => $category,
+                'fields' => [
+                    ['name' => 'name', 'label' => 'Kategori adı', 'required' => true,
+                     'placeholder' => 'z. B. Plissees',
+                     'placeholder_en' => 'e.g. Pleated Blinds',
+                     'placeholder_tr' => 'örn. Plise Perde'],
+                    ['name' => 'description', 'label' => 'Açıklama', 'type' => 'textarea', 'rows' => 3,
+                     'help' => 'Kategori sayfasının başlığı altında ve anasayfa kartında görünür.'],
+                ],
+            ])
         </div>
 
         <div>

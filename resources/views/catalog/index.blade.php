@@ -48,7 +48,7 @@
                 <div class="shop-toolbar">
                     <span class="count">
                         {{ $products->total() }}
-                        {{ app()->getLocale() === 'tr' ? 'model' : 'Modelle' }}
+                        {{ __('site.catalog.count') }}
                     </span>
                 </div>
 

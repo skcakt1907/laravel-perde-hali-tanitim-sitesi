@@ -16,7 +16,7 @@
     <div class="table-scroll">
         <table class="data-table">
             <thead>
-            <tr><th style="width:64px">Sıra</th><th style="width:56px">İkon</th><th>Başlık (DE)</th><th>Başlık (TR)</th><th>Durum</th><th>İşlem</th></tr>
+            <tr><th style="width:64px">Sıra</th><th style="width:56px">İkon</th><th>Başlık (ana dil)</th><th>Çeviriler</th><th>Durum</th><th>İşlem</th></tr>
             </thead>
             <tbody>
             @forelse($services as $s)
@@ -27,7 +27,7 @@
                         <div class="cell-strong">{{ $s->title }}</div>
                         <div class="cell-sub"><code>{{ $s->slug }}</code></div>
                     </td>
-                    <td>{{ $s->title_tr ?: '—' }}</td>
+                    <td>@include('admin._partials.lang-status', ['model' => $s, 'field' => 'title'])</td>
                     <td>
                         <span class="badge {{ $s->durum ? 'badge-success' : 'badge-danger' }}">
                             {{ $s->durum ? 'Yayında' : 'Pasif' }}

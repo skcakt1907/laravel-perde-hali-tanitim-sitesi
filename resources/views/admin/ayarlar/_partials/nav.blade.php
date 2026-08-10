@@ -8,7 +8,7 @@ sadece o diziye ekleme yapmak yeterli.
 --}}
 @php
     $active = $active ?? 'genel';
-    $pages  = \App\Http\Controllers\Admin\SettingController::PAGES;
+    $pages  = \App\Http\Controllers\Admin\SettingController::pages();
 
     // Grup başlıklarına göre sırala
     $gruplar = [];

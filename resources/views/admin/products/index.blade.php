@@ -26,7 +26,7 @@
     <div class="table-scroll">
         <table class="data-table">
             <thead>
-            <tr><th style="width:64px"></th><th>Ürün</th><th>Kategori</th><th>Başlangıç fiyatı</th><th>Türkçe</th><th>Durum</th><th>İşlem</th></tr>
+            <tr><th style="width:64px"></th><th>Ürün</th><th>Kategori</th><th>Başlangıç fiyatı</th><th>Çeviriler</th><th>Durum</th><th>İşlem</th></tr>
             </thead>
             <tbody>
             @forelse($products as $p)
@@ -48,13 +48,7 @@
                             <span class="badge badge-neutral">Sorunuz</span>
                         @endif
                     </td>
-                    <td>
-                        @if(filled($p->name_tr))
-                            <span class="badge badge-success">Girildi</span>
-                        @else
-                            <span class="badge badge-warning">Boş</span>
-                        @endif
-                    </td>
+                    <td>@include('admin._partials.lang-status', ['model' => $p, 'field' => 'name'])</td>
                     <td>
                         <span class="badge {{ $p->durum ? 'badge-success' : 'badge-danger' }}">
                             {{ $p->durum ? 'Yayında' : 'Pasif' }}

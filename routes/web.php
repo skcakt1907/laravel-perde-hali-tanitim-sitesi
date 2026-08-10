@@ -21,7 +21,7 @@ Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap')
  | view'lerde route('produkte') gibi parametresiz çağrı yeterlidir.
  */
 Route::prefix('{locale}')
-    ->whereIn('locale', array_keys(App\Http\Middleware\SetLocale::SUPPORTED))
+    ->whereIn('locale', App\Support\Locales::codes())
     ->middleware('setlocale')
     ->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('home');

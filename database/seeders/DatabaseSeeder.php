@@ -41,6 +41,8 @@ class DatabaseSeeder extends Seeder
 
             'site_aciklama' => 'Maßgefertigte Gardinen, Plissees, Rollos, Jalousien und Teppiche. '
                 . 'Kostenloses Aufmaß und Beratung bei Ihnen zu Hause, fachgerechte Montage aus einer Hand.',
+            'site_aciklama_en' => 'Made-to-measure curtains, pleated blinds, roller blinds, venetian '
+                . 'blinds and rugs. Free measuring and advice at your home, expert fitting from one team.',
             'site_aciklama_tr' => 'Ölçüye özel fon perde, plise, stor, jaluzi ve halı. '
                 . 'Evinizde ücretsiz ölçü ve danışmanlık, tek elden ustaca montaj.',
 
@@ -53,12 +55,16 @@ class DatabaseSeeder extends Seeder
             'facebook'  => '',
 
             'calisma_saatleri'    => "Mo–Fr 09:00–18:00\nSa 10:00–16:00 (nach Absprache)",
+            'calisma_saatleri_en' => "Mon–Fri 09:00–18:00\nSat 10:00–16:00 (by appointment)",
             'calisma_saatleri_tr' => "Pzt–Cum 09:00–18:00\nCmt 10:00–16:00 (randevu ile)",
 
             'hero_gorsel' => url('img/demo/hero.jpg'),
             'hero_baslik' => "Maßgefertigte Fensterdekoration\nfür Ihr Zuhause",
             'hero_metin'  => 'Von Plissees und Rollos bis zu Vorhängen und handverlesenen Teppichen: '
                 . 'Wir messen kostenlos bei Ihnen aus, beraten Sie in Ruhe und montieren fachgerecht.',
+            'hero_baslik_en' => "Made-to-measure window dressing\nfor your home",
+            'hero_metin_en'  => 'From pleated and roller blinds to curtains and hand-picked rugs: '
+                . 'we measure at your home free of charge, take the time to advise you and fit everything properly.',
             'hero_baslik_tr' => "Eviniz için\nölçüye özel pencere dekorasyonu",
             'hero_metin_tr'  => 'Plise ve stordan fon perdeye, özenle seçilmiş halılara kadar: '
                 . 'Ücretsiz yerinde ölçü alıyor, acele etmeden danışmanlık veriyor ve ustaca monte ediyoruz.',
@@ -81,7 +87,20 @@ class DatabaseSeeder extends Seeder
                 . "eingefasster Kante in der Größe, die Ihr Raum braucht.",
             'hakkimizda_maddeler' => "Kostenloses Aufmaß, keine Anfahrtskosten\nMaßanfertigung auf den Millimeter\n"
                 . "Montage durch eigene Monteure\nStoffmuster zum Vergleich vor Ort\n"
-                . "Feste Preise im schriftlichen Angebot\nBeratung auf Deutsch, Niederländisch und Türkisch",
+                . "Feste Preise im schriftlichen Angebot\nBeratung auf Deutsch, Niederländisch, Englisch und Türkisch",
+            'hakkimizda_baslik_en' => 'A family business for window dressing — at your door with tape measure and sample book',
+            'hakkimizda_metin_en'  => "MC Gordijnen is a family business for curtains, sun protection and rugs. "
+                . "We come to your home, measure every window ourselves and bring fabric samples with us — "
+                . "because a colour always looks different in your own living room than it does in a shop.\n\n"
+                . "We work without middlemen: advice, measuring, production and fitting all run through us. "
+                . "That keeps the process short, the appointments reliable and the price easy to follow. "
+                . "Whether it is a single sloping roof window or a whole home, a private house, an office or a "
+                . "holiday let — you get the same care.\n\n"
+                . "Alongside window dressing we also supply rugs and runners, including made to measure with a "
+                . "bound edge in exactly the size your room needs.",
+            'hakkimizda_maddeler_en' => "Free measuring, no call-out charge\nMade to measure to the millimetre\n"
+                . "Fitted by our own fitters\nFabric samples to compare at your home\n"
+                . "Fixed prices in a written quotation\nAdvice in German, Dutch, English and Turkish",
             'hakkimizda_baslik_tr' => 'Pencere dekorasyonunda aile işletmesi — mezura ve numune kitabıyla kapınızda',
             'hakkimizda_metin_tr'  => "MC Gordijnen; perde, güneşlik ve halı işi yapan bir aile işletmesidir. "
                 . "Evinize geliyor, her pencereyi kendimiz ölçüyor ve kumaş numunelerini yanımızda getiriyoruz — "
@@ -94,7 +113,7 @@ class DatabaseSeeder extends Seeder
                 . "kenarı overloklu ölçüye özel üretim dahil.",
             'hakkimizda_maddeler_tr' => "Ücretsiz ölçü, yol ücreti yok\nMilimetrik ölçüye özel üretim\n"
                 . "Kendi montaj ekibimiz\nYerinde karşılaştırmalı kumaş numuneleri\n"
-                . "Yazılı teklifte sabit fiyat\nAlmanca, Hollandaca ve Türkçe danışmanlık",
+                . "Yazılı teklifte sabit fiyat\nAlmanca, Hollandaca, İngilizce ve Türkçe danışmanlık",
 
             // Künye/yasal alanlar — müşteriden gelecek
             'firma_unvan' => 'MC Gordijnen',
@@ -112,36 +131,48 @@ class DatabaseSeeder extends Seeder
         $catData = [
             [
                 'slug' => 'gardinen', 'icon' => 'bi-columns-gap', 'image' => $img('kat-gardinen'),
+                'name_en' => 'Curtains & Drapes',
+                'description_en' => 'Curtains, side panels and voile with pleat tape, eyelets or wave heading — from light voiles to heavy blackout fabrics.',
                 'name' => 'Gardinen & Vorhänge', 'name_tr' => 'Fon Perde & Tül',
                 'description' => 'Vorhänge, Schals und Tüll in Faltenband, Ösen oder Wellenform — vom leichten Store bis zum schweren Verdunkelungsstoff.',
                 'description_tr' => 'Pileli, kuş gözlü ya da dalga formunda fon perde, yan perde ve tül — hafif tülden ağır karartma kumaşına.',
             ],
             [
                 'slug' => 'plissees', 'icon' => 'bi-layers', 'image' => $img('kat-plissee'),
+                'name_en' => 'Pleated Blinds',
+                'description_en' => 'The all-rounder for roof windows and awkward shapes: adjustable from the top and the bottom, also available as an insulating honeycomb pleated blind.',
                 'name' => 'Plissees', 'name_tr' => 'Plise Perde',
                 'description' => 'Der Allrounder für Dachfenster und schwierige Formen: von oben und unten verstellbar, auch als Wabenplissee mit Isolierwirkung.',
                 'description_tr' => 'Çatı pencereleri ve zor formlar için ideal: alttan ve üstten ayarlanabilir, yalıtım sağlayan petek plise seçeneğiyle.',
             ],
             [
                 'slug' => 'rollos', 'icon' => 'bi-window-sidebar', 'image' => $img('kat-rollo'),
+                'name_en' => 'Roller Blinds',
+                'description_en' => 'Clean lines, a wide choice of fabrics: side-pull and chain-operated roller blinds, double roller blinds and full blackout for the bedroom.',
                 'name' => 'Rollos', 'name_tr' => 'Stor Perde',
                 'description' => 'Klare Linien, viel Stoffauswahl: Seitenzug- und Kettenzugrollos, Doppelrollos und komplette Verdunkelung fürs Schlafzimmer.',
                 'description_tr' => 'Net çizgiler, geniş kumaş seçeneği: zincir mekanizmalı storlar, zebra (çift) storlar ve yatak odası için tam karartma.',
             ],
             [
                 'slug' => 'jalousien', 'icon' => 'bi-list', 'image' => $img('kat-jalousien'),
+                'name_en' => 'Venetian Blinds',
+                'description_en' => 'Control the light instead of shutting it out: wooden, bamboo and aluminium slats from 25 to 50 mm, tilting through any angle.',
                 'name' => 'Jalousien', 'name_tr' => 'Jaluzi',
                 'description' => 'Licht dosieren statt aussperren: Holz-, Bambus- und Aluminiumlamellen in 25 bis 50 mm, stufenlos kippbar.',
                 'description_tr' => 'Işığı kesmek yerine ayarlamak: 25–50 mm ahşap, bambu ve alüminyum lameller, kademesiz açı ayarı.',
             ],
             [
                 'slug' => 'lamellenvorhaenge', 'icon' => 'bi-distribute-vertical', 'image' => $img('kat-lamellen'),
+                'name_en' => 'Vertical Blinds',
+                'description_en' => 'For wide window fronts and patio doors: vertical slats that rotate and slide completely to one side.',
                 'name' => 'Lamellenvorhänge', 'name_tr' => 'Dikey Lamelli Perde',
                 'description' => 'Für breite Fensterfronten und Terrassentüren: vertikale Lamellen, die sich drehen und komplett zur Seite schieben lassen.',
                 'description_tr' => 'Geniş pencere cepheleri ve teras kapıları için: dönebilen ve tamamen yana toplanabilen dikey lameller.',
             ],
             [
                 'slug' => 'teppiche', 'icon' => 'bi-grid-3x3', 'image' => $img('kat-teppiche'),
+                'name_en' => 'Rugs & Runners',
+                'description_en' => 'Wool, kilim and short pile — from standard sizes to made-to-measure rugs with a bound edge for stairs and hallways.',
                 'name' => 'Teppiche & Läufer', 'name_tr' => 'Halı & Yol Halısı',
                 'description' => 'Wolle, Kelim und Kurzflor — von der Standardgröße bis zum Maßteppich mit eingefasster Kante für Treppe und Flur.',
                 'description_tr' => 'Yün, kilim ve kısa hav — standart ölçüden merdiven ve koridor için kenarı overloklu ölçüye özel halıya.',
@@ -160,6 +191,9 @@ class DatabaseSeeder extends Seeder
         $services = [
             [
                 'slug' => 'kostenloses-aufmass', 'icon' => 'bi-rulers',
+                'title_en' => "Free measuring & advice",
+                'summary_en' => "We come to you, measure every window precisely and bring fabric samples — free of charge and without obligation.",
+                'content_en' => "Depending on the number of windows the visit takes 30 to 60 minutes. We measure width, height, recess depth and window sill, check the mounting surface and work out whether wall or ceiling fitting makes more sense.\n\nWe also bring sample books: you see the fabrics in the light of your own room, can compare how transparent they are and hold colours against your walls, floor and furniture.\n\nBy the end of the visit you know which solution suits which window. You normally receive the written quotation within two working days. Measuring, travel and advice are free, even if you decide differently afterwards.",
                 'title' => 'Kostenloses Aufmaß & Beratung',
                 'title_tr' => 'Ücretsiz ölçü & danışmanlık',
                 'summary' => 'Wir kommen zu Ihnen, messen jedes Fenster exakt aus und bringen Stoffmuster mit — kostenlos und unverbindlich.',
@@ -180,6 +214,9 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'massanfertigung', 'icon' => 'bi-scissors',
+                'title_en' => "Made to measure",
+                'summary_en' => "Every window is different. Your window dressing is made to our measurements, down to the millimetre.",
+                'content_en' => "Off-the-shelf sizes rarely really fit: older buildings are out of square, roof slopes taper, recesses are wider at the top than the bottom. That is why we make everything to measure.\n\nFor curtains you choose the fabric, the heading (pleat tape, eyelets, wave) and the hem. For pleated, roller and venetian blinds you decide the colour, how much light comes through, the operating side and the type of fitting. Rugs are cut to your room size and the edge is bound.\n\nProduction usually takes two to four weeks, depending on the fabric.",
                 'title' => 'Maßanfertigung',
                 'title_tr' => 'Ölçüye özel üretim',
                 'summary' => 'Jedes Fenster ist anders. Ihre Dekoration wird nach unseren Maßen auf den Millimeter gefertigt.',
@@ -199,6 +236,9 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'montage', 'icon' => 'bi-tools',
+                'title_en' => "Delivery & fitting",
+                'summary_en' => "Our own fitters, agreed appointments, a clean workplace — including fine adjustment on site.",
+                'content_en' => "Fitting is done by our own fitters, not by changing subcontractors. You get a fixed appointment with a time slot.\n\nWe bring tools, fixings and a vacuum cleaner, protect your floor and furniture and take the packaging and drilling dust away with us. After fitting we adjust cords, chain lengths and the hang of the pleats and show you how everything works.\n\nOn request we also remove and dispose of your old curtain tracks and blinds at the same time.",
                 'title' => 'Lieferung & Montage',
                 'title_tr' => 'Teslimat & montaj',
                 'summary' => 'Eigene Monteure, vereinbarte Termine, sauberer Arbeitsplatz — inklusive Feinjustierung vor Ort.',
@@ -217,6 +257,9 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'sonnen-und-hitzeschutz', 'icon' => 'bi-brightness-high',
+                'title_en' => "Sun, heat & privacy protection",
+                'summary_en' => "Overheated loft rooms, glare on screens, being overlooked from the street — there is a different solution for each.",
+                'content_en' => "Heat is best kept out before it comes through the glass: honeycomb pleated blinds with a reflective backing and light-coloured roller blinds with a heat-protection coating noticeably reduce the room temperature.\n\nAgainst glare at a desk, venetian or vertical blinds have the advantage because they direct light upwards instead of blocking it.\n\nFor privacy without darkness, semi-transparent fabrics and double roller blinds work well: screening in daylight during the day, closed in the evening.",
                 'title' => 'Sonnen-, Hitze- & Sichtschutz',
                 'title_tr' => 'Güneş, ısı ve mahremiyet koruması',
                 'summary' => 'Aufgeheizte Dachzimmer, blendende Bildschirme, Einblick von der Straße — dafür gibt es je eine passende Lösung.',
@@ -236,6 +279,9 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'reinigung-und-aenderung', 'icon' => 'bi-arrow-repeat',
+                'title_en' => "Alterations & cleaning",
+                'summary_en' => "Moved house or curtains too long? We shorten them, change the heading and clean your fabrics.",
+                'content_en' => "After a move, curtains almost never fit the new windows. It is often worth shortening existing fabrics or reworking them onto a different heading rather than buying new.\n\nWe shorten curtains in width and height, swap pleat tape for eyelets or wave heading and replace faulty roller blind mechanisms and venetian blind ladders.\n\nWe also take them down, clean them properly and hang them back up — you do not have to carry anything.",
                 'title' => 'Änderung & Reinigung',
                 'title_tr' => 'Tadilat & temizlik',
                 'summary' => 'Umgezogen oder Vorhang zu lang? Wir kürzen, ändern die Aufhängung und reinigen Ihre Stoffe.',
@@ -254,6 +300,9 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'objekte-und-gewerbe', 'icon' => 'bi-building',
+                'title_en' => "Office, practice & commercial",
+                'summary_en' => "Several rooms, one contact: glare protection, acoustics and flame-retardant fabrics for commercial spaces.",
+                'content_en' => "For offices, medical practices, holiday lets and hospitality we plan complete spaces: a consistent look across all windows, plus the technical requirements.\n\nOn request we supply flame-retardant fabrics to standard, acoustically effective curtains for echoing rooms and glare protection in line with workplace guidelines.\n\nWe can carry out the fitting outside your opening hours so that your business keeps running.",
                 'title' => 'Büro, Praxis & Objekt',
                 'title_tr' => 'Ofis, klinik & proje işleri',
                 'summary' => 'Mehrere Räume, ein Ansprechpartner: Blendschutz, Akustik und Brandschutzstoffe für Gewerbeflächen.',
@@ -275,6 +324,206 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------- Ürünler ---------------- */
+        /* Özellik tablosu terim sözlüğü — Almanca anahtar/değerin karşılıkları.
+           Yeni bir özellik yazarsanız karşılığını buraya ekleyin; eşleşme yoksa
+           Almancası olduğu gibi kalır (site kırılmaz, sadece o satır çevrilmez). */
+        $attrTerms = [
+            'en' => [
+                // anahtarlar
+                'Material' => 'Material',
+                'Lichtdurchlässigkeit' => 'Light transmission',
+                'Aufhängung' => 'Heading',
+                'Montage' => 'Fitting',
+                'Pflege' => 'Care',
+                'Extra' => 'Extra',
+                'Bedienung' => 'Operation',
+                'Sonderformen' => 'Special shapes',
+                'Lamellenbreite' => 'Slat width',
+                'Hinweis' => 'Note',
+                'Florhöhe' => 'Pile height',
+                'Größen' => 'Sizes',
+                'Breiten' => 'Widths',
+                'Länge' => 'Length',
+                // değerler
+                '70% Polyester, 30% Leinen' => '70% polyester, 30% linen',
+                '100% Polyester' => '100% polyester',
+                '100% Polyester, 3-lagig' => '100% polyester, 3 layers',
+                '100% Polyester, gestreift' => '100% polyester, striped',
+                '100% Schurwolle' => '100% pure new wool',
+                'Polyester, plissiert 20 mm' => 'Polyester, 20 mm pleats',
+                'Polyester mit Verdunkelungsbeschichtung' => 'Polyester with blackout coating',
+                'Polyester' => 'Polyester',
+                'Wabenstruktur, Rückseite reflektierend' => 'Honeycomb structure, reflective backing',
+                'Echtholz (Basswood), lackiert' => 'Solid wood (basswood), lacquered',
+                'Aluminium' => 'Aluminium',
+                'Wolle-Baumwoll-Mischung' => 'Wool and cotton blend',
+                'Polypropylen-Wolle-Mischung' => 'Polypropylene and wool blend',
+                'halbtransparent' => 'semi-transparent',
+                'blickdicht' => 'opaque',
+                'verdunkelnd' => 'blackout',
+                'transparent' => 'transparent',
+                'lichtdurchlässig' => 'light-filtering',
+                'halbtransparent bis verdunkelnd' => 'semi-transparent to blackout',
+                'stufenlos regelbar' => 'infinitely adjustable',
+                'Faltenband oder Wellenband' => 'pleat tape or wave heading',
+                'Ösen, Faltenband, Wellenband' => 'eyelets, pleat tape or wave heading',
+                'Schiene oder Stange' => 'track or pole',
+                'Wand oder Decke' => 'wall or ceiling',
+                'Wand, Decke oder Klemmträger' => 'wall, ceiling or clamp brackets',
+                'Wand, Decke, Nische oder Klemmträger' => 'wall, ceiling, recess or clamp brackets',
+                'Bohren oder Klemmträger' => 'drilling or clamp brackets',
+                'Wand, Decke oder Nische' => 'wall, ceiling or recess',
+                '30° Feinwäsche' => 'delicate wash at 30°',
+                'thermisch und schalldämpfend' => 'thermal and sound-absorbing',
+                'Hitze- und Kälteschutz' => 'heat and cold protection',
+                'Griffbedienung oder Kordel' => 'handle or cord',
+                'Griff, Kordel oder Motor' => 'handle, cord or motor',
+                'Kettenzug links oder rechts' => 'chain on the left or right',
+                'Kettenzug oder Motor' => 'chain or motor',
+                'Kettenzug' => 'chain operation',
+                'Wendestab und Zugschnur' => 'tilt wand and pull cord',
+                'Kette und Schnur oder Motor' => 'chain and cord, or motor',
+                'Dachschräge, Trapez, Dreieck' => 'sloping, trapezoid and triangular windows',
+                'auch mit seitlicher Führungsschiene' => 'also available with side guide rails',
+                'nicht für Feuchträume' => 'not suitable for damp rooms',
+                'für Bad und Küche geeignet' => 'suitable for bathrooms and kitchens',
+                'auch für schräge Fensterfronten' => 'also for angled window fronts',
+                'für Fußbodenheizung geeignet' => 'suitable for underfloor heating',
+                'schalldämpfend' => 'sound-absorbing',
+                'auch für Treppenstufen' => 'also for stair treads',
+                'flach gewebt' => 'flat woven',
+                'ca. 12 mm' => 'approx. 12 mm',
+                'ca. 8 mm' => 'approx. 8 mm',
+                'saugen, professionell reinigen' => 'vacuum, clean professionally',
+                'Standardmaße und Maßanfertigung' => 'standard sizes and made to measure',
+                'nach Maß, Kante eingefasst' => 'made to measure, edge bound',
+                '25 mm' => '25 mm',
+                '50 mm' => '50 mm',
+                '89 oder 127 mm' => '89 or 127 mm',
+                '120×180, 160×230, 200×290 cm' => '120×180, 160×230, 200×290 cm',
+                '67, 80, 100 cm' => '67, 80, 100 cm',
+            ],
+            'tr' => [
+                'Material' => 'Malzeme',
+                'Lichtdurchlässigkeit' => 'Işık geçirgenliği',
+                'Aufhängung' => 'Askı sistemi',
+                'Montage' => 'Montaj',
+                'Pflege' => 'Bakım',
+                'Extra' => 'Ek özellik',
+                'Bedienung' => 'Kumanda',
+                'Sonderformen' => 'Özel formlar',
+                'Lamellenbreite' => 'Lamel genişliği',
+                'Hinweis' => 'Not',
+                'Florhöhe' => 'Hav yüksekliği',
+                'Größen' => 'Ölçüler',
+                'Breiten' => 'Genişlikler',
+                'Länge' => 'Boy',
+                '70% Polyester, 30% Leinen' => '%70 polyester, %30 keten',
+                '100% Polyester' => '%100 polyester',
+                '100% Polyester, 3-lagig' => '%100 polyester, 3 katmanlı',
+                '100% Polyester, gestreift' => '%100 polyester, çizgili',
+                '100% Schurwolle' => '%100 saf yün',
+                'Polyester, plissiert 20 mm' => 'Polyester, 20 mm plise',
+                'Polyester mit Verdunkelungsbeschichtung' => 'Karartma kaplamalı polyester',
+                'Polyester' => 'Polyester',
+                'Wabenstruktur, Rückseite reflektierend' => 'Petek yapı, arkası yansıtıcı',
+                'Echtholz (Basswood), lackiert' => 'Gerçek ahşap (ıhlamur), lakeli',
+                'Aluminium' => 'Alüminyum',
+                'Wolle-Baumwoll-Mischung' => 'Yün-pamuk karışımı',
+                'Polypropylen-Wolle-Mischung' => 'Polipropilen-yün karışımı',
+                'halbtransparent' => 'yarı şeffaf',
+                'blickdicht' => 'ışık geçirmez',
+                'verdunkelnd' => 'karartma',
+                'transparent' => 'şeffaf',
+                'lichtdurchlässig' => 'ışık geçirgen',
+                'halbtransparent bis verdunkelnd' => 'yarı şeffaftan karartmaya',
+                'stufenlos regelbar' => 'kademesiz ayarlanabilir',
+                'Faltenband oder Wellenband' => 'pile şeridi veya dalga bandı',
+                'Ösen, Faltenband, Wellenband' => 'kuş gözü, pile şeridi, dalga bandı',
+                'Schiene oder Stange' => 'ray veya boru',
+                'Wand oder Decke' => 'duvar veya tavan',
+                'Wand, Decke oder Klemmträger' => 'duvar, tavan veya kıskaçlı aparat',
+                'Wand, Decke, Nische oder Klemmträger' => 'duvar, tavan, niş veya kıskaçlı aparat',
+                'Bohren oder Klemmträger' => 'vidalı veya kıskaçlı aparat',
+                'Wand, Decke oder Nische' => 'duvar, tavan veya niş',
+                '30° Feinwäsche' => '30° hassas yıkama',
+                'thermisch und schalldämpfend' => 'ısı yalıtımlı ve ses yumuşatıcı',
+                'Hitze- und Kälteschutz' => 'ısı ve soğuk yalıtımı',
+                'Griffbedienung oder Kordel' => 'tutamak veya kordon',
+                'Griff, Kordel oder Motor' => 'tutamak, kordon veya motor',
+                'Kettenzug links oder rechts' => 'zincir sağda veya solda',
+                'Kettenzug oder Motor' => 'zincir veya motor',
+                'Kettenzug' => 'zincir mekanizma',
+                'Wendestab und Zugschnur' => 'çevirme çubuğu ve çekme kordonu',
+                'Kette und Schnur oder Motor' => 'zincir ve kordon veya motor',
+                'Dachschräge, Trapez, Dreieck' => 'çatı eğimi, trapez, üçgen',
+                'auch mit seitlicher Führungsschiene' => 'yan kılavuz raylı seçenek de var',
+                'nicht für Feuchträume' => 'ıslak hacimler için uygun değil',
+                'für Bad und Küche geeignet' => 'banyo ve mutfağa uygun',
+                'auch für schräge Fensterfronten' => 'eğimli pencere cepheleri için de',
+                'für Fußbodenheizung geeignet' => 'yerden ısıtmaya uygun',
+                'schalldämpfend' => 'ses yumuşatıcı',
+                'auch für Treppenstufen' => 'merdiven basamakları için de',
+                'flach gewebt' => 'düz dokuma',
+                'ca. 12 mm' => 'yaklaşık 12 mm',
+                'ca. 8 mm' => 'yaklaşık 8 mm',
+                'saugen, professionell reinigen' => 'süpürün, profesyonel temizletin',
+                'Standardmaße und Maßanfertigung' => 'standart ölçüler ve ölçüye özel',
+                'nach Maß, Kante eingefasst' => 'ölçüye özel, kenarı overloklu',
+                '25 mm' => '25 mm',
+                '50 mm' => '50 mm',
+                '89 oder 127 mm' => '89 veya 127 mm',
+                '120×180, 160×230, 200×290 cm' => '120×180, 160×230, 200×290 cm',
+                '67, 80, 100 cm' => '67, 80, 100 cm',
+            ],
+        ];
+
+        /** Almanca özellik dizisini hedef dile çevirir; karşılığı olmayan aynen kalır. */
+        $ceviriAttr = function (array $attrs, string $locale) use ($attrTerms): array {
+            $sozluk = $attrTerms[$locale] ?? [];
+            $out = [];
+
+            foreach ($attrs as $k => $v) {
+                $out[$sozluk[$k] ?? $k] = $sozluk[$v] ?? $v;
+            }
+
+            return $out;
+        };
+
+        /* Ürünlerin İngilizcesi — slug'a göre [ad, kısa açıklama] */
+        $productEn = [
+            'vorhang-leinenoptik-creme' => ['Linen-look Curtain, Cream',
+                'Soft drape in a lightly textured fabric in warm cream — the living-room classic.'],
+            'vorhang-blickdicht-greige' => ['Opaque Curtain, Greige',
+                'Dense decorative fabric in greige: keeps prying eyes out while still letting daylight in.'],
+            'verdunkelungsvorhang-anthrazit' => ['Blackout Curtain, Anthracite',
+                'Three-layer blackout fabric for the bedroom — dark, heavy and sound-absorbing.'],
+            'store-tuell-goldschimmer' => ['Voile with Gold Shimmer',
+                'Fine voile with a subtle gold thread — filters light softly without darkening the room.'],
+            'plissee-weiss-lichtdurchlaessig' => ['Pleated Blind, White, Light-filtering',
+                'Adjustable from the top and the bottom — the answer for roof windows and bathrooms.'],
+            'wabenplissee-sand-thermo' => ['Honeycomb Pleated Blind, Sand, Thermal',
+                'Double honeycomb structure with an air cushion: keeps heat out in summer and warmth in during winter.'],
+            'seitenzugrollo-creme' => ['Chain-operated Roller Blind, Cream',
+                'A simple chain-operated roller blind in warm cream — the most affordable made-to-measure option.'],
+            'verdunkelungsrollo-anthrazit' => ['Blackout Roller Blind, Anthracite',
+                'Coated fabric that shuts out almost all light — for bedrooms and children rooms.'],
+            'doppelrollo-greige' => ['Double Roller Blind, Greige',
+                'Two layers with transparent and opaque stripes: adjust the amount of light through any position.'],
+            'holzjalousie-50mm-natur' => ['Wooden Venetian Blind 50 mm, Natural',
+                'Real wood slats with ladder tape — warm, high quality and tilting through any angle.'],
+            'aluminiumjalousie-25mm' => ['Aluminium Venetian Blind 25 mm',
+                'Narrow aluminium slats: slim, suitable for damp rooms and ideal against screen glare.'],
+            'lamellenvorhang-127mm-weiss' => ['Vertical Blind 127 mm, White',
+                'For wide window fronts and patio doors: rotating slats that slide fully to one side.'],
+            'kelim-teppich-terra' => ['Kilim Rug, Terracotta',
+                'Flat-woven kilim in terracotta, anthracite and gold — hard-wearing and suitable for underfloor heating.'],
+            'wollteppich-natur-kurzflor' => ['Wool Rug, Natural, Short Pile',
+                'Hand-woven pure wool in natural tones: warm underfoot and absorbs impact noise.'],
+            'laeufer-vintage-mass' => ['Vintage Runner, Made to Measure',
+                'Hallways and stairs to measure: your chosen length, bound edge, muted vintage look.'],
+        ];
+
         $products = [
             // Gardinen & Vorhänge
             ['gardinen', 'p-vorhang-creme', 'vorhang-leinenoptik-creme', true, 34.90, 'm²',
@@ -383,10 +632,12 @@ class DatabaseSeeder extends Seeder
             Product::updateOrCreate(['slug' => $slug], [
                 'category_id'   => $cats[$catSlug]->id,
                 'name'          => $name,
+                'name_en'       => $productEn[$slug][0] ?? null,
                 'name_tr'       => $nameTr,
                 'cover'         => $img($image),
                 'images'        => [$img($image)],
                 'short_desc'    => $short,
+                'short_desc_en' => $productEn[$slug][1] ?? null,
                 'short_desc_tr' => $shortTr,
                 // Kısa açıklamayı tekrar etmiyoruz — detay sayfasında ikisi üst üste görünür.
                 'description'   => 'Dieses Modell fertigen wir nach Maß: Sie bestimmen Breite, Höhe, Farbe, '
@@ -394,6 +645,11 @@ class DatabaseSeeder extends Seeder
                     . 'Der angegebene Preis ist ein Ausgangspreis und hängt von Maß, Stoff und Ausführung ab. '
                     . 'Ihren verbindlichen Festpreis erhalten Sie nach dem kostenlosen Aufmaß — dabei zeigen wir '
                     . 'Ihnen alle Stoffe und Farben anhand von Musterbüchern in Ihren eigenen Räumen.',
+                'description_en' => 'We make this model to measure: you choose the width, height, colour, '
+                    . 'how much light comes through and the operating side. Fitting is done by our own fitters.' . "\n\n"
+                    . 'The price shown is a starting price and depends on the size, fabric and finish. You receive '
+                    . 'your binding fixed price after the free measuring visit — where we show you all fabrics and '
+                    . 'colours from sample books in your own rooms.',
                 'description_tr' => 'Bu modeli ölçüye özel üretiyoruz: eni, boyu, rengi, ışık geçirgenliğini ve '
                     . 'kumanda yönünü siz belirliyorsunuz. Montajı kendi ekibimiz yapıyor.' . "\n\n"
                     . 'Belirtilen fiyat başlangıç fiyatıdır; ölçüye, kumaşa ve uygulamaya göre değişir. '
@@ -401,7 +657,9 @@ class DatabaseSeeder extends Seeder
                     . 'renkleri numune kitaplarıyla kendi mekânınızda gösteriyoruz.',
                 'price'      => $price,
                 'price_unit' => $unit,
-                'attributes' => $attrs,
+                'attributes'    => $attrs,
+                'attributes_en' => $ceviriAttr($attrs, 'en'),
+                'attributes_tr' => $ceviriAttr($attrs, 'tr'),
                 'featured'   => $featured,
                 'sira'       => $i + 1,
                 'durum'      => true,
@@ -409,6 +667,22 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------- Yapılan işler ---------------- */
+        /* Projelerin İngilizcesi — slug'a göre [başlık, tür, özet] */
+        $projectEn = [
+            'wohnzimmer-wellenvorhang-greige' => ['Living room with wave curtains', 'Curtains',
+                'A 4.20 m wide window front with wave-heading curtains in greige, ceiling track flush to the wall.'],
+            'holzjalousien-altbau' => ['Wooden blinds in a period building', 'Venetian Blinds',
+                'Six windows with 50 mm wooden blinds fitted in the recess — slat colour matched to the window frames.'],
+            'dachfenster-wabenplissee' => ['Roof windows with honeycomb blinds', 'Pleated Blinds',
+                'An overheated loft: four sloping windows with thermal honeycomb pleated blinds, operated by telescopic rod.'],
+            'buero-lamellenvorhang' => ['Office with vertical blinds', 'Vertical Blinds',
+                'Twelve desks, south-facing facade: 127 mm slats against screen glare, fitted over the weekend.'],
+            'schlafzimmer-verdunkelung' => ['Fully blacked-out bedroom', 'Roller Blinds',
+                'Blackout roller blind with side guide rails plus a heavy curtain — no gap of light at the edges.'],
+            'flur-laeufer-nach-mass' => ['Hallway with a made-to-measure runner', 'Rugs',
+                'A narrow 9.40 m period hallway: runner cut and bound to measure, stairs covered to match.'],
+        ];
+
         $projects = [
             ['proj-1', 'wohnzimmer-wellenvorhang-greige', 'Wohnzimmer mit Wellenvorhang', 'Dalga Perdeli Salon',
                 'Gardinen', 'Fon Perde', 'Amsterdam', true,
@@ -438,17 +712,23 @@ class DatabaseSeeder extends Seeder
         foreach ($projects as $i => [$image, $slug, $title, $titleTr, $kind, $kindTr, $loc, $featured, $summary, $summaryTr]) {
             Project::updateOrCreate(['slug' => $slug], [
                 'title'      => $title,
+                'title_en'   => $projectEn[$slug][0] ?? null,
                 'title_tr'   => $titleTr,
                 'kind'       => $kind,
+                'kind_en'    => $projectEn[$slug][1] ?? null,
                 'kind_tr'    => $kindTr,
                 'location'   => $loc,
                 'cover'      => $img($image),
                 'images'     => [$img($image)],
                 'summary'    => $summary,
+                'summary_en' => $projectEn[$slug][2] ?? null,
                 'summary_tr' => $summaryTr,
                 'content'    => $summary . "\n\n"
                     . 'Ablauf wie immer: kostenloses Aufmaß vor Ort, schriftliches Angebot, Fertigung nach Maß und '
                     . 'Montage durch unsere eigenen Monteure.',
+                'content_en' => ($projectEn[$slug][2] ?? '') . "\n\n"
+                    . 'The process is always the same: free measuring on site, a written quotation, '
+                    . 'made-to-measure production and fitting by our own fitters.',
                 'content_tr' => $summaryTr . "\n\n"
                     . 'Süreç her zamanki gibi: yerinde ücretsiz ölçü, yazılı teklif, ölçüye özel üretim ve '
                     . 'kendi ekibimizle montaj.',
@@ -460,6 +740,58 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------- Rehber yazıları ---------------- */
+        /* Yazıların İngilizcesi — slug'a göre [kategori, başlık, özet, içerik] */
+        $postEn = [
+            'vorhang-richtig-ausmessen' => [
+                'Guide',
+                'Measuring curtains correctly — the four most common mistakes',
+                'Too short, too narrow, the track at the wrong height: people who measure themselves usually fall into the same traps. What to watch out for.',
+                "**1. Forgetting the fullness allowance.** A curtain needs 2 to 2.5 times the track width "
+                . "before it will hang in folds at all. Order the track width as the fabric width and you get a flat sheet.\n\n"
+                . "**2. Measuring from the wrong point.** The height is measured from the top edge of the track "
+                . "or pole — not from the window frame. And ideally the track sits a little above the window, not directly on it.\n\n"
+                . "**3. Measuring in only one place.** In older buildings a recess is often 1–2 cm wider at the top "
+                . "than at the bottom. Measure at the top, in the middle and at the bottom — and use the smallest figure.\n\n"
+                . "**4. Not deciding on the floor gap.** Floor-length curtains should either hover 1–2 cm above the "
+                . "floor or deliberately rest on it. Anything in between looks like a mistake.\n\n"
+                . "If in doubt: we take the measurements at the free measuring visit — and then we are liable for them.",
+            ],
+            'welcher-sonnenschutz-passt' => [
+                'Materials',
+                'Pleated, roller or venetian — which suits which room?',
+                'All three sit right against the glass and cost about the same. The difference lies in what they do with the light.',
+                "**Pleated blinds** are the specialist for unusual shapes. Because they adjust from the top *and* "
+                . "the bottom, you can leave the middle of a window clear — handy in bathrooms and on the ground floor. "
+                . "For roof slopes, trapezoids and triangles they are usually the only clean solution. As a honeycomb "
+                . "blind they also insulate.\n\n"
+                . "**Roller blinds** give the calmest look: one length of fabric, no structure, a wide choice of "
+                . "colours. They control light only through height — fully or partly closed. With a blackout coating and "
+                . "side guide rails a bedroom really does go dark. The double roller blind is the compromise for daytime.\n\n"
+                . "**Venetian blinds** are the only one of the three that *directs* light: by tilting the slats you send "
+                . "daylight up to the ceiling without losing the view out completely. That is why they win at a desk and "
+                . "in the kitchen — aluminium copes with moisture there, real wood does not.\n\n"
+                . "In short: unusual shape → pleated. Calm surface and blackout → roller. Glare protection with a view → venetian.",
+            ],
+            'teppich-pflege-und-groesse' => [
+                'Rugs',
+                'Choosing the right rug size — and keeping a rug looking good',
+                'The most common mistake when buying a rug is not the colour but the size. Plus: what wool really needs.',
+                "**Size.** A rug that is too small makes a room look restless. A rule of thumb for the living room: the "
+                . "front legs of the sofa and armchairs should stand on the rug. In a dining area the rug must be big "
+                . "enough that the chairs do not slip off it with their back legs when pushed back — usually 60–70 cm "
+                . "more than the table on each side. In a hallway, ideally leave 10–15 cm of floor visible along the "
+                . "long sides.\n\n"
+                . "**New pile sheds.** Wool rugs shed short fibres in the first few weeks. That is normal and not a "
+                . "fault — vacuum regularly and it stops.\n\n"
+                . "**Blot stains immediately, do not rub.** Dab with a light cloth from the outside in. Rubbing pushes "
+                . "the stain into the pile and mats the wool.\n\n"
+                . "**Dents.** Furniture legs leave marks. Put an ice cube on the spot, let it melt and lift the pile "
+                . "with your hand — they usually disappear completely.\n\n"
+                . "**Underfloor heating.** Flat-woven rugs such as kilims conduct heat well. Very thick, high-pile rugs "
+                . "insulate instead and reduce the heating output.",
+            ],
+        ];
+
         $posts = [
             ['blog-1', 'vorhang-richtig-ausmessen', 'Ratgeber', 'Rehber',
                 'Vorhänge richtig ausmessen — die vier häufigsten Fehler',
@@ -545,6 +877,10 @@ class DatabaseSeeder extends Seeder
         foreach ($posts as $i => [$image, $slug, $cat, $catTr, $title, $titleTr, $summary, $summaryTr, $content, $contentTr]) {
             Post::updateOrCreate(['slug' => $slug], [
                 'title'       => $title,
+                'title_en'    => $postEn[$slug][1] ?? null,
+                'category_en' => $postEn[$slug][0] ?? null,
+                'summary_en'  => $postEn[$slug][2] ?? null,
+                'content_en'  => $postEn[$slug][3] ?? null,
                 'title_tr'    => $titleTr,
                 'category'    => $cat,
                 'category_tr' => $catTr,
@@ -562,6 +898,13 @@ class DatabaseSeeder extends Seeder
          | ÖNEMLİ: Bunlar örnek metinlerdir. Yayına almadan önce müşterinin
          | gerçek yorumlarıyla değiştirilmeli (uydurma referans yayınlanmamalı).
          */
+        /* Yorumların İngilizcesi — ada göre */
+        $testimonialEn = [
+            'Familie V.' => 'Measured on Saturday, fitted three weeks later — exactly as agreed. The wave curtains hang perfectly straight.',
+            'J. de Boer' => 'Our loft was unusable in summer. With the honeycomb blinds it is now several degrees cooler.',
+            'S. Yılmaz'  => 'Advice in our own language, a written quotation with a fixed price, no surprises on the invoice. Happy to come back.',
+        ];
+
         $testimonials = [
             ['Familie V.', 'Amsterdam', 5,
                 'Aufmaß am Samstag, drei Wochen später montiert — genau wie besprochen. Die Wellenvorhänge hängen millimetergenau.',
@@ -576,8 +919,10 @@ class DatabaseSeeder extends Seeder
         foreach ($testimonials as [$name, $city, $stars, $comment, $commentTr]) {
             Testimonial::updateOrCreate(['name' => $name], [
                 'title'      => $city,
+                'title_en'   => $city,
                 'title_tr'   => $city,
                 'comment'    => $comment,
+                'comment_en' => $testimonialEn[$name] ?? null,
                 'comment_tr' => $commentTr,
                 'stars'      => $stars,
                 'durum'      => true,

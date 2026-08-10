@@ -63,15 +63,13 @@ class ServiceController extends Controller
 
     protected function payload(Request $request): array
     {
-        $data = $request->validate([
-            'title'      => 'required|string|max:200',
-            'title_tr'   => 'nullable|string|max:200',
+        $data = $request->validate(Service::translationRules([
+            'title'   => 'required|string|max:200',
+            'summary' => 'nullable|string|max:500',
+            'content' => 'nullable|string',
+        ]) + [
             'icon'       => 'nullable|string|max:60',
             'image'      => 'nullable|string|max:500',
-            'summary'    => 'nullable|string|max:500',
-            'summary_tr' => 'nullable|string|max:500',
-            'content'    => 'nullable|string',
-            'content_tr' => 'nullable|string',
             'sira'       => 'nullable|integer|min:0',
             'image_file' => 'nullable|image|mimes:jpg,jpeg,png,webp,gif|max:4096',
         ]);
