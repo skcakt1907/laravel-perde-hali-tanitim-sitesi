@@ -88,7 +88,7 @@ test.describe('Yönetim paneli', () => {
     test('admin giriş yapıp panele ulaşır', async ({ page }) => {
         await loginAs(page, ADMIN.email, ADMIN.password);
         await expect(page).toHaveURL(/yonetim/);
-        await expect(page.locator('.brand')).toContainText('Gordijnen');
+        await expect(page.locator('.sidebar-brand')).toContainText('Gordijnen');
     });
 
     test('tüm admin sayfaları yükleniyor', async ({ page }) => {
@@ -124,8 +124,8 @@ test.describe('Yönetim paneli', () => {
         await loginAs(page, ADMIN.email, ADMIN.password);
         await page.goto('/yonetim/products/aluminiumjalousie-25mm/edit');
         await page.fill('input[name="name_tr"]', 'PW Alüminyum Jaluzi');
-        await page.click('form.form-a button[type="submit"]');
-        await expect(page.locator('.alert-a')).toContainText('güncellendi');
+        await page.click('form button[type="submit"]');
+        await expect(page.locator('.alert-success')).toContainText('güncellendi');
 
         await page.goto('/tr/produkt/aluminiumjalousie-25mm');
         await expect(page.locator('h1.pd-title')).toContainText('PW Alüminyum Jaluzi');
@@ -137,7 +137,37 @@ test.describe('Yönetim paneli', () => {
         const select = page.locator('select[name="status"]').first();
         await expect(select).toBeVisible();
         await select.selectOption('arandi');
-        await expect(page.locator('.alert-a')).toContainText('güncellendi');
+        await expect(page.locator('.alert-success')).toContainText('güncellendi');
+    });
+
+    test('koyu tema tercihi sayfa yenilendikten sonra da kalıyor', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim');
+
+        await expect(page.locator('body')).not.toHaveClass(/theme-dark/);
+        await page.click('button[onclick="toggleTheme()"]');
+        await expect(page.locator('body')).toHaveClass(/theme-dark/);
+
+        // Çerez şifrelemeden muaf olmalı; aksi halde sunucu null okur ve tema sıfırlanır
+        await page.goto('/yonetim/products');
+        await expect(page.locator('body')).toHaveClass(/theme-dark/);
+
+        await page.click('button[onclick="toggleTheme()"]');
+        await expect(page.locator('body')).not.toHaveClass(/theme-dark/);
+    });
+
+    test('sidebar daraltma tercihi korunuyor', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim');
+
+        await page.click('button[onclick="toggleSidebar()"]');
+        await expect(page.locator('body')).toHaveClass(/sidebar-collapsed/);
+
+        await page.goto('/yonetim/categories');
+        await expect(page.locator('body')).toHaveClass(/sidebar-collapsed/);
+
+        await page.click('button[onclick="toggleSidebar()"]');
+        await expect(page.locator('body')).not.toHaveClass(/sidebar-collapsed/);
     });
 
     test('geçersiz durum değeri kaydedilmiyor', async ({ page }) => {

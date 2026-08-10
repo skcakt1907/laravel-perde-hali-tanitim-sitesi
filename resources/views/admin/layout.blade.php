@@ -1,71 +1,204 @@
+{{--
+═══════════════════════════════════════════════════════════
+MC GORDIJNEN — YÖNETİM PANELİ ANA ŞABLONU
+Yapı: İş Ortağım panel mimarisi · Palet: mavi/beyaz
+═══════════════════════════════════════════════════════════
+--}}
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#2563eb">
     <title>@yield('title', 'Yönetim') — {{ setting('site_adi') }}</title>
+
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{{ asset('img/logo-mark.png') }}">
+
+    <link rel="stylesheet"
+          href="{{ asset('css/admin-theme.css') }}?v={{ @filemtime(public_path('css/admin-theme.css')) ?: time() }}">
+
+    {{-- Bootstrap Icons: ürün/kategori ikon seçicileri bu setten seçiyor --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="{{ asset('css/admin.css') }}?v={{ filemtime(public_path('css/admin.css')) }}" rel="stylesheet">
-    <link href="{{ asset('css/catalog.css') }}?v={{ filemtime(public_path('css/catalog.css')) }}" rel="stylesheet">
+
+    {{-- Lucide (yerel — CDN engellemelerine takılmasın) --}}
+    <script src="{{ asset('vendor/lucide/lucide.min.js') }}" defer></script>
+
+    @stack('head')
 </head>
-<body>
-<div class="admin-wrap">
-    <aside class="admin-side" id="aside">
-        <div class="brand">MC<span>Gordijnen</span> · Yönetim</div>
-        <nav>
-            @php $r = request()->route()->getName(); @endphp
-            <a href="{{ route('admin.dashboard') }}" class="{{ $r === 'admin.dashboard' ? 'active' : '' }}"><i class="bi bi-speedometer2"></i> Panel</a>
+<body class="{{ request()->cookie('admin_theme') === 'dark' ? 'theme-dark' : '' }}{{ request()->cookie('admin_sidebar') === 'collapsed' ? ' sidebar-collapsed' : '' }}">
 
-            <div class="sec">Katalog</div>
-            <a href="{{ route('admin.products.index') }}" class="{{ str_starts_with($r, 'admin.products') ? 'active' : '' }}"><i class="bi bi-box-seam"></i> Ürünler</a>
-            <a href="{{ route('admin.categories.index') }}" class="{{ str_starts_with($r, 'admin.categories') ? 'active' : '' }}"><i class="bi bi-tags"></i> Kategoriler</a>
-            <a href="{{ route('admin.services.index') }}" class="{{ str_starts_with($r, 'admin.services') ? 'active' : '' }}"><i class="bi bi-list-check"></i> Hizmetler</a>
-            <a href="{{ route('admin.projects.index') }}" class="{{ str_starts_with($r, 'admin.projects') ? 'active' : '' }}"><i class="bi bi-images"></i> Yapılan İşler</a>
+<div class="app-shell">
 
-            <div class="sec">Talepler</div>
-            @php
-                $newAppt   = \App\Models\Appointment::where('status', 'yeni')->count();
-                $unreadMsg = \App\Models\ContactMessage::unread()->count();
-            @endphp
-            <a href="{{ route('admin.appointments.index') }}" class="{{ str_starts_with($r, 'admin.appointments') ? 'active' : '' }}">
-                <i class="bi bi-rulers"></i> Ölçü Talepleri
-                @if($newAppt)<span class="badge bg-danger ms-1">{{ $newAppt }}</span>@endif
-            </a>
-            <a href="{{ route('admin.messages.index') }}" class="{{ str_starts_with($r, 'admin.messages') ? 'active' : '' }}">
-                <i class="bi bi-envelope"></i> Mesajlar
-                @if($unreadMsg)<span class="badge bg-danger ms-1">{{ $unreadMsg }}</span>@endif
-            </a>
+    @include('admin._partials.sidebar')
 
-            <div class="sec">Sistem</div>
-            <a href="{{ route('admin.settings.edit') }}" class="{{ str_starts_with($r, 'admin.settings') ? 'active' : '' }}"><i class="bi bi-gear"></i> Ayarlar</a>
-            <a href="{{ route('admin.profile.edit') }}" class="{{ str_starts_with($r, 'admin.profile') ? 'active' : '' }}"><i class="bi bi-person-gear"></i> Profil</a>
-            <a href="{{ route('home') }}" target="_blank"><i class="bi bi-box-arrow-up-right"></i> Siteyi Gör</a>
-        </nav>
-    </aside>
+    <div class="app-main">
 
-    <div class="admin-main">
-        <div class="admin-top">
-            <div class="d-flex align-items-center gap-2">
-                <button class="btn-a sec sm d-md-none" onclick="document.getElementById('aside').classList.toggle('open')"><i class="bi bi-list"></i></button>
-                <h1>@yield('title', 'Yönetim Paneli')</h1>
+        <header class="app-header">
+            <div class="header-left">
+                <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menüyü aç/kapat">
+                    <i data-lucide="menu"></i>
+                </button>
             </div>
-            <div class="right">
-                <a href="{{ route('admin.profile.edit') }}" title="Profil"><i class="bi bi-person-circle"></i> {{ auth()->user()->name }}</a>
-                <a href="#" onclick="event.preventDefault();document.getElementById('lg').submit()"><i class="bi bi-box-arrow-right"></i> Çıkış</a>
-                <form id="lg" action="{{ route('logout') }}" method="POST" class="d-none">@csrf</form>
+
+            <div class="header-search">
+                <i data-lucide="search" class="search-ic"></i>
+                <input type="text" id="navSearch" autocomplete="off" placeholder="Menüde ara…"
+                       onkeyup="navSearchHandler(event)" onfocus="navSearchHandler(event)">
+                <div class="header-search-results" id="navSearchResults"></div>
             </div>
-        </div>
-        <div class="admin-body">
-            @if(session('success'))<div class="alert-a">{{ session('success') }}</div>@endif
-            @if(session('error'))<div class="alert-a err">{{ session('error') }}</div>@endif
-            @if($errors->any())<div class="alert-a err">{{ $errors->first() }}</div>@endif
+
+            <div class="header-right">
+                @php
+                    $hdrAppt = \App\Models\Appointment::where('status', 'yeni')->count();
+                    $hdrMsg  = \App\Models\ContactMessage::unread()->count();
+                    $hdrTotal = $hdrAppt + $hdrMsg;
+                @endphp
+
+                <a href="{{ route('admin.appointments.index') }}" class="icon-btn" title="Yeni ölçü talepleri">
+                    <i data-lucide="bell"></i>
+                    @if($hdrTotal > 0)
+                        <span class="badge-dot">{{ $hdrTotal > 9 ? '9+' : $hdrTotal }}</span>
+                    @endif
+                </a>
+
+                <a href="{{ route('home') }}" target="_blank" rel="noopener" class="icon-btn"
+                   title="Siteyi yeni sekmede aç">
+                    <i data-lucide="external-link"></i>
+                </a>
+
+                <button class="icon-btn" onclick="toggleTheme()" title="Tema değiştir">
+                    <i data-lucide="moon" id="themeIconMoon"></i>
+                    <i data-lucide="sun" id="themeIconSun" style="display:none"></i>
+                </button>
+
+                <div class="user-menu">
+                    <button class="user-trigger" onclick="toggleUserMenu(event)">
+                        <span class="user-avatar">{{ Str::upper(Str::substr(auth()->user()->name, 0, 1)) }}</span>
+                        <span class="user-meta">
+                            <strong>{{ auth()->user()->name }}</strong>
+                            <small>Yönetici</small>
+                        </span>
+                    </button>
+                    <div class="user-dropdown" id="userDropdown">
+                        <a href="{{ route('admin.profile.edit') }}">
+                            <i data-lucide="user"></i><span>Profilim</span>
+                        </a>
+                        <a href="{{ route('admin.settings.edit') }}">
+                            <i data-lucide="settings"></i><span>Ayarlar</span>
+                        </a>
+                        <div class="divider"></div>
+                        <button type="button" onclick="document.getElementById('logoutForm').submit()"
+                                style="color:var(--danger)">
+                            <i data-lucide="log-out"></i><span>Çıkış Yap</span>
+                        </button>
+                    </div>
+                    <form id="logoutForm" action="{{ route('logout') }}" method="POST" class="hidden">@csrf</form>
+                </div>
+            </div>
+        </header>
+
+        <main class="app-content">
+            @if(session('success'))
+                <div class="alert alert-success"><i data-lucide="check-circle"></i><div>{{ session('success') }}</div></div>
+            @endif
+            @if(session('error'))
+                <div class="alert alert-danger"><i data-lucide="alert-circle"></i><div>{{ session('error') }}</div></div>
+            @endif
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <i data-lucide="alert-triangle"></i>
+                    <div>
+                        Formda düzeltilmesi gereken alanlar var:
+                        <ul>@foreach($errors->all() as $e)<li>{{ $e }}</li>@endforeach</ul>
+                    </div>
+                </div>
+            @endif
+
             @yield('content')
-        </div>
+        </main>
     </div>
 </div>
+
+<script>
+/* ─── Sidebar ─── */
+function toggleSidebar() {
+    if (window.innerWidth <= 1024) {
+        document.getElementById('appSidebar').classList.toggle('open');
+        document.getElementById('sidebarBackdrop').classList.toggle('show');
+        return;
+    }
+    document.body.classList.toggle('sidebar-collapsed');
+    setCookie('admin_sidebar', document.body.classList.contains('sidebar-collapsed') ? 'collapsed' : 'open');
+}
+
+/* ─── Tema ─── */
+function toggleTheme() {
+    var dark = document.body.classList.toggle('theme-dark');
+    setCookie('admin_theme', dark ? 'dark' : 'light');
+    syncThemeIcon();
+}
+
+function syncThemeIcon() {
+    var dark = document.body.classList.contains('theme-dark');
+    var moon = document.getElementById('themeIconMoon');
+    var sun = document.getElementById('themeIconSun');
+    if (moon) moon.style.display = dark ? 'none' : '';
+    if (sun) sun.style.display = dark ? '' : 'none';
+}
+
+function setCookie(name, value) {
+    document.cookie = name + '=' + value + ';path=/;max-age=31536000;samesite=lax';
+}
+
+/* ─── Kullanıcı menüsü ─── */
+function toggleUserMenu(e) {
+    e.stopPropagation();
+    document.getElementById('userDropdown').classList.toggle('show');
+}
+
+document.addEventListener('click', function () {
+    document.getElementById('userDropdown')?.classList.remove('show');
+    document.getElementById('navSearchResults')?.classList.remove('show');
+});
+
+/* ─── Menüde arama ─── */
+function navSearchHandler(e) {
+    var input = document.getElementById('navSearch');
+    var box = document.getElementById('navSearchResults');
+    var q = input.value.trim().toLocaleLowerCase('tr');
+
+    if (e.key === 'Escape') { box.classList.remove('show'); input.blur(); return; }
+
+    var links = Array.prototype.slice.call(document.querySelectorAll('#sidebarNav .sidebar-link'));
+    var hits = links.filter(function (a) {
+        var label = (a.querySelector('.label')?.textContent || '').toLocaleLowerCase('tr');
+        return q === '' ? true : label.indexOf(q) !== -1;
+    }).slice(0, 8);
+
+    if (e.key === 'Enter' && hits.length) { window.location.href = hits[0].getAttribute('href'); return; }
+
+    box.innerHTML = hits.length
+        ? hits.map(function (a) {
+              return '<a href="' + a.getAttribute('href') + '">' +
+                     (a.querySelector('.label')?.textContent || '') + '</a>';
+          }).join('')
+        : '<div class="no-result">Sonuç yok</div>';
+
+    box.classList.add('show');
+    e.stopPropagation();
+}
+
+document.getElementById('navSearchResults')?.addEventListener('click', function (e) { e.stopPropagation(); });
+
+/* ─── İkonları çiz ─── */
+function drawIcons() { if (window.lucide) window.lucide.createIcons(); }
+window.addEventListener('DOMContentLoaded', function () { drawIcons(); syncThemeIcon(); });
+window.addEventListener('load', drawIcons);
+</script>
+
+@stack('scripts')
 </body>
 </html>

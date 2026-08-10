@@ -16,6 +16,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin'     => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'setlocale' => \App\Http\Middleware\SetLocale::class,
         ]);
+
+        // Panel tercihleri tarayıcıda JS ile (düz metin) yazılıyor; şifrelemeye
+        // dahil edilirse sunucu tarafında çözülemez ve null okunur → tercih kaybolur.
+        $middleware->encryptCookies(except: [
+            'admin_theme',
+            'admin_sidebar',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(

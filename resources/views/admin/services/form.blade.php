@@ -4,98 +4,129 @@
 @section('content')
 @php
 $iconlar = [
-    'bi-rulers'         => 'Ölçü alma',
-    'bi-chat-dots'      => 'Danışmanlık',
-    'bi-scissors'       => 'Ölçüye özel üretim',
-    'bi-tools'          => 'Montaj',
-    'bi-arrow-repeat'   => 'Tadilat / değişim',
-    'bi-droplet'        => 'Temizlik / bakım',
-    'bi-truck'          => 'Teslimat',
-    'bi-brightness-high'=> 'Güneş koruma',
-    'bi-moon-stars'     => 'Karartma',
-    'bi-volume-down'    => 'Akustik',
+    'bi-rulers'           => 'Ölçü alma',
+    'bi-chat-dots'        => 'Danışmanlık',
+    'bi-scissors'         => 'Ölçüye özel üretim',
+    'bi-tools'            => 'Montaj',
+    'bi-arrow-repeat'     => 'Tadilat / değişim',
+    'bi-droplet'          => 'Temizlik / bakım',
+    'bi-truck'            => 'Teslimat',
+    'bi-brightness-high'  => 'Güneş koruma',
+    'bi-moon-stars'       => 'Karartma',
+    'bi-volume-down'      => 'Akustik',
     'bi-thermometer-half' => 'Isı yalıtımı',
-    'bi-building'       => 'Ofis / proje işleri',
-    'bi-grid-3x3'       => 'Halı hizmetleri',
-    'bi-shield-check'   => 'Garanti',
-    'bi-check2-circle'  => 'Genel',
+    'bi-building'         => 'Ofis / proje işleri',
+    'bi-grid-3x3'         => 'Halı hizmetleri',
+    'bi-shield-check'     => 'Garanti',
+    'bi-check2-circle'    => 'Genel',
 ];
 $seciliIkon = old('icon', $service->icon);
 if ($seciliIkon && ! isset($iconlar[$seciliIkon])) {
     $iconlar = [$seciliIkon => 'Mevcut (' . $seciliIkon . ')'] + $iconlar;
 }
 @endphp
+
+<div class="page-header">
+    <div>
+        <h1 class="page-title">{{ $service->exists ? 'Hizmet Düzenle' : 'Yeni Hizmet' }}</h1>
+        <div class="page-subtitle">{{ $service->exists ? $service->title : 'Yeni hizmet kartı ekleyin' }}</div>
+    </div>
+    <div class="page-actions">
+        <a href="{{ route('admin.services.index') }}" class="btn btn-ghost"><i data-lucide="arrow-left"></i> Listeye dön</a>
+    </div>
+</div>
+
 <form action="{{ $service->exists ? route('admin.services.update', $service) : route('admin.services.store') }}"
-      method="POST" enctype="multipart/form-data" class="form-a">
+      method="POST" enctype="multipart/form-data">
     @csrf
     @if($service->exists)@method('PUT')@endif
 
-    <div class="row g-4">
-        <div class="col-lg-8">
-            <div class="card-a">
-                <div class="lang-box">
-                    <span class="lang-tag">DE — Almanca</span>
-                    <label>Başlık *</label>
-                    <input name="title" value="{{ old('title', $service->title) }}" required placeholder="z. B. Kostenloses Aufmaß">
-
-                    <label>Özet</label>
-                    <textarea name="summary" rows="3">{{ old('summary', $service->summary) }}</textarea>
-
-                    <label>Detay metni</label>
-                    <textarea name="content" rows="8">{{ old('content', $service->content) }}</textarea>
+    <div class="grid-8-4">
+        <div class="card">
+            <div class="lang-box">
+                <span class="lang-tag">DE — Almanca</span>
+                <div class="form-group">
+                    <label class="form-label">Başlık <span class="required">*</span></label>
+                    <input name="title" class="form-input" value="{{ old('title', $service->title) }}" required
+                           placeholder="z. B. Kostenloses Aufmaß & Beratung">
                 </div>
+                <div class="form-group">
+                    <label class="form-label">Özet</label>
+                    <textarea name="summary" class="form-textarea" rows="3">{{ old('summary', $service->summary) }}</textarea>
+                    <div class="form-help">Hizmet kartlarında görünen kısa metin.</div>
+                </div>
+                <div class="form-group mb-0">
+                    <label class="form-label">Detay metni</label>
+                    <textarea name="content" class="form-textarea" rows="8">{{ old('content', $service->content) }}</textarea>
+                </div>
+            </div>
 
-                <div class="lang-box tr">
-                    <span class="lang-tag">TR — Türkçe</span>
-                    <label>Başlık</label>
-                    <input name="title_tr" value="{{ old('title_tr', $service->title_tr) }}" placeholder="örn. Ücretsiz ölçü">
-
-                    <label>Özet</label>
-                    <textarea name="summary_tr" rows="3">{{ old('summary_tr', $service->summary_tr) }}</textarea>
-
-                    <label>Detay metni</label>
-                    <textarea name="content_tr" rows="8">{{ old('content_tr', $service->content_tr) }}</textarea>
-                    <div class="hint">Boş bırakılırsa sitede Almanca metin gösterilir.</div>
+            <div class="lang-box tr" style="margin-bottom:0">
+                <span class="lang-tag">TR — Türkçe</span>
+                <div class="form-group">
+                    <label class="form-label">Başlık</label>
+                    <input name="title_tr" class="form-input" value="{{ old('title_tr', $service->title_tr) }}"
+                           placeholder="örn. Ücretsiz ölçü & danışmanlık">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Özet</label>
+                    <textarea name="summary_tr" class="form-textarea" rows="3">{{ old('summary_tr', $service->summary_tr) }}</textarea>
+                </div>
+                <div class="form-group mb-0">
+                    <label class="form-label">Detay metni</label>
+                    <textarea name="content_tr" class="form-textarea" rows="8">{{ old('content_tr', $service->content_tr) }}</textarea>
+                    <div class="form-help">Boş bırakılırsa sitede Almanca metin gösterilir.</div>
                 </div>
             </div>
         </div>
 
-        <div class="col-lg-4">
-            <div class="card-a">
-                <label>İkon</label>
-                <div style="display:flex;align-items:center;gap:.6rem">
-                    <span id="iconPrev" style="width:44px;height:44px;border:1px solid var(--aline);border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:1.4rem;color:var(--ap-text);background:#f3ecd9;flex-shrink:0">
-                        <i class="bi {{ $seciliIkon ?: 'bi-check2-circle' }}"></i>
-                    </span>
-                    <select name="icon" id="iconSel" style="flex:1">
-                        @foreach($iconlar as $cls => $ad)
-                            <option value="{{ $cls }}" @selected($seciliIkon === $cls)>{{ $ad }} — {{ $cls }}</option>
-                        @endforeach
-                    </select>
+        <div>
+            <div class="card mb-4">
+                <div class="section-title"><i data-lucide="sliders-horizontal"></i> Görünüm</div>
+
+                <div class="form-group">
+                    <label class="form-label">İkon</label>
+                    <div class="icon-picker">
+                        <span class="preview" id="iconPrev"><i class="bi {{ $seciliIkon ?: 'bi-check2-circle' }}"></i></span>
+                        <select name="icon" id="iconSel" class="form-select">
+                            @foreach($iconlar as $cls => $ad)
+                                <option value="{{ $cls }}" @selected($seciliIkon === $cls)>{{ $ad }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
 
-                <label>Sıra</label>
-                <input type="number" min="0" name="sira" value="{{ old('sira', $service->sira ?? 0) }}">
+                <div class="form-group">
+                    <label class="form-label">Sıra</label>
+                    <input type="number" min="0" name="sira" class="form-input" value="{{ old('sira', $service->sira ?? 0) }}">
+                </div>
 
-                <label class="mt-2"><input type="checkbox" name="durum" value="1" @checked(old('durum', $service->durum ?? true)) style="width:auto"> Yayında</label>
+                <label class="form-check mb-0">
+                    <input type="checkbox" name="durum" value="1" @checked(old('durum', $service->durum ?? true))>
+                    Yayında
+                </label>
             </div>
 
-            <div class="card-a mt-3">
-                <label>Görsel (detay sayfası)</label>
+            <div class="card">
+                <div class="section-title"><i data-lucide="image"></i> Detay sayfası görseli</div>
                 @if($service->image)
-                    <img src="{{ $service->image }}" style="width:100%;border-radius:10px;margin-bottom:.6rem" alt="">
+                    <img src="{{ $service->image }}" class="img-preview" alt="">
                 @endif
-                <label>Görsel URL</label>
-                <input name="image" value="{{ old('image', $service->image) }}" placeholder="https://...">
-                <label>veya dosya yükle</label>
-                <input type="file" name="image_file" accept="image/*">
+                <div class="form-group">
+                    <label class="form-label">Görsel URL</label>
+                    <input name="image" class="form-input" value="{{ old('image', $service->image) }}" placeholder="https://…">
+                </div>
+                <div class="form-group mb-0">
+                    <label class="form-label">veya dosya yükle</label>
+                    <input type="file" name="image_file" accept="image/*" class="form-file">
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="mt-4 d-flex gap-2">
-        <button type="submit" class="btn-a"><i class="bi bi-check-lg"></i> Kaydet</button>
-        <a href="{{ route('admin.services.index') }}" class="btn-a sec">Vazgeç</a>
+    <div class="form-actions-sticky">
+        <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Vazgeç</a>
+        <button type="submit" class="btn btn-primary"><i data-lucide="check"></i> Kaydet</button>
     </div>
 </form>
 

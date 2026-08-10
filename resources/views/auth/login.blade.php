@@ -4,53 +4,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="noindex,nofollow">
+    <meta name="theme-color" content="#2563eb">
     <title>Yönetim Girişi — {{ setting('site_adi') }}</title>
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet"
+          href="{{ asset('css/admin-theme.css') }}?v={{ @filemtime(public_path('css/admin-theme.css')) ?: time() }}">
+    <script src="{{ asset('vendor/lucide/lucide.min.js') }}" defer></script>
     <style>
-        body{font-family:'Inter',Arial,sans-serif;background:#141414;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;margin:0;padding:2rem 1rem}
-        .login-box{width:100%;max-width:420px;background:#1e1c19;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:2.4rem;border-bottom:3px solid #c9a227}
-        .login-box img{max-height:64px;display:block;margin:0 auto 1.6rem}
-        .login-box h1{font-size:1.15rem;text-align:center;margin-bottom:1.8rem;color:rgba(255,255,255,.72);font-weight:600}
-        .form-label{font-size:.85rem;font-weight:600;color:rgba(255,255,255,.8)}
-        .form-control{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;padding:.8rem 1rem;border-radius:6px}
-        .form-control:focus{background:rgba(255,255,255,.1);border-color:#c9a227;color:#fff;box-shadow:0 0 0 .2rem rgba(201,162,39,.2)}
-        .btn-gold{background:#c9a227;color:#141414;border:none;border-radius:6px;padding:.85rem;font-weight:700;width:100%}
-        .btn-gold:hover{background:#e0bf4f;color:#141414}
-        .form-check-label{font-size:.88rem;color:rgba(255,255,255,.7)}
-        .back{display:block;text-align:center;margin-top:1.4rem;font-size:.86rem;color:rgba(255,255,255,.5);text-decoration:none}
-        .back:hover{color:#e0bf4f}
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background:
+                radial-gradient(900px 500px at 12% -10%, rgba(37, 99, 235, 0.14), transparent 60%),
+                radial-gradient(700px 420px at 100% 100%, rgba(37, 99, 235, 0.10), transparent 60%),
+                var(--bg);
+        }
+        .login-wrap { width: 100%; max-width: 412px; }
+        .login-head { text-align: center; margin-bottom: 22px; }
+        .login-head .mark {
+            width: 62px; height: 62px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin: 0 auto 14px;
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.25);
+            border: 1px solid var(--border);
+            background: var(--surface);
+        }
+        .login-head .mark img { width: 100%; height: 100%; object-fit: cover; }
+        .login-head h1 { font-size: 19px; margin-bottom: 4px; }
+        .login-head p { font-size: 13px; color: var(--text-muted); }
+        .login-card { padding: 26px; border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); }
+        .login-card .btn { width: 100%; }
+        .login-foot { text-align: center; margin-top: 18px; font-size: 12.5px; }
+        .login-foot a { color: var(--text-muted); display: inline-flex; align-items: center; gap: 6px; }
+        .login-foot a:hover { color: var(--brand); }
     </style>
 </head>
 <body>
-<div class="login-box">
-    <img src="{{ asset('img/logo-light.png') }}" alt="{{ setting('site_adi') }}">
-    <h1>Yönetim Paneli Girişi</h1>
 
-    @if($errors->any())
-        <div class="alert alert-danger py-2">{{ $errors->first() }}</div>
-    @endif
+<div class="login-wrap">
+    <div class="login-head">
+        <div class="mark"><img src="{{ asset('img/logo-mark.png') }}" alt="{{ setting('site_adi') }}"></div>
+        <h1>{{ setting('site_adi') }} · Yönetim</h1>
+        <p>Panele girmek için hesap bilgilerinizi girin</p>
+    </div>
 
-    <form action="{{ route('login') }}" method="POST">
-        @csrf
-        <div class="mb-3">
-            <label class="form-label" for="email">E-posta</label>
-            <input id="email" type="email" name="email" class="form-control" required value="{{ old('email') }}" autofocus>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="password">Şifre</label>
-            <input id="password" type="password" name="password" class="form-control" required>
-        </div>
-        <div class="form-check mb-4">
-            <input type="checkbox" name="remember" class="form-check-input" id="rmb">
-            <label class="form-check-label" for="rmb">Beni hatırla</label>
-        </div>
-        <button type="submit" class="btn-gold"><i class="bi bi-box-arrow-in-right"></i> Giriş Yap</button>
-    </form>
+    <div class="card login-card">
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <i data-lucide="alert-circle"></i>
+                <div>{{ $errors->first() }}</div>
+            </div>
+        @endif
 
-    <a class="back" href="{{ route('home') }}"><i class="bi bi-arrow-left"></i> Siteye dön</a>
+        <form action="{{ route('login') }}" method="POST">
+            @csrf
+            <div class="form-group">
+                <label class="form-label" for="email">E-posta</label>
+                <input id="email" type="email" name="email" class="form-input" required
+                       value="{{ old('email') }}" autocomplete="username" autofocus>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Şifre</label>
+                <input id="password" type="password" name="password" class="form-input" required
+                       autocomplete="current-password">
+            </div>
+
+            <label class="form-check" style="margin-bottom:18px">
+                <input type="checkbox" name="remember" value="1">
+                Beni hatırla
+            </label>
+
+            <button type="submit" class="btn btn-primary btn-lg">
+                <i data-lucide="log-in"></i> Giriş Yap
+            </button>
+        </form>
+    </div>
+
+    <div class="login-foot">
+        <a href="{{ route('home') }}"><i data-lucide="arrow-left"></i> Siteye dön</a>
+    </div>
 </div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', function () { if (window.lucide) window.lucide.createIcons(); });
+    window.addEventListener('load', function () { if (window.lucide) window.lucide.createIcons(); });
+</script>
 </body>
 </html>
