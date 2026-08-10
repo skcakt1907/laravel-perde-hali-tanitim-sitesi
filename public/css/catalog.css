@@ -1,0 +1,69 @@
+/* ============================================================
+   MC GORDIJNEN — Katalog ekleri (ürün ızgarası, ürün detayı, galeri)
+   style.css üzerine biner; aynı :root değişkenlerini kullanır.
+   Tanıtım sitesi olduğu için sepet/ödeme stilleri yoktur.
+   ============================================================ */
+
+/* ürün kartı */
+.product-card{background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;height:100%;display:flex;flex-direction:column;transition:.3s;position:relative}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
+.product-card .pc-img{position:relative;display:block;aspect-ratio:4/5;overflow:hidden;background:var(--soft)}
+.product-card .pc-img img{width:100%;height:100%;object-fit:cover;transition:.6s;filter:saturate(.85) contrast(1.02)}
+.product-card:hover .pc-img img{transform:scale(1.05)}
+.product-card .pc-badge{position:absolute;top:.8rem;left:.8rem;background:var(--primary);color:var(--ink);font-size:.68rem;font-weight:700;padding:.26rem .7rem;border-radius:3px;letter-spacing:.8px;text-transform:uppercase}
+.product-card .pc-body{padding:1.2rem 1.3rem 1.4rem;display:flex;flex-direction:column;flex:1}
+.product-card .pc-brand{font-size:.7rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--gray);font-weight:700;margin-bottom:.35rem}
+.product-card .pc-title{font-size:1.05rem;line-height:1.35;margin:0 0 .5rem;font-weight:600;font-family:'Playfair Display',Georgia,serif}
+.product-card .pc-title a{color:var(--ink)}
+.product-card .pc-title a:hover{color:var(--primary-text)}
+.product-card .pc-desc{font-size:.88rem;color:var(--body);margin:0 0 1rem}
+.product-card .pc-price{display:flex;align-items:baseline;gap:.4rem;margin-top:auto;margin-bottom:1rem;font-size:.92rem;color:var(--gray)}
+.product-card .pc-price .now{font-size:1.15rem;font-weight:700;color:var(--ink);font-family:'Playfair Display',Georgia,serif}
+.product-card .pc-price .req{font-size:.92rem;font-weight:600;color:var(--primary-text)}
+.product-card .pc-add{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;background:var(--soft-2);color:var(--primary-text);border:none;border-radius:4px;padding:.7rem 1rem;font-weight:700;font-size:.88rem;width:100%;transition:.25s}
+.product-card .pc-add:hover{background:var(--primary);color:var(--ink)}
+
+/* yan filtre */
+.shop-filter{background:#fff;border:1px solid var(--line);border-radius:var(--r-sm);padding:1.5rem 1.6rem;position:sticky;top:96px}
+.shop-filter h5{font-size:.8rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--ink);margin:0 0 1rem;font-weight:700}
+.shop-filter .f-list{list-style:none;padding:0;margin:0 0 1.6rem}
+.shop-filter .f-list a{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.55rem 0;color:var(--body);font-weight:600;font-size:.92rem;border-bottom:1px solid var(--line)}
+.shop-filter .f-list a:last-child{border-bottom:none}
+.shop-filter .f-list a.active,.shop-filter .f-list a:hover{color:var(--primary-text)}
+.shop-filter .f-list a span{font-size:.76rem;color:var(--gray);background:var(--soft);border-radius:100px;padding:.1rem .55rem;flex-shrink:0}
+.shop-toolbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;margin-bottom:1.8rem}
+.shop-toolbar .count{color:var(--gray);font-size:.92rem}
+
+/* ürün detay */
+.pd-gallery{border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;background:var(--soft)}
+.pd-gallery img{width:100%;aspect-ratio:4/3.4;object-fit:cover;filter:saturate(.85) contrast(1.02)}
+.pd-thumbs{display:flex;gap:.6rem;margin-top:.7rem;flex-wrap:wrap}
+.pd-thumbs img{width:88px;height:70px;object-fit:cover;border-radius:6px;border:1px solid var(--line);cursor:pointer;transition:.2s}
+.pd-thumbs img:hover,.pd-thumbs img.active{border-color:var(--primary)}
+.pd-brand{color:var(--primary-text);font-weight:700;text-transform:uppercase;letter-spacing:1.6px;font-size:.76rem;margin-bottom:.6rem}
+.pd-title{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:.5rem}
+.pd-price{display:flex;align-items:baseline;gap:.5rem;margin:1rem 0 1.4rem;color:var(--gray);font-size:.95rem}
+.pd-price .now{font-size:1.8rem;font-weight:600;color:var(--ink);font-family:'Playfair Display',Georgia,serif}
+.pd-price .req{font-size:1.15rem;font-weight:700;color:var(--primary-text)}
+.pd-attrs{list-style:none;padding:0;margin:1.4rem 0;border-top:1px solid var(--line)}
+.pd-attrs li{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.pd-attrs li span:first-child{color:var(--gray)}
+.pd-attrs li span:last-child{color:var(--ink);font-weight:600;text-align:right}
+.pd-actions{display:flex;gap:.8rem;flex-wrap:wrap;align-items:center;margin-top:.5rem}
+
+/* boş durum */
+.empty-state{text-align:center;padding:60px 0}
+.empty-state i{font-size:3.6rem;color:var(--line);margin-bottom:1rem;display:block}
+.empty-state h3{margin-bottom:.6rem}
+.empty-state p{color:var(--gray);margin-bottom:1.6rem}
+
+/* yönetim durum etiketleri (ölçü talepleri) */
+.status-pill{display:inline-block;padding:.25rem .8rem;border-radius:100px;font-size:.75rem;font-weight:700;white-space:nowrap}
+.status-pill.yeni{background:#f3ecd9;color:#8a6a12}
+.status-pill.arandi{background:#e7f0ff;color:#1d4ed8}
+.status-pill.planlandi{background:#fff4e5;color:#b45309}
+.status-pill.olculdu{background:#ede9fe;color:#6d28d9}
+.status-pill.kazanildi{background:#e7f7ec;color:#15803d}
+.status-pill.iptal{background:#fdeaea;color:#b91c1c}
+
+.alert-soft{background:var(--soft-2);border:1px solid var(--line);border-radius:8px;padding:1rem 1.2rem;color:var(--primary-text);font-size:.92rem}

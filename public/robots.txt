@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /yonetim
+Disallow: /giris
+Allow: /
+
+Sitemap: /sitemap.xml
