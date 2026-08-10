@@ -191,6 +191,82 @@ test.describe('Yönetim paneli', () => {
     });
 });
 
+test.describe('Ayarlar — bölümler', () => {
+    const BOLUMLER = ['genel', 'iletisim', 'sosyal', 'anasayfa', 'hakkimizda', 'kunye'];
+
+    test('tüm ayar bölümleri açılıyor, geçersiz bölüm 404', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+
+        for (const b of BOLUMLER) {
+            const resp = await page.goto(`/yonetim/settings/${b}`);
+            expect(resp.status(), `${b} status`).toBe(200);
+            await expect(page.locator('.ayarlar-subnav')).toBeVisible();
+            await expect(page.locator(`.ayarlar-sub-link.active`)).toHaveCount(1);
+        }
+
+        const resp = await page.goto('/yonetim/settings/olmayan-bolum');
+        expect(resp.status()).toBe(404);
+    });
+
+    test('parametresiz /settings genel bölümü açar', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/settings');
+        await expect(page.locator('.page-title')).toContainText('Genel');
+    });
+
+    test('DE / TR sekmesi alan panelini değiştirir', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/settings/hakkimizda');
+
+        await expect(page.locator('textarea[name="hakkimizda_metin"]')).toBeVisible();
+        await expect(page.locator('textarea[name="hakkimizda_metin_tr"]')).toBeHidden();
+
+        await page.click('[data-lang-tab="about"][data-locale="tr"]');
+        await expect(page.locator('textarea[name="hakkimizda_metin_tr"]')).toBeVisible();
+        await expect(page.locator('textarea[name="hakkimizda_metin"]')).toBeHidden();
+    });
+
+    test('bölüm kaydediliyor ve değer sitede görünüyor', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/settings/sosyal');
+
+        await page.fill('input[name="facebook"]', 'https://www.facebook.com/pw-test');
+        await page.click('form button[type="submit"]');
+        await expect(page.locator('.alert-success')).toContainText('kaydedildi');
+        await expect(page.locator('input[name="facebook"]')).toHaveValue('https://www.facebook.com/pw-test');
+
+        // alt bilgide Facebook ikonu artık çıkmalı
+        await page.goto('/de');
+        await expect(page.locator('footer a[href*="facebook.com/pw-test"]')).toHaveCount(1);
+
+        // temizle
+        await page.goto('/yonetim/settings/sosyal');
+        await page.fill('input[name="facebook"]', '');
+        await page.click('form button[type="submit"]');
+    });
+
+    test('bölüme ait olmayan anahtar yazılamıyor (beyaz liste)', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/settings/sosyal');
+
+        // Sosyal bölümüne site_adi enjekte etmeyi dene
+        await page.evaluate(() => {
+            const f = document.querySelector('form[action*="settings/sosyal"]');
+            const i = document.createElement('input');
+            i.name = 'site_adi';
+            i.value = 'BEYAZ-LISTE-KIRILDI';
+            f.appendChild(i);
+            f.submit();
+        });
+
+        await expect(page.locator('.alert-success')).toBeVisible();
+
+        // site adı değişmemiş olmalı (sekme başlığından doğrula)
+        await page.goto('/yonetim/settings/genel');
+        await expect(page.locator('input[name="site_adi"]')).not.toHaveValue('BEYAZ-LISTE-KIRILDI');
+    });
+});
+
 test.describe('Güvenlik — yetki kontrolü', () => {
     test('giriş yapmamış kullanıcı /yonetim göremez', async ({ page }) => {
         await page.goto('/yonetim');

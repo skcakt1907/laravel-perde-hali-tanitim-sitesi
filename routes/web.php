@@ -66,8 +66,9 @@ Route::middleware(['auth', 'admin'])->prefix('yonetim')->name('admin.')->group(f
     Route::resource('projects', Admin\ProjectController::class)->except('show');
     Route::resource('services', Admin\ServiceController::class)->except('show');
 
-    Route::get('/settings', [Admin\SettingController::class, 'edit'])->name('settings.edit');
-    Route::post('/settings', [Admin\SettingController::class, 'update'])->name('settings.update');
+    // Ayarlar bölümlere ayrıldı (genel / iletisim / sosyal / anasayfa / hakkimizda / kunye)
+    Route::get('/settings/{page?}', [Admin\SettingController::class, 'edit'])->name('settings.edit');
+    Route::post('/settings/{page}', [Admin\SettingController::class, 'update'])->name('settings.update');
 
     Route::get('/profile', [Admin\ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [Admin\ProfileController::class, 'update'])->name('profile.update');
