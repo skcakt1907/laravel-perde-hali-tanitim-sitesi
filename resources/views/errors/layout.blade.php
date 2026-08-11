@@ -1,8 +1,8 @@
 {{--
 ═══════════════════════════════════════════════════════════
 HATA SAYFASI İSKELETİ
-Dil, DetectLocaleFromPath global middleware'inde yönlendirmeden ÖNCE
-ayarlanır — /en/olmayan-sayfa İngilizce 404 verir.
+Dil, DetectLocale global middleware'inde yönlendirmeden ÖNCE ayarlanır —
+404 sayfası da ziyaretçinin dilinde gelir.
 Dili burada @php ile ayarlamak YETMEZ: alt şablonun
 @section('title', __('…')) ifadeleri bu dosyadan önce değerlendirilir.
 ═══════════════════════════════════════════════════════════

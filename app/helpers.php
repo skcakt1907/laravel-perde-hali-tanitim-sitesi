@@ -63,39 +63,30 @@ if (! function_exists('locales')) {
     }
 }
 
-if (! function_exists('locale_path_list')) {
+if (! function_exists('locale_code_list')) {
     /**
-     * Dil öneklerinin okunabilir listesi: "/de/, /nl/, /en/, /tr/"
+     * Dil kodlarının okunabilir listesi: "nl, de, en, tr"
      *
-     * Çerez metninde diller elle yazılıydı; dil eklenince dört sayfada birden
-     * yanlış kalıyordu. Bağlaç ("veya/oder/of") dile göre değiştiği için
-     * kasıtlı olarak yalnızca virgüllü liste döner.
+     * Çerez aydınlatma metninde diller elle yazılıydı; dil eklenince dört
+     * sayfada birden yanlış kalıyordu. Bağlaç ("veya/oder/of") dile göre
+     * değiştiği için kasıtlı olarak yalnızca virgüllü liste döner.
      */
-    function locale_path_list(): string
+    function locale_code_list(): string
     {
-        return '/' . implode('/, /', Locales::codes()) . '/';
+        return implode(', ', Locales::codes());
     }
 }
 
 if (! function_exists('locale_url')) {
     /**
-     * Bulunulan sayfanın başka dildeki karşılığı (yol aynı, yalnızca dil öneki değişir).
+     * Dil değiştirme bağlantısı.
+     *
+     * URL'de dil öneki olmadığı için "aynı sayfanın başka dildeki adresi" diye
+     * bir şey yok; onun yerine çerezi yazıp ziyaretçiyi aynı sayfaya geri
+     * gönderen bir rota kullanılıyor.
      */
     function locale_url(string $locale): string
     {
-        // Yolun ilk parçasını değiştiriyoruz. (Rota parametresi üzerinden gitmiyoruz:
-        // SetLocale middleware'i {locale}'i rotadan düşürüyor.)
-        $segments = request()->segments();
-
-        if (isset($segments[0]) && array_key_exists($segments[0], locales())) {
-            $segments[0] = $locale;
-        } else {
-            array_unshift($segments, $locale);
-        }
-
-        $url   = url(implode('/', $segments));
-        $query = request()->getQueryString();
-
-        return $query ? $url . '?' . $query : $url;
+        return route('locale.switch', $locale);
     }
 }

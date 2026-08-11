@@ -13,7 +13,7 @@
 <h2>Welke cookies wij gebruiken</h2>
 <table>
     <tr><td>Sessiecookie</td><td>Houdt uw sessie in stand en beschermt formulieren (CSRF-token). Technisch noodzakelijk; wordt verwijderd bij het sluiten van de browser of na korte tijd.</td></tr>
-    <tr><td>Taalinstelling</td><td>De gekozen taal staat in het adres van de pagina ({{ locale_path_list() }}) en wordt niet in een cookie opgeslagen.</td></tr>
+    <tr><td>Taalinstelling (<code>dil</code>)</td><td>Slaat de door u gekozen taal op ({{ locale_code_list() }}), zodat de site bij een volgend bezoek in dezelfde taal opent. Functioneel noodzakelijk, bewaartermijn 1 jaar. Bevat geen persoonsgegevens en wordt niet voor statistieken gebruikt.</td></tr>
 </table>
 
 <h2>Externe inhoud</h2>

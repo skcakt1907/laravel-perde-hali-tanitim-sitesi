@@ -2,16 +2,48 @@
 
 use App\Http\Controllers\Admin;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\DetectLocale;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LegalController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SitemapController;
+use App\Support\Locales;
 use Illuminate\Support\Facades\Route;
 
-/* ---------------- Dil kökü ---------------- */
-Route::get('/', fn () => redirect('/' . config('app.fallback_locale')));
+/* ---------------- Dil ----------------
+ | URL'de dil öneki YOKTUR (müşteri isteği). Dil `dil` çerezinde tutulur,
+ | ilk ziyarette tarayıcının Accept-Language başlığından tahmin edilir
+ | (bkz. App\Http\Middleware\DetectLocale).
+ |
+ | Değiştirici JS'siz çalışsın diye normal bir bağlantıdır: çerezi yazar ve
+ | ziyaretçiyi geldiği sayfaya geri gönderir.
+ */
+Route::get('/dil/{locale}', function (string $locale) {
+    abort_unless(Locales::supports($locale), 404);
+
+    $geri = url()->previous();
+
+    // Açık yönlendirme açığına düşmemek için yalnızca kendi alan adımıza dönüyoruz
+    if (! str_starts_with($geri, url('/'))) {
+        $geri = url('/');
+    }
+
+    return redirect($geri)->withCookie(
+        cookie()->forever(DetectLocale::COOKIE, $locale, sameSite: 'Lax')
+    );
+})->whereIn('locale', Locales::codes())->name('locale.switch');
+
+/* Eski dil önekli adresler (yayına almadan önce kullanılan /de/... biçimi) —
+   paylaşılmış link ya da indekslenmiş sayfa varsa kaybolmasın: dili çereze
+   yazıp öneksiz karşılığına 301 gönderiyoruz. */
+Route::get('/{locale}/{yol?}', function (string $locale, ?string $yol = null) {
+    return redirect(
+        $yol === null ? '/' : '/' . $yol,
+        301
+    )->withCookie(cookie()->forever(DetectLocale::COOKIE, $locale, sameSite: 'Lax'));
+})->whereIn('locale', Locales::codes())->where('yol', '.*');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
@@ -32,44 +64,38 @@ Route::get('/robots.txt', function () {
 ")->header('Content-Type', 'text/plain');
 })->name('robots');
 
-/* ---------------- Vitrin (dil önekli) ----------------
- | Yol adları Almanca; dil yalnızca önekte değişir (/de/produkte, /tr/produkte).
- | SetLocale middleware'i URL::defaults ile {locale}'i doldurur, bu yüzden
- | view'lerde route('produkte') gibi parametresiz çağrı yeterlidir.
+/* ---------------- Vitrin ----------------
+ | Dil öneki yok; yol adları Almanca kaldı (site Almanca tek dille kurulmuştu,
+ | değiştirmek mevcut linkleri kırar). Dili DetectLocale global middleware'i kurar.
  */
-Route::prefix('{locale}')
-    ->whereIn('locale', App\Support\Locales::codes())
-    ->middleware('setlocale')
-    ->group(function () {
-        Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-        Route::get('/produkte', [CatalogController::class, 'index'])->name('catalog');
-        Route::get('/produkte/{category}', [CatalogController::class, 'category'])->name('catalog.category');
-        Route::get('/produkt/{product}', [CatalogController::class, 'show'])->name('product');
+Route::get('/produkte', [CatalogController::class, 'index'])->name('catalog');
+Route::get('/produkte/{category}', [CatalogController::class, 'category'])->name('catalog.category');
+Route::get('/produkt/{product}', [CatalogController::class, 'show'])->name('product');
 
-        Route::get('/leistungen', [PageController::class, 'services'])->name('services');
-        Route::get('/leistungen/{service}', [PageController::class, 'serviceShow'])->name('service.show');
+Route::get('/leistungen', [PageController::class, 'services'])->name('services');
+Route::get('/leistungen/{service}', [PageController::class, 'serviceShow'])->name('service.show');
 
-        Route::get('/galerie', [ProjectController::class, 'index'])->name('gallery');
-        Route::get('/galerie/{project}', [ProjectController::class, 'show'])->name('gallery.show');
+Route::get('/galerie', [ProjectController::class, 'index'])->name('gallery');
+Route::get('/galerie/{project}', [ProjectController::class, 'show'])->name('gallery.show');
 
-        Route::get('/ratgeber', [PageController::class, 'blog'])->name('blog');
-        Route::get('/ratgeber/{post}', [PageController::class, 'blogShow'])->name('blog.show');
+Route::get('/ratgeber', [PageController::class, 'blog'])->name('blog');
+Route::get('/ratgeber/{post}', [PageController::class, 'blogShow'])->name('blog.show');
 
-        Route::get('/ueber-uns', [PageController::class, 'about'])->name('about');
+Route::get('/ueber-uns', [PageController::class, 'about'])->name('about');
 
-        Route::get('/kontakt', [PageController::class, 'contact'])->name('contact');
-        Route::get('/aufmass', [PageController::class, 'aufmass'])->name('aufmass');
+Route::get('/kontakt', [PageController::class, 'contact'])->name('contact');
+Route::get('/aufmass', [PageController::class, 'aufmass'])->name('aufmass');
 
-        // Herkese açık formlar: IP başına dakikada en fazla 5 gönderim (spam/bot freni).
-        // Ek olarak formlarda honeypot alanı var (bkz. PageController::botMu).
-        Route::middleware('throttle:5,1')->group(function () {
-            Route::post('/kontakt', [PageController::class, 'contactStore'])->name('contact.store');
-            Route::post('/aufmass', [PageController::class, 'aufmassStore'])->name('aufmass.store');
-        });
+// Herkese açık formlar: IP başına dakikada en fazla 5 gönderim (spam/bot freni).
+// Ek olarak formlarda honeypot alanı var (bkz. PageController::botMu).
+Route::middleware('throttle:5,1')->group(function () {
+    Route::post('/kontakt', [PageController::class, 'contactStore'])->name('contact.store');
+    Route::post('/aufmass', [PageController::class, 'aufmassStore'])->name('aufmass.store');
+});
 
-        Route::get('/seite/{slug}', [LegalController::class, 'show'])->name('legal');
-    });
+Route::get('/seite/{slug}', [LegalController::class, 'show'])->name('legal');
 
 /* ---------------- Yönetim girişi (Türkçe panel) ---------------- */
 Route::middleware('guest')->group(function () {

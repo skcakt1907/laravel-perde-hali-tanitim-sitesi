@@ -15,33 +15,31 @@ class SitemapController extends Controller
     {
         $urls = [];
 
-        // Her dil için ayrı URL kümesi — arama motorları iki sürümü de görsün
-        foreach (Locales::codes() as $locale) {
-            $l = ['locale' => $locale];
+        /* Her sayfanın TEK adresi var: dil URL'de değil çerezde tutuluyor (müşteri
+           isteği). Bu yüzden sitemap dil başına tekrarlanMAZ — tekrarlansa aynı
+           adresi dört kez bildirmiş olurduk. */
+        foreach (['home', 'catalog', 'services', 'gallery', 'blog', 'about', 'contact', 'aufmass'] as $name) {
+            $urls[] = ['loc' => route($name), 'lastmod' => null];
+        }
 
-            foreach (['home', 'catalog', 'services', 'gallery', 'blog', 'about', 'contact', 'aufmass'] as $name) {
-                $urls[] = ['loc' => route($name, $l), 'lastmod' => null];
-            }
+        foreach (array_keys(LegalController::PAGES) as $slug) {
+            $urls[] = ['loc' => route('legal', $slug), 'lastmod' => null];
+        }
 
-            foreach (array_keys(LegalController::PAGES) as $slug) {
-                $urls[] = ['loc' => route('legal', $l + ['slug' => $slug]), 'lastmod' => null];
-            }
-
-            foreach (Category::where('durum', true)->get() as $c) {
-                $urls[] = ['loc' => route('catalog.category', $l + ['category' => $c->slug]), 'lastmod' => null];
-            }
-            foreach (Product::where('durum', true)->get() as $p) {
-                $urls[] = ['loc' => route('product', $l + ['product' => $p->slug]), 'lastmod' => optional($p->updated_at)->toAtomString()];
-            }
-            foreach (Project::where('durum', true)->get() as $p) {
-                $urls[] = ['loc' => route('gallery.show', $l + ['project' => $p->slug]), 'lastmod' => optional($p->updated_at)->toAtomString()];
-            }
-            foreach (Service::where('durum', true)->get() as $s) {
-                $urls[] = ['loc' => route('service.show', $l + ['service' => $s->slug]), 'lastmod' => null];
-            }
-            foreach (Post::where('durum', true)->get() as $p) {
-                $urls[] = ['loc' => route('blog.show', $l + ['post' => $p->slug]), 'lastmod' => optional($p->updated_at)->toAtomString()];
-            }
+        foreach (Category::where('durum', true)->get() as $c) {
+            $urls[] = ['loc' => route('catalog.category', $c->slug), 'lastmod' => null];
+        }
+        foreach (Product::where('durum', true)->get() as $p) {
+            $urls[] = ['loc' => route('product', $p->slug), 'lastmod' => optional($p->updated_at)->toAtomString()];
+        }
+        foreach (Project::where('durum', true)->get() as $p) {
+            $urls[] = ['loc' => route('gallery.show', $p->slug), 'lastmod' => optional($p->updated_at)->toAtomString()];
+        }
+        foreach (Service::where('durum', true)->get() as $s) {
+            $urls[] = ['loc' => route('service.show', $s->slug), 'lastmod' => null];
+        }
+        foreach (Post::where('durum', true)->get() as $p) {
+            $urls[] = ['loc' => route('blog.show', $p->slug), 'lastmod' => optional($p->updated_at)->toAtomString()];
         }
 
         return response()

@@ -98,8 +98,11 @@ Kurulumdan gelen şifre `admin123` — herkese açık depoda ve dokümanda yazı
 - **Ayarlar → İletişim:** adres, telefon, e-posta, çalışma saatleri
 - **Müşteri Yorumları:** kurulumla gelen **3 yorum örnek metindir**, gerçek yorumlarla değiştir
 - **Dört dil:** her içerik kaydında NL / DE / EN / TR kutusu var. **Hollandaca ana dildir** —
-  zorunlu alan odur, `/` adresi `/nl`'e yönlenir. Boş bırakılan diğer dil alanları sitede
-  **Hollandaca** görünür; yani eksik çeviri siteyi kırmaz, sadece o satır Hollandaca kalır.
+  zorunlu alan odur. Boş bırakılan diğer dil alanları sitede **Hollandaca** görünür; yani
+  eksik çeviri siteyi kırmaz, sadece o satır Hollandaca kalır.
+- **URL'de dil öneki yok:** adres her dilde aynı (`/produkte`), dil `dil` çerezinde tutulur.
+  Hosting'de sayfa önbelleği (Varnish / Cloudflare cache) açarsan `Vary: Cookie` başlığına
+  uyduğundan emin ol — uymazsa tüm ziyaretçiler ilk gelenin dilini görür.
 - Görseller: yer tutucu dokular yerine müşterinin fotoğrafları
 
 ---

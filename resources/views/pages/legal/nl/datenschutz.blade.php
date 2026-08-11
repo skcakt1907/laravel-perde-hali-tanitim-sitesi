@@ -53,8 +53,8 @@
 
 <h2>6. Cookies en externe diensten</h2>
 <p>
-    Deze website gebruikt technisch noodzakelijke cookies (voor de sessie en om formulieren
-    tegen misbruik te beschermen). <strong>Lettertypen, pictogrammen en alle overige
+    Deze website gebruikt technisch noodzakelijke cookies: één voor de sessie en de beveiliging
+    van formulieren, en één (<code>dil</code>) die uw taalkeuze onthoudt. <strong>Lettertypen, pictogrammen en alle overige
     ontwerpbestanden worden uitsluitend vanaf onze eigen server geleverd</strong> — er komen
     geen Google Fonts, CDN&rsquo;s of andere derden aan te pas en uw IP-adres wordt aan niemand
     doorgegeven. Meer hierover in onze

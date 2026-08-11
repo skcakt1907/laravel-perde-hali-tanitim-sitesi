@@ -6,12 +6,9 @@
     <title>@yield('title', setting('site_adi', 'MC Gordijnen'))</title>
     <meta name="description" content="@yield('meta', tsetting('site_aciklama'))">
     <link rel="canonical" href="{{ url()->current() }}">
-    {{-- Dil alternatifleri --}}
-    @foreach(locales() as $code => $label)
-        <link rel="alternate" hreflang="{{ $code }}" href="{{ locale_url($code) }}">
-    @endforeach
-    {{-- Dört dil var; eşleşmeyen ziyaretçi için hangisinin varsayılan olduğu söylenmeli --}}
-    <link rel="alternate" hreflang="x-default" href="{{ locale_url(\App\Support\Locales::primary()) }}">
+    {{-- hreflang YOK: dil URL'de değil çerezde tutuluyor (müşteri isteği), yani her
+         sayfanın tek adresi var. Var olmayan dil adreslerini hreflang ile bildirmek
+         arama motoruna yanlış bilgi vermek olur. --}}
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
     <link rel="icon" type="image/png" href="{{ asset('img/logo-mark.png') }}">
     {{-- Open Graph --}}

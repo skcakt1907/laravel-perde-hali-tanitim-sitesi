@@ -13,7 +13,7 @@
 <h2>Welche Cookies wir einsetzen</h2>
 <table>
     <tr><td>Sitzungs-Cookie</td><td>Hält Ihre Sitzung aufrecht und schützt Formulare (CSRF-Token). Technisch notwendig, wird beim Schließen des Browsers bzw. nach kurzer Zeit gelöscht.</td></tr>
-    <tr><td>Spracheinstellung</td><td>Die gewählte Sprache steht in der Adresse der Seite ({{ locale_path_list() }}) und wird nicht in einem Cookie gespeichert.</td></tr>
+    <tr><td>Spracheinstellung (<code>dil</code>)</td><td>Speichert die von Ihnen gewählte Sprache ({{ locale_code_list() }}), damit die Seite beim nächsten Besuch in derselben Sprache öffnet. Funktional notwendig, Speicherdauer 1 Jahr. Enthält keine personenbezogenen Daten und wird nicht für Statistiken verwendet.</td></tr>
 </table>
 
 <h2>Externe Inhalte</h2>

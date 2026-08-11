@@ -51,8 +51,9 @@
 
 <h2>6. Cookies und externe Dienste</h2>
 <p>
-    Diese Website setzt technisch notwendige Cookies ein (z. B. für die Sitzung und den
-    Schutz von Formularen vor Missbrauch). <strong>Schriftarten, Symbole und alle weiteren
+    Diese Website setzt technisch notwendige Cookies ein: eines für die Sitzung und den Schutz
+    von Formularen vor Missbrauch, und eines (<code>dil</code>), das Ihre Sprachwahl
+    speichert. <strong>Schriftarten, Symbole und alle weiteren
     Gestaltungsdateien werden ausschließlich von unserem eigenen Server geladen</strong> —
     es findet keine Einbindung von Google Fonts, CDNs oder anderen Drittanbietern statt und
     Ihre IP-Adresse wird dabei an niemanden weitergegeben. Details finden Sie in unseren

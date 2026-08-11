@@ -8,8 +8,9 @@
         </div>
         <div class="lang-switch">
             @foreach(locales() as $code => $label)
+                {{-- rel="nofollow": bu bir içerik sayfası değil, çerez yazan bir eylem --}}
                 <a href="{{ locale_url($code) }}" class="{{ app()->getLocale() === $code ? 'active' : '' }}"
-                   hreflang="{{ $code }}" title="{{ $label }}">{{ strtoupper($code) }}</a>
+                   rel="nofollow" title="{{ $label }}">{{ strtoupper($code) }}</a>
             @endforeach
         </div>
     </div>

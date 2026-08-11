@@ -50,8 +50,9 @@
 
 <h2>6. Çerezler ve dış servisler</h2>
 <p>
-    Bu site teknik olarak gerekli çerezleri kullanır (oturum ve formların kötüye kullanıma
-    karşı korunması için). <strong>Yazı tipleri, ikonlar ve diğer tüm tasarım dosyaları
+    Bu site teknik olarak gerekli çerezleri kullanır: biri oturum ve formların kötüye kullanıma
+    karşı korunması için, diğeri (<code>dil</code>) dil seçiminizi hatırlamak
+    için. <strong>Yazı tipleri, ikonlar ve diğer tüm tasarım dosyaları
     yalnızca kendi sunucumuzdan yüklenir</strong> — Google Fonts, CDN ya da başka bir üçüncü
     tarafa bağlantı kurulmaz ve IP adresiniz kimseyle paylaşılmaz. Ayrıntılar
     <a href="{{ route('legal', 'cookies') }}">Çerez Bilgilendirmesi</a> sayfasındadır.
