@@ -54,15 +54,16 @@
 <div class="section">
     <div class="section-title"><i data-lucide="file-check"></i><span>Yasal Sayfalar</span></div>
     <div class="form-help" style="margin-top:0;margin-bottom:12px">
-        Metinler şablon olarak hazır ve iki dilde yayında. İçerikleri değiştirmek için
+        Metinler şablon olarak hazır ve tüm dillerde yayında. İçerikleri değiştirmek için
         <code>resources/views/pages/legal/</code> altındaki dosyalar düzenlenir.
     </div>
     <div class="chip-row">
+        @php $onizlemeDili = \App\Support\Locales::primary(); @endphp
         @foreach(\App\Http\Controllers\LegalController::PAGES as $slug => $p)
-            <a href="{{ route('legal', ['locale' => 'de', 'slug' => $slug]) }}" target="_blank"
+            <a href="{{ route('legal', ['locale' => $onizlemeDili, 'slug' => $slug]) }}" target="_blank"
                rel="noopener" class="chip">
                 <i data-lucide="external-link" style="width:13px;height:13px"></i>
-                {{ __($p[0], [], 'de') }}
+                {{ __($p[0], [], $onizlemeDili) }}
             </a>
         @endforeach
     </div>

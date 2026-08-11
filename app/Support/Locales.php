@@ -25,8 +25,8 @@ final class Locales
      * hangi dili bilmiyorsa da kendi dilini tanır.
      */
     public const ALL = [
-        'de' => ['Deutsch',    'de', 'de_DE'],
         'nl' => ['Nederlands', 'nl', 'nl_NL'],
+        'de' => ['Deutsch',    'de', 'de_DE'],
         'en' => ['English',    'en', 'en_US'],
         'tr' => ['Türkçe',     'tr', 'tr_TR'],
     ];
@@ -46,7 +46,7 @@ final class Locales
     /** Birincil (yedek) dil — DB'de sonek almayan kolonlar bu dile aittir. */
     public static function primary(): string
     {
-        return config('app.fallback_locale', 'de');
+        return config('app.fallback_locale', 'nl');
     }
 
     /**
@@ -78,7 +78,7 @@ final class Locales
 
     /**
      * Bir alan adını tüm dillerdeki kolon/anahtar adlarına açar.
-     * `site_aciklama` → ['site_aciklama', 'site_aciklama_nl', 'site_aciklama_en', 'site_aciklama_tr']
+     * `site_aciklama` → ['site_aciklama', 'site_aciklama_de', 'site_aciklama_en', 'site_aciklama_tr']
      *
      * @param  list<string>  $fields
      * @return list<string>

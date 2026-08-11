@@ -32,6 +32,9 @@ php artisan key:generate      # komut satırı varsa; yoksa şablondaki hazır A
 - [ ] **`APP_DEBUG=false`** — `true` kalırsa hata ekranında kod yolları, SQL ve `.env` değerleri görünür
 - [ ] `APP_URL` https ile, sondaki eğik çizgi olmadan
 - [ ] `APP_KEY` dolu
+- [ ] `APP_LOCALE=nl` ve `APP_FALLBACK_LOCALE=nl` — **bunları `de` yapma.** Sitenin ana dili
+      Hollandaca; veritabanındaki soneksiz kolonlar Hollandaca metni tutuyor. `de` yazarsan
+      Hollandaca sayfalar Almanca görünmeye başlar (hata vermez, sessizce yanlış olur)
 - [ ] **`SESSION_SECURE_COOKIE=true`** (SSL kurulduktan sonra)
 - [ ] `MAIL_MAILER=smtp` — `log` kalırsa **hiçbir e-posta gitmez**, ölçü talepleri kaybolur
 
@@ -94,9 +97,9 @@ Kurulumdan gelen şifre `admin123` — herkese açık depoda ve dokümanda yazı
 - **Ayarlar → Künye/Yasal:** firma ünvanı, yetkili, KvK, BTW → boş kalırsa Impressum eksik olur
 - **Ayarlar → İletişim:** adres, telefon, e-posta, çalışma saatleri
 - **Müşteri Yorumları:** kurulumla gelen **3 yorum örnek metindir**, gerçek yorumlarla değiştir
-- **Dört dil:** her içerik kaydında DE / NL / EN / TR kutusu var. Boş bırakılan alan sitede
-  **Almanca** görünür — yani eksik çeviri siteyi kırmaz, sadece o satır Almanca kalır.
-  Sitenin varsayılan dili Almanca (`/` → `/de`); Hollandaca açılması istenirse söyle, tek satır
+- **Dört dil:** her içerik kaydında NL / DE / EN / TR kutusu var. **Hollandaca ana dildir** —
+  zorunlu alan odur, `/` adresi `/nl`'e yönlenir. Boş bırakılan diğer dil alanları sitede
+  **Hollandaca** görünür; yani eksik çeviri siteyi kırmaz, sadece o satır Hollandaca kalır.
 - Görseller: yer tutucu dokular yerine müşterinin fotoğrafları
 
 ---

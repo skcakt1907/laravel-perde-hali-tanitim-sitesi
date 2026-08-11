@@ -53,6 +53,7 @@
                             : ($product->{'attributes_' . $code} ?? []);
                         $satirlar  = collect($current)->map(fn ($v, $k) => "$k: $v")->implode("\n");
                         $ipucu     = [
+                            'nl' => "Materiaal: 100% polyester\nLichtdoorlatendheid: halftransparant\nMontage: wand of plafond",
                             'de' => "Material: 100% Polyester\nLichtdurchlässigkeit: halbtransparent\nMontage: Wand oder Decke",
                             'en' => "Material: 100% polyester\nLight transmission: semi-transparent\nFitting: wall or ceiling",
                             'tr' => "Malzeme: %100 polyester\nIşık geçirgenliği: yarı şeffaf\nMontaj: duvar veya tavan",
