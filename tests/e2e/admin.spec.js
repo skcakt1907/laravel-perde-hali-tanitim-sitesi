@@ -1,6 +1,18 @@
 import { test, expect } from '@playwright/test';
 
-const ADMIN = { email: 'admin@ornek-perde.nl', password: 'admin123' };
+/* Kurulum şifresi artık sabit değil (rastgele üretiliyor). Testler
+   `.env`'deki ADMIN_PASSWORD'u kullanır; ayarlanmamışsa açıkça uyarır. */
+const ADMIN = {
+    email: 'admin@ornek-perde.nl',
+    password: process.env.ADMIN_PASSWORD,
+};
+
+if (! ADMIN.password) {
+    throw new Error(
+        'ADMIN_PASSWORD tanımlı değil. Çalıştırma: ADMIN_PASSWORD=... npx playwright test\n' +
+        '(.env dosyasındaki değerle aynı olmalı)'
+    );
+}
 const LOCALES = ['nl', 'de', 'en', 'tr'];
 
 /**
@@ -377,6 +389,68 @@ test.describe('Yönetim paneli', () => {
             const resp = await page.goto(path);
             expect(resp.status(), `${path} status`).toBe(200);
             await expect(page.locator('h1')).toBeVisible();
+        }
+    });
+
+    test('rastgele şifre üretici iki alanı da dolduruyor', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/profile');
+
+        await page.click('button:has-text("Rastgele üret")');
+
+        const sifre = await page.inputValue('#yeniSifre');
+        const tekrar = await page.inputValue('#yeniSifreTekrar');
+
+        expect(sifre, 'iki alan aynı olmalı').toBe(tekrar);
+        expect(sifre.length, '16 karakter').toBe(16);
+
+        // Panelin kuralı: en az bir harf + bir rakam
+        expect(sifre, 'harf içermeli').toMatch(/[A-Za-z]/);
+        expect(sifre, 'rakam içermeli').toMatch(/[0-9]/);
+
+        // Karışan karakterler kümede olmamalı (telefonda okunacak)
+        expect(sifre, 'I l 1 O 0 geçmemeli').not.toMatch(/[Il1O0]/);
+
+        // Kopyalanabilsin diye ekranda gösterilmeli
+        await expect(page.locator('#sifreUretilen')).toContainText(sifre);
+
+        // Üretilen şifre her seferinde farklı olmalı
+        await page.click('button:has-text("Rastgele üret")');
+        expect(await page.inputValue('#yeniSifre')).not.toBe(sifre);
+    });
+
+    test('üretilen şifre gerçekten kaydedilebiliyor', async ({ page }) => {
+        /* Bu test gerçek yönetici şifresini değiştiriyor. Yarı yolda patlarsa
+           şifre değişmiş kalır ve SONRAKİ TÜM KOŞULAR giriş yapamaz (bu yaşandı).
+           Bu yüzden geri alma `finally` içinde. */
+        let yeni = null;
+
+        try {
+            await loginAs(page, ADMIN.email, ADMIN.password);
+            await page.goto('/yonetim/profile');
+
+            await page.click('button:has-text("Rastgele üret")');
+            yeni = await page.inputValue('#yeniSifre');
+
+            await page.fill('input[name="current_password"]', ADMIN.password);
+            await page.click('form button[type="submit"]');
+            await expect(page.locator('.alert-success')).toContainText('güncellendi');
+
+            // Oturumu düşür ve yeni şifreyle gir
+            await page.context().clearCookies();
+            await loginAs(page, ADMIN.email, yeni);
+            await expect(page).toHaveURL(/yonetim/);
+        } finally {
+            if (yeni) {
+                await page.context().clearCookies();
+                await loginAs(page, ADMIN.email, yeni);
+                await page.goto('/yonetim/profile');
+                await page.fill('input[name="current_password"]', yeni);
+                await page.fill('#yeniSifre', ADMIN.password);
+                await page.fill('#yeniSifreTekrar', ADMIN.password);
+                await page.click('form button[type="submit"]');
+                await expect(page.locator('.alert-success')).toContainText('güncellendi');
+            }
         }
     });
 

@@ -27,14 +27,35 @@ class DatabaseSeeder extends Seeder
         // GÖRELİ yol: alan adı değişse bile görseller çalışır (bkz. media() yardımcısı)
         $img = fn (string $name) => 'img/demo/' . $name . '.jpg';
 
-        /* ---------------- Yönetici ---------------- */
+        /* ---------------- Yönetici ----------------
+         | Şifre `.env`'deki ADMIN_PASSWORD'dan gelir; yoksa RASTGELE üretilir ve
+         | kurulum çıktısına yazılır.
+         |
+         | Eskiden burada sabit `admin123` yazıyordu. Sorun şu: kurulum şifresi
+         | koda ve dokümana giriyor, "sonra değiştiririm" denip kalıyor, site
+         | herkesin bildiği bir şifreyle yayına çıkıyor. Rastgele üretmek bunu
+         | yapısal olarak imkânsız kılıyor.
+         */
+        $sifre = env('ADMIN_PASSWORD') ?: static::rastgeleSifre();
+
         $admin = User::updateOrCreate(['email' => 'admin@ornek-perde.nl'], [
             'name'     => 'MC Gordijnen Yönetici',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make($sifre),
             'phone'    => '+31 6 84 10 46 48',
         ]);
         // role mass-assign edilemez (yetki yükseltme önlemi); sunucu tarafında forceFill ile.
         $admin->forceFill(['role' => 'admin'])->save();
+
+        if (! env('ADMIN_PASSWORD')) {
+            $this->command?->newLine();
+            $this->command?->warn('+-- YONETICI GIRISI ---------------------------');
+            $this->command?->warn('|  E-posta : admin@ornek-perde.nl');
+            $this->command?->warn('|  Sifre   : ' . $sifre);
+            $this->command?->warn('|  Rastgele uretildi, bir daha GOSTERILMEZ.');
+            $this->command?->warn('|  Kaydet, sonra panelden kendi sifrenle degistir.');
+            $this->command?->warn('+---------------------------------------------');
+            $this->command?->newLine();
+        }
 
         /* ---------------- Ayarlar ---------------- */
         $ayarlar = [
@@ -1217,5 +1238,40 @@ class DatabaseSeeder extends Seeder
                 'durum'      => true,
             ]);
         }
+    }
+
+    /**
+     * Kurulum için güçlü şifre. Panelin kuralını sağlar (en az 10 karakter,
+     * harf + rakam) ve en az bir işaret içerir.
+     *
+     * `random_int` kullanılıyor, `rand`/`mt_rand` DEĞİL — ikincisi kriptografik
+     * olarak güvenli değildir ve şifre üretiminde kullanılmamalıdır.
+     *
+     * Okunuşu karışan karakterler (I l 1 O 0) kümede yok: bu şifre telefonda
+     * okunacak ya da elle yazılacak.
+     */
+    public static function rastgeleSifre(int $uzunluk = 16): string
+    {
+        $harfler  = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz';
+        $rakamlar = '23456789';
+        $isaretler = '!?*-_+=';
+        $kume = $harfler . $rakamlar . $isaretler;
+
+        $sec = fn (string $kaynak) => $kaynak[random_int(0, strlen($kaynak) - 1)];
+
+        // Kural gereği harf ve rakam garanti
+        $karakterler = [$sec($harfler), $sec($rakamlar), $sec($isaretler)];
+
+        while (count($karakterler) < max($uzunluk, 10)) {
+            $karakterler[] = $sec($kume);
+        }
+
+        // Garantili karakterler baştaki sabit yerlerde kalmasın
+        for ($i = count($karakterler) - 1; $i > 0; $i--) {
+            $j = random_int(0, $i);
+            [$karakterler[$i], $karakterler[$j]] = [$karakterler[$j], $karakterler[$i]];
+        }
+
+        return implode('', $karakterler);
     }
 }

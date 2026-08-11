@@ -84,11 +84,15 @@ SSL yokken açarsan site açılmaz, o yüzden kapalı geliyor.
 
 ## 7. **Yönetici şifresini değiştir**
 
-Kurulumdan gelen şifre `admin123` — herkese açık depoda ve dokümanda yazıyor.
+Kurulum şifresi artık sabit değil: `.env`'deki `ADMIN_PASSWORD` kullanılır, o da boşsa
+seeder rastgele bir şifre üretip kurulum çıktısına yazar. Yine de **kendi şifrenle
+değiştir** — kurulum şifresi zipte ve konsol geçmişinde kalıyor.
 
-1. `/giris` → **admin@ornek-perde.nl / admin123**
+1. `/giris` → **admin@ornek-perde.nl** + kurulum şifresi
 2. **Profil** ekranından e-postayı müşterinin gerçek adresine çevir
-3. Şifreyi değiştir (en az 10 karakter, harf + rakam zorunlu)
+3. Şifreyi değiştir: **"Rastgele üret"** düğmesine bas, çıkan şifreyi bir yere kopyala,
+   sonra Kaydet. (Elle yazacaksan en az 10 karakter, harf + rakam zorunlu.)
+4. `.env`'den `ADMIN_PASSWORD` satırını **sil** — kurulumdan sonra işi kalmıyor
 
 ---
 
