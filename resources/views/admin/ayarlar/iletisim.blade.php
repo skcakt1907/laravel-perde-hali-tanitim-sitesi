@@ -44,6 +44,7 @@
         'fields'   => [
             ['name' => 'calisma_saatleri', 'label' => 'Çalışma saatleri', 'type' => 'textarea', 'rows' => 3,
              'placeholder' => "Mo–Fr 09:00–18:00\nSa 10:00–16:00 (nach Absprache)",
+             'placeholder_nl' => "ma–vr 09:00–18:00\nza 10:00–16:00 (op afspraak)",
              'placeholder_en' => "Mon–Fri 09:00–18:00\nSat 10:00–16:00 (by appointment)",
              'placeholder_tr' => "Pzt–Cum 09:00–18:00\nCmt 10:00–16:00 (randevu ile)",
              'help' => 'Her satır alt alta gösterilir.'],

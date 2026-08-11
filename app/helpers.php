@@ -63,6 +63,20 @@ if (! function_exists('locales')) {
     }
 }
 
+if (! function_exists('locale_path_list')) {
+    /**
+     * Dil öneklerinin okunabilir listesi: "/de/, /nl/, /en/, /tr/"
+     *
+     * Çerez metninde diller elle yazılıydı; dil eklenince dört sayfada birden
+     * yanlış kalıyordu. Bağlaç ("veya/oder/of") dile göre değiştiği için
+     * kasıtlı olarak yalnızca virgüllü liste döner.
+     */
+    function locale_path_list(): string
+    {
+        return '/' . implode('/, /', Locales::codes()) . '/';
+    }
+}
+
 if (! function_exists('locale_url')) {
     /**
      * Bulunulan sayfanın başka dildeki karşılığı (yol aynı, yalnızca dil öneki değişir).

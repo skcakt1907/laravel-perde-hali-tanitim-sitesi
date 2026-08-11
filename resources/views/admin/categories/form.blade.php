@@ -50,6 +50,7 @@ if ($seciliIkon && ! isset($iconlar[$seciliIkon])) {
                 'fields' => [
                     ['name' => 'name', 'label' => 'Kategori adı', 'required' => true,
                      'placeholder' => 'z. B. Plissees',
+                     'placeholder_nl' => 'bijv. Plisségordijnen',
                      'placeholder_en' => 'e.g. Pleated Blinds',
                      'placeholder_tr' => 'örn. Plise Perde'],
                     ['name' => 'description', 'label' => 'Açıklama', 'type' => 'textarea', 'rows' => 3,

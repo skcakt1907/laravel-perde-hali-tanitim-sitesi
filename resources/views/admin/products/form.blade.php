@@ -27,6 +27,7 @@
                     'fields' => [
                         ['name' => 'name', 'label' => 'Ürün adı', 'required' => true,
                          'placeholder' => 'z. B. Wabenplissee Sand Thermo',
+                         'placeholder_nl' => 'bijv. Duette-plissé zand, isolerend',
                          'placeholder_en' => 'e.g. Honeycomb Pleated Blind, Sand',
                          'placeholder_tr' => 'örn. Petek Plise — Kum'],
                         ['name' => 'short_desc', 'label' => 'Kısa açıklama',

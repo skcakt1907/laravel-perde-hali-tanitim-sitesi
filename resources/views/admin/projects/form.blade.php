@@ -24,10 +24,12 @@
                 'fields' => [
                     ['name' => 'title', 'label' => 'Başlık', 'required' => true,
                      'placeholder' => 'z. B. Plissees für ein Reihenhaus',
+                     'placeholder_nl' => 'bijv. Plissés voor een rijtjeshuis',
                      'placeholder_en' => 'e.g. Pleated blinds for a terraced house',
                      'placeholder_tr' => 'örn. Sıra evde plise perde'],
                     ['name' => 'kind', 'label' => 'İşin türü (galeri filtresi)',
                      'placeholder' => 'Plissees / Rollos / Teppiche',
+                     'placeholder_nl' => 'Plisségordijnen / Rolgordijnen / Tapijten',
                      'placeholder_en' => 'Pleated Blinds / Roller Blinds / Rugs',
                      'placeholder_tr' => 'Plise / Stor / Halı',
                      'help' => 'Galeri sayfasındaki filtre çipleri bu değerden üretilir — mevcutlarla aynı yazın.'],

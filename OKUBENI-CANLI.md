@@ -94,6 +94,9 @@ Kurulumdan gelen şifre `admin123` — herkese açık depoda ve dokümanda yazı
 - **Ayarlar → Künye/Yasal:** firma ünvanı, yetkili, KvK, BTW → boş kalırsa Impressum eksik olur
 - **Ayarlar → İletişim:** adres, telefon, e-posta, çalışma saatleri
 - **Müşteri Yorumları:** kurulumla gelen **3 yorum örnek metindir**, gerçek yorumlarla değiştir
+- **Dört dil:** her içerik kaydında DE / NL / EN / TR kutusu var. Boş bırakılan alan sitede
+  **Almanca** görünür — yani eksik çeviri siteyi kırmaz, sadece o satır Almanca kalır.
+  Sitenin varsayılan dili Almanca (`/` → `/de`); Hollandaca açılması istenirse söyle, tek satır
 - Görseller: yer tutucu dokular yerine müşterinin fotoğrafları
 
 ---

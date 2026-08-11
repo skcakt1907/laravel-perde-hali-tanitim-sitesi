@@ -19,15 +19,27 @@ class Product extends Model
     /** Özellik tablosu her dilde ayrı JSON kolonunda tutulur */
     protected array $translatableJson = ['attributes'];
 
-    protected $casts = [
-        'images'     => 'array',
-        'attributes' => 'array',
-        'attributes_en' => 'array',
-        'attributes_tr' => 'array',
-        'featured'   => 'boolean',
-        'durum'      => 'boolean',
-        'price'      => 'decimal:2',
-    ];
+    /**
+     * `attributes_<dil>` kolonları dil listesinden türetilir — yeni bir dil
+     * eklendiğinde cast'i eklemeyi unutmak, o dilin özellik tablosunun
+     * sessizce string olarak dönmesine yol açıyordu.
+     */
+    protected function casts(): array
+    {
+        $casts = [
+            'images'     => 'array',
+            'attributes' => 'array',
+            'featured'   => 'boolean',
+            'durum'      => 'boolean',
+            'price'      => 'decimal:2',
+        ];
+
+        foreach (\App\Support\Locales::secondary() as $locale) {
+            $casts['attributes_' . $locale] = 'array';
+        }
+
+        return $casts;
+    }
 
     public function category()
     {

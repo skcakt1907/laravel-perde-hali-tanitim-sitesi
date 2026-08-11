@@ -13,7 +13,7 @@
 <h2>Kullandığımız çerezler</h2>
 <table>
     <tr><td>Oturum çerezi</td><td>Oturumunuzu sürdürür ve formları korur (CSRF anahtarı). Teknik olarak gereklidir; tarayıcı kapandığında veya kısa süre sonra silinir.</td></tr>
-    <tr><td>Dil seçimi</td><td>Seçilen dil sayfanın adresinde yer alır (/de/, /en/ veya /tr/) ve çerezde saklanmaz.</td></tr>
+    <tr><td>Dil seçimi</td><td>Seçilen dil sayfanın adresinde yer alır ({{ locale_path_list() }}) ve çerezde saklanmaz.</td></tr>
 </table>
 
 <h2>Dış içerikler</h2>

@@ -10,6 +10,8 @@
     @foreach(locales() as $code => $label)
         <link rel="alternate" hreflang="{{ $code }}" href="{{ locale_url($code) }}">
     @endforeach
+    {{-- Dört dil var; eşleşmeyen ziyaretçi için hangisinin varsayılan olduğu söylenmeli --}}
+    <link rel="alternate" hreflang="x-default" href="{{ locale_url(\App\Support\Locales::primary()) }}">
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
     <link rel="icon" type="image/png" href="{{ asset('img/logo-mark.png') }}">
     {{-- Open Graph --}}

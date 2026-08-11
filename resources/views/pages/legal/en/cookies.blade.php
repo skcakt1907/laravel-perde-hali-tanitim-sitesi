@@ -13,7 +13,7 @@
 <h2>Which cookies we use</h2>
 <table>
     <tr><td>Session cookie</td><td>Maintains your session and protects forms (CSRF token). Technically necessary; deleted when the browser is closed or after a short time.</td></tr>
-    <tr><td>Language setting</td><td>The chosen language is part of the page address (/de/, /en/ or /tr/) and is not stored in a cookie.</td></tr>
+    <tr><td>Language setting</td><td>The chosen language is part of the page address ({{ locale_path_list() }}) and is not stored in a cookie.</td></tr>
 </table>
 
 <h2>External content</h2>

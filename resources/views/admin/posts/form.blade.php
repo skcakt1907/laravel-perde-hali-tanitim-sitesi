@@ -24,10 +24,12 @@
                 'fields' => [
                     ['name' => 'title', 'label' => 'Başlık', 'required' => true,
                      'placeholder' => 'z. B. Vorhänge richtig ausmessen',
+                     'placeholder_nl' => 'bijv. Gordijnen goed opmeten',
                      'placeholder_en' => 'e.g. Measuring curtains correctly',
                      'placeholder_tr' => 'örn. Fon perdeyi doğru ölçmek'],
                     ['name' => 'category', 'label' => 'Kategori etiketi',
                      'placeholder' => 'Ratgeber / Materialkunde / Teppiche',
+                     'placeholder_nl' => 'Advies / Materiaalkennis / Tapijten',
                      'placeholder_en' => 'Guide / Materials / Rugs',
                      'placeholder_tr' => 'Rehber / Malzeme Bilgisi / Halı',
                      'help' => 'Görsel üstünde küçük etiket olarak çıkar.'],

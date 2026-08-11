@@ -42,6 +42,8 @@ class DatabaseSeeder extends Seeder
 
             'site_aciklama' => 'Maßgefertigte Gardinen, Plissees, Rollos, Jalousien und Teppiche. '
                 . 'Kostenloses Aufmaß und Beratung bei Ihnen zu Hause, fachgerechte Montage aus einer Hand.',
+            'site_aciklama_nl' => 'Gordijnen, plissé- en rolgordijnen, jaloezieën en tapijten op maat. '
+                . 'Gratis inmeten en advies bij u thuis, vakkundige montage door één team.',
             'site_aciklama_en' => 'Made-to-measure curtains, pleated blinds, roller blinds, venetian '
                 . 'blinds and rugs. Free measuring and advice at your home, expert fitting from one team.',
             'site_aciklama_tr' => 'Ölçüye özel fon perde, plise, stor, jaluzi ve halı. '
@@ -56,6 +58,7 @@ class DatabaseSeeder extends Seeder
             'facebook'  => '',
 
             'calisma_saatleri'    => "Mo–Fr 09:00–18:00\nSa 10:00–16:00 (nach Absprache)",
+            'calisma_saatleri_nl' => "ma–vr 09:00–18:00\nza 10:00–16:00 (op afspraak)",
             'calisma_saatleri_en' => "Mon–Fri 09:00–18:00\nSat 10:00–16:00 (by appointment)",
             'calisma_saatleri_tr' => "Pzt–Cum 09:00–18:00\nCmt 10:00–16:00 (randevu ile)",
 
@@ -63,6 +66,9 @@ class DatabaseSeeder extends Seeder
             'hero_baslik' => "Maßgefertigte Fensterdekoration\nfür Ihr Zuhause",
             'hero_metin'  => 'Von Plissees und Rollos bis zu Vorhängen und handverlesenen Teppichen: '
                 . 'Wir messen kostenlos bei Ihnen aus, beraten Sie in Ruhe und montieren fachgerecht.',
+            'hero_baslik_nl' => "Raamdecoratie op maat\nvoor uw woning",
+            'hero_metin_nl'  => 'Van plissé- en rolgordijnen tot overgordijnen en zorgvuldig uitgezochte tapijten: '
+                . 'wij meten gratis bij u thuis in, nemen de tijd voor advies en monteren alles vakkundig.',
             'hero_baslik_en' => "Made-to-measure window dressing\nfor your home",
             'hero_metin_en'  => 'From pleated and roller blinds to curtains and hand-picked rugs: '
                 . 'we measure at your home free of charge, take the time to advise you and fit everything properly.',
@@ -89,6 +95,19 @@ class DatabaseSeeder extends Seeder
             'hakkimizda_maddeler' => "Kostenloses Aufmaß, keine Anfahrtskosten\nMaßanfertigung auf den Millimeter\n"
                 . "Montage durch eigene Monteure\nStoffmuster zum Vergleich vor Ort\n"
                 . "Feste Preise im schriftlichen Angebot\nBeratung auf Deutsch, Niederländisch, Englisch und Türkisch",
+            'hakkimizda_baslik_nl' => 'Een familiebedrijf voor raamdecoratie — bij u langs met rolmaat en stalenboek',
+            'hakkimizda_metin_nl'  => "MC Gordijnen is een familiebedrijf voor gordijnen, zonwering en tapijten. "
+                . "Wij komen bij u thuis, meten elk raam zelf op en nemen stofstalen mee — "
+                . "want een kleur werkt in uw eigen woonkamer altijd anders dan in de winkel.\n\n"
+                . "Wij werken zonder tussenhandel: advies, inmeten, productie en montage lopen via ons. "
+                . "Zo blijven de lijnen kort, de afspraken betrouwbaar en de prijs navolgbaar. "
+                . "Of het om één dakraam gaat of om de hele woning, om een particulier huis, een kantoor of "
+                . "een vakantiewoning — u krijgt dezelfde zorg.\n\n"
+                . "Naast raamdecoratie leveren wij tapijten en lopers, ook als maatwerk met een omgezoomde "
+                . "rand in precies de maat die uw ruimte nodig heeft.",
+            'hakkimizda_maddeler_nl' => "Gratis inmeten, geen voorrijkosten\nMaatwerk tot op de millimeter\n"
+                . "Montage door onze eigen monteurs\nStofstalen om ter plaatse te vergelijken\n"
+                . "Vaste prijzen in een schriftelijke prijsopgave\nAdvies in het Duits, Nederlands, Engels en Turks",
             'hakkimizda_baslik_en' => 'A family business for window dressing — at your door with tape measure and sample book',
             'hakkimizda_metin_en'  => "MC Gordijnen is a family business for curtains, sun protection and rugs. "
                 . "We come to your home, measure every window ourselves and bring fabric samples with us — "
@@ -132,6 +151,8 @@ class DatabaseSeeder extends Seeder
         $catData = [
             [
                 'slug' => 'gardinen', 'icon' => 'bi-columns-gap', 'image' => $img('kat-gardinen'),
+                'name_nl' => 'Gordijnen & Overgordijnen',
+                'description_nl' => 'Overgordijnen, zijpanelen en vitrage met plooiband, ringen of golfrail — van lichte vitrage tot zware verduisterende stof.',
                 'name_en' => 'Curtains & Drapes',
                 'description_en' => 'Curtains, side panels and voile with pleat tape, eyelets or wave heading — from light voiles to heavy blackout fabrics.',
                 'name' => 'Gardinen & Vorhänge', 'name_tr' => 'Fon Perde & Tül',
@@ -140,6 +161,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'plissees', 'icon' => 'bi-layers', 'image' => $img('kat-plissee'),
+                'name_nl' => 'Plisségordijnen',
+                'description_nl' => 'De allrounder voor dakramen en lastige vormen: van boven en van onder verstelbaar, ook als isolerend duette-plissé.',
                 'name_en' => 'Pleated Blinds',
                 'description_en' => 'The all-rounder for roof windows and awkward shapes: adjustable from the top and the bottom, also available as an insulating honeycomb pleated blind.',
                 'name' => 'Plissees', 'name_tr' => 'Plise Perde',
@@ -148,6 +171,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'rollos', 'icon' => 'bi-window-sidebar', 'image' => $img('kat-rollo'),
+                'name_nl' => 'Rolgordijnen',
+                'description_nl' => 'Strakke lijnen, veel stofkeuze: rolgordijnen met zijtrek of kettingbediening, duo-rolgordijnen en volledige verduistering voor de slaapkamer.',
                 'name_en' => 'Roller Blinds',
                 'description_en' => 'Clean lines, a wide choice of fabrics: side-pull and chain-operated roller blinds, double roller blinds and full blackout for the bedroom.',
                 'name' => 'Rollos', 'name_tr' => 'Stor Perde',
@@ -156,6 +181,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'jalousien', 'icon' => 'bi-list', 'image' => $img('kat-jalousien'),
+                'name_nl' => 'Jaloezieën',
+                'description_nl' => 'Licht doseren in plaats van buitensluiten: houten, bamboe en aluminium lamellen van 25 tot 50 mm, traploos kantelbaar.',
                 'name_en' => 'Venetian Blinds',
                 'description_en' => 'Control the light instead of shutting it out: wooden, bamboo and aluminium slats from 25 to 50 mm, tilting through any angle.',
                 'name' => 'Jalousien', 'name_tr' => 'Jaluzi',
@@ -164,6 +191,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'lamellenvorhaenge', 'icon' => 'bi-distribute-vertical', 'image' => $img('kat-lamellen'),
+                'name_nl' => 'Verticale lamellen',
+                'description_nl' => 'Voor brede raampartijen en terrasdeuren: verticale lamellen die kunnen draaien en volledig naar de zijkant schuiven.',
                 'name_en' => 'Vertical Blinds',
                 'description_en' => 'For wide window fronts and patio doors: vertical slats that rotate and slide completely to one side.',
                 'name' => 'Lamellenvorhänge', 'name_tr' => 'Dikey Lamelli Perde',
@@ -172,6 +201,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'teppiche', 'icon' => 'bi-grid-3x3', 'image' => $img('kat-teppiche'),
+                'name_nl' => 'Tapijten & Lopers',
+                'description_nl' => 'Wol, kelim en laagpolig — van standaardmaten tot tapijt op maat met omgezoomde rand voor trap en hal.',
                 'name_en' => 'Rugs & Runners',
                 'description_en' => 'Wool, kilim and short pile — from standard sizes to made-to-measure rugs with a bound edge for stairs and hallways.',
                 'name' => 'Teppiche & Läufer', 'name_tr' => 'Halı & Yol Halısı',
@@ -192,6 +223,16 @@ class DatabaseSeeder extends Seeder
         $services = [
             [
                 'slug' => 'kostenloses-aufmass', 'icon' => 'bi-rulers',
+                'title_nl' => 'Gratis inmeten & advies',
+                'summary_nl' => 'Wij komen naar u toe, meten elk raam nauwkeurig op en nemen stofstalen mee — gratis en zonder verplichtingen.',
+                'content_nl' => "De afspraak duurt, afhankelijk van het aantal ramen, 30 tot 60 minuten. Wij meten breedte, "
+                    . "hoogte, diepte van de dagkant en de vensterbank, controleren de montageondergrond en bepalen of "
+                    . "montage aan de wand of aan het plafond beter is.\n\n"
+                    . "Daarnaast nemen wij stalenboeken mee: u ziet de stoffen in het licht van uw eigen ruimte, kunt "
+                    . "de doorzichtigheid vergelijken en kleuren naast wand, vloer en meubels houden.\n\n"
+                    . "Aan het einde van de afspraak weet u welke oplossing bij welk raam past. De schriftelijke "
+                    . "prijsopgave ontvangt u meestal binnen twee werkdagen. Inmeten, voorrijden en advies zijn gratis, "
+                    . "ook als u daarna een andere keuze maakt.",
                 'title_en' => "Free measuring & advice",
                 'summary_en' => "We come to you, measure every window precisely and bring fabric samples — free of charge and without obligation.",
                 'content_en' => "Depending on the number of windows the visit takes 30 to 60 minutes. We measure width, height, recess depth and window sill, check the mounting surface and work out whether wall or ceiling fitting makes more sense.\n\nWe also bring sample books: you see the fabrics in the light of your own room, can compare how transparent they are and hold colours against your walls, floor and furniture.\n\nBy the end of the visit you know which solution suits which window. You normally receive the written quotation within two working days. Measuring, travel and advice are free, even if you decide differently afterwards.",
@@ -215,6 +256,14 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'massanfertigung', 'icon' => 'bi-scissors',
+                'title_nl' => 'Maatwerk',
+                'summary_nl' => 'Elk raam is anders. Uw raamdecoratie wordt op basis van onze maten tot op de millimeter gemaakt.',
+                'content_nl' => "Confectiematen passen zelden echt: oude panden staan niet haaks, dakschuintes lopen toe, "
+                    . "dagkanten zijn boven en onder verschillend breed. Daarom maken wij alles op maat.\n\n"
+                    . "Bij gordijnen kiest u de stof, de plooisoort (plooiband, ringen, golfrail) en de zoomafwerking. "
+                    . "Bij plissé-, rolgordijnen en jaloezieën bepaalt u de kleur, de lichtdoorlatendheid, de "
+                    . "bedieningszijde en de montagewijze. Tapijten snijden wij op uw ruimtemaat en de rand zomen wij om.\n\n"
+                    . "De productietijd is doorgaans twee tot vier weken, afhankelijk van de stof.",
                 'title_en' => "Made to measure",
                 'summary_en' => "Every window is different. Your window dressing is made to our measurements, down to the millimetre.",
                 'content_en' => "Off-the-shelf sizes rarely really fit: older buildings are out of square, roof slopes taper, recesses are wider at the top than the bottom. That is why we make everything to measure.\n\nFor curtains you choose the fabric, the heading (pleat tape, eyelets, wave) and the hem. For pleated, roller and venetian blinds you decide the colour, how much light comes through, the operating side and the type of fitting. Rugs are cut to your room size and the edge is bound.\n\nProduction usually takes two to four weeks, depending on the fabric.",
@@ -237,6 +286,14 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'montage', 'icon' => 'bi-tools',
+                'title_nl' => 'Levering & montage',
+                'summary_nl' => 'Eigen monteurs, afgesproken tijden, een schone werkplek — inclusief fijnafstelling ter plaatse.',
+                'content_nl' => "De montage wordt gedaan door onze eigen monteurs, niet door steeds wisselende "
+                    . "onderaannemers. U krijgt een vaste afspraak met een tijdvak.\n\n"
+                    . "Wij nemen gereedschap, montagemateriaal en een stofzuiger mee, beschermen vloer en meubels en "
+                    . "voeren verpakking en boorstof weer af. Na de montage stellen wij trekkoorden, kettinglengtes en "
+                    . "de plooival bij en laten wij u de bediening zien.\n\n"
+                    . "Oude gordijnrails en rolgordijnen demonteren en voeren wij op verzoek meteen af.",
                 'title_en' => "Delivery & fitting",
                 'summary_en' => "Our own fitters, agreed appointments, a clean workplace — including fine adjustment on site.",
                 'content_en' => "Fitting is done by our own fitters, not by changing subcontractors. You get a fixed appointment with a time slot.\n\nWe bring tools, fixings and a vacuum cleaner, protect your floor and furniture and take the packaging and drilling dust away with us. After fitting we adjust cords, chain lengths and the hang of the pleats and show you how everything works.\n\nOn request we also remove and dispose of your old curtain tracks and blinds at the same time.",
@@ -258,6 +315,15 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'sonnen-und-hitzeschutz', 'icon' => 'bi-brightness-high',
+                'title_nl' => 'Zon-, warmte- & inkijkwering',
+                'summary_nl' => 'Warme zolderkamers, spiegeling op beeldschermen, inkijk vanaf de straat — voor elk daarvan is er een eigen oplossing.',
+                'content_nl' => "Warmte houdt u het beste buiten voordat die door het glas komt: duette-plissés met een "
+                    . "reflecterende achterzijde en lichte rolgordijnen met warmtewerende coating verlagen de "
+                    . "kamertemperatuur merkbaar.\n\n"
+                    . "Tegen spiegeling op de werkplek zijn jaloezieën of verticale lamellen in het voordeel, omdat zij "
+                    . "het licht naar boven richten in plaats van het te blokkeren.\n\n"
+                    . "Voor inkijkwering zonder donkerte zijn halftransparante stoffen en duo-rolgordijnen geschikt: "
+                    . "'s overdag inkijkwering bij daglicht, 's avonds volledig dicht.",
                 'title_en' => "Sun, heat & privacy protection",
                 'summary_en' => "Overheated loft rooms, glare on screens, being overlooked from the street — there is a different solution for each.",
                 'content_en' => "Heat is best kept out before it comes through the glass: honeycomb pleated blinds with a reflective backing and light-coloured roller blinds with a heat-protection coating noticeably reduce the room temperature.\n\nAgainst glare at a desk, venetian or vertical blinds have the advantage because they direct light upwards instead of blocking it.\n\nFor privacy without darkness, semi-transparent fabrics and double roller blinds work well: screening in daylight during the day, closed in the evening.",
@@ -280,6 +346,15 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'reinigung-und-aenderung', 'icon' => 'bi-arrow-repeat',
+                'title_nl' => 'Vermaken & reinigen',
+                'summary_nl' => 'Verhuisd of gordijn te lang? Wij korten in, veranderen de ophanging en reinigen uw stoffen.',
+                'content_nl' => "Na een verhuizing passen gordijnen bijna nooit op de nieuwe ramen. Vaak is het de moeite "
+                    . "waard bestaande stoffen in te korten of naar een andere ophanging om te werken in plaats van nieuw "
+                    . "te kopen.\n\n"
+                    . "Wij korten gordijnen in breedte en hoogte in, vervangen plooiband door ringen of golfrail en "
+                    . "vervangen defecte rolgordijnmechanieken en jaloezieladders.\n\n"
+                    . "Ook het afhalen, het vakkundig reinigen en het weer ophangen nemen wij op ons — u hoeft niets te "
+                    . "sjouwen.",
                 'title_en' => "Alterations & cleaning",
                 'summary_en' => "Moved house or curtains too long? We shorten them, change the heading and clean your fabrics.",
                 'content_en' => "After a move, curtains almost never fit the new windows. It is often worth shortening existing fabrics or reworking them onto a different heading rather than buying new.\n\nWe shorten curtains in width and height, swap pleat tape for eyelets or wave heading and replace faulty roller blind mechanisms and venetian blind ladders.\n\nWe also take them down, clean them properly and hang them back up — you do not have to carry anything.",
@@ -301,6 +376,13 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'objekte-und-gewerbe', 'icon' => 'bi-building',
+                'title_nl' => 'Kantoor, praktijk & projecten',
+                'summary_nl' => 'Meerdere ruimtes, één aanspreekpunt: lichtwering, akoestiek en brandvertragende stoffen voor bedrijfsruimtes.',
+                'content_nl' => "Voor kantoren, praktijken, vakantiewoningen en horeca plannen wij complete ruimtes: één "
+                    . "consequent beeld over alle ramen, plus de technische eisen.\n\n"
+                    . "Op verzoek leveren wij brandvertragende stoffen volgens norm, akoestisch werkende gordijnen voor "
+                    . "galmende ruimtes en lichtwering volgens de arbo-richtlijnen.\n\n"
+                    . "De montage kunnen wij buiten uw openingstijden uitvoeren, zodat uw bedrijf door kan blijven lopen.",
                 'title_en' => "Office, practice & commercial",
                 'summary_en' => "Several rooms, one contact: glare protection, acoustics and flame-retardant fabrics for commercial spaces.",
                 'content_en' => "For offices, medical practices, holiday lets and hospitality we plan complete spaces: a consistent look across all windows, plus the technical requirements.\n\nOn request we supply flame-retardant fabrics to standard, acoustically effective curtains for echoing rooms and glare protection in line with workplace guidelines.\n\nWe can carry out the fitting outside your opening hours so that your business keeps running.",
@@ -329,6 +411,81 @@ class DatabaseSeeder extends Seeder
            Yeni bir özellik yazarsanız karşılığını buraya ekleyin; eşleşme yoksa
            Almancası olduğu gibi kalır (site kırılmaz, sadece o satır çevrilmez). */
         $attrTerms = [
+            'nl' => [
+                // anahtarlar
+                'Material' => 'Materiaal',
+                'Lichtdurchlässigkeit' => 'Lichtdoorlatendheid',
+                'Aufhängung' => 'Ophanging',
+                'Montage' => 'Montage',
+                'Pflege' => 'Onderhoud',
+                'Extra' => 'Extra',
+                'Bedienung' => 'Bediening',
+                'Sonderformen' => 'Bijzondere vormen',
+                'Lamellenbreite' => 'Lamelbreedte',
+                'Hinweis' => 'Let op',
+                'Florhöhe' => 'Poolhoogte',
+                'Größen' => 'Maten',
+                'Breiten' => 'Breedtes',
+                'Länge' => 'Lengte',
+                // değerler
+                '70% Polyester, 30% Leinen' => '70% polyester, 30% linnen',
+                '100% Polyester' => '100% polyester',
+                '100% Polyester, 3-lagig' => '100% polyester, 3-laags',
+                '100% Polyester, gestreift' => '100% polyester, gestreept',
+                '100% Schurwolle' => '100% scheerwol',
+                'Polyester, plissiert 20 mm' => 'Polyester, plissé 20 mm',
+                'Polyester mit Verdunkelungsbeschichtung' => 'Polyester met verduisterende coating',
+                'Polyester' => 'Polyester',
+                'Wabenstruktur, Rückseite reflektierend' => 'Honingraatstructuur, reflecterende achterzijde',
+                'Echtholz (Basswood), lackiert' => 'Echt hout (basswood), gelakt',
+                'Aluminium' => 'Aluminium',
+                'Wolle-Baumwoll-Mischung' => 'Wol-katoenmengsel',
+                'Polypropylen-Wolle-Mischung' => 'Polypropyleen-wolmengsel',
+                'halbtransparent' => 'halftransparant',
+                'blickdicht' => 'niet doorschijnend',
+                'verdunkelnd' => 'verduisterend',
+                'transparent' => 'transparant',
+                'lichtdurchlässig' => 'lichtdoorlatend',
+                'halbtransparent bis verdunkelnd' => 'halftransparant tot verduisterend',
+                'stufenlos regelbar' => 'traploos regelbaar',
+                'Faltenband oder Wellenband' => 'plooiband of golfband',
+                'Ösen, Faltenband, Wellenband' => 'ringen, plooiband, golfband',
+                'Schiene oder Stange' => 'rails of roede',
+                'Wand oder Decke' => 'wand of plafond',
+                'Wand, Decke oder Klemmträger' => 'wand, plafond of klemsteunen',
+                'Wand, Decke, Nische oder Klemmträger' => 'wand, plafond, dagkant of klemsteunen',
+                'Bohren oder Klemmträger' => 'boren of klemsteunen',
+                'Wand, Decke oder Nische' => 'wand, plafond of dagkant',
+                '30° Feinwäsche' => 'fijne was op 30°',
+                'thermisch und schalldämpfend' => 'isolerend en geluiddempend',
+                'Hitze- und Kälteschutz' => 'warmte- en koudewering',
+                'Griffbedienung oder Kordel' => 'greep- of koordbediening',
+                'Griff, Kordel oder Motor' => 'greep, koord of motor',
+                'Kettenzug links oder rechts' => 'ketting links of rechts',
+                'Kettenzug oder Motor' => 'kettingbediening of motor',
+                'Kettenzug' => 'kettingbediening',
+                'Wendestab und Zugschnur' => 'kantelstok en trekkoord',
+                'Kette und Schnur oder Motor' => 'ketting en koord of motor',
+                'Dachschräge, Trapez, Dreieck' => 'dakschuinte, trapezium, driehoek',
+                'auch mit seitlicher Führungsschiene' => 'ook met zijgeleiding leverbaar',
+                'nicht für Feuchträume' => 'niet geschikt voor vochtige ruimtes',
+                'für Bad und Küche geeignet' => 'geschikt voor bad en keuken',
+                'auch für schräge Fensterfronten' => 'ook voor schuine raampartijen',
+                'für Fußbodenheizung geeignet' => 'geschikt voor vloerverwarming',
+                'schalldämpfend' => 'geluiddempend',
+                'auch für Treppenstufen' => 'ook voor traptreden',
+                'flach gewebt' => 'vlakgeweven',
+                'ca. 12 mm' => 'ca. 12 mm',
+                'ca. 8 mm' => 'ca. 8 mm',
+                'saugen, professionell reinigen' => 'stofzuigen, professioneel laten reinigen',
+                'Standardmaße und Maßanfertigung' => 'standaardmaten en maatwerk',
+                'nach Maß, Kante eingefasst' => 'op maat, rand omgezoomd',
+                '25 mm' => '25 mm',
+                '50 mm' => '50 mm',
+                '89 oder 127 mm' => '89 of 127 mm',
+                '120×180, 160×230, 200×290 cm' => '120×180, 160×230, 200×290 cm',
+                '67, 80, 100 cm' => '67, 80, 100 cm',
+            ],
             'en' => [
                 // anahtarlar
                 'Material' => 'Material',
@@ -491,6 +648,40 @@ class DatabaseSeeder extends Seeder
             return $out;
         };
 
+        /* Ürünlerin Hollandacası — slug'a göre [ad, kısa açıklama] */
+        $productNl = [
+            'vorhang-leinenoptik-creme' => ['Gordijn linnenlook, crème',
+                'Mooie val in een licht gestructureerde stof in warm crème — de klassieker voor de woonkamer.'],
+            'vorhang-blickdicht-greige' => ['Gordijn niet doorschijnend, greige',
+                'Dichte decoratiestof in greige: houdt inkijk buiten, maar laat nog daglicht door.'],
+            'verdunkelungsvorhang-anthrazit' => ['Verduisterend gordijn, antraciet',
+                'Drielaagse verduisterende stof voor de slaapkamer — donker, zwaar en geluiddempend.'],
+            'store-tuell-goldschimmer' => ['Vitrage met goudglans',
+                'Fijne vitrage met een subtiele gouddraad — filtert het licht zacht zonder de kamer te verduisteren.'],
+            'plissee-weiss-lichtdurchlaessig' => ['Plisségordijn wit, lichtdoorlatend',
+                'Van boven en van onder verstelbaar — het antwoord voor dakramen en badkamers.'],
+            'wabenplissee-sand-thermo' => ['Duette-plissé zand, isolerend',
+                'Dubbele honingraatstructuur met luchtkussen: houdt in de zomer de warmte buiten en in de winter binnen.'],
+            'seitenzugrollo-creme' => ['Rolgordijn met kettingbediening, crème',
+                'Een eenvoudig rolgordijn met kettingbediening in warm crème — de voordeligste maatwerkoplossing.'],
+            'verdunkelungsrollo-anthrazit' => ['Verduisterend rolgordijn, antraciet',
+                'Gecoate stof die vrijwel al het licht buitensluit — voor slaap- en kinderkamers.'],
+            'doppelrollo-greige' => ['Duo-rolgordijn, greige',
+                'Twee lagen met transparante en dichte banen: regel de lichtinval in elke stand.'],
+            'holzjalousie-50mm-natur' => ['Houten jaloezie 50 mm, naturel',
+                'Echt houten lamellen met ladderband — warm, hoogwaardig en traploos kantelbaar.'],
+            'aluminiumjalousie-25mm' => ['Aluminium jaloezie 25 mm',
+                'Smalle aluminium lamellen: slank, geschikt voor vochtige ruimtes en ideaal tegen spiegeling op beeldschermen.'],
+            'lamellenvorhang-127mm-weiss' => ['Verticale lamellen 127 mm, wit',
+                'Voor brede raampartijen en terrasdeuren: draaiende lamellen die volledig naar de zijkant schuiven.'],
+            'kelim-teppich-terra' => ['Kelimtapijt, terracotta',
+                'Vlakgeweven kelim in terracotta, antraciet en goud — slijtvast en geschikt voor vloerverwarming.'],
+            'wollteppich-natur-kurzflor' => ['Wollen tapijt naturel, laagpolig',
+                'Handgeweven scheerwol in natuurtinten: warm onder de voet en dempt contactgeluid.'],
+            'laeufer-vintage-mass' => ['Vintage loper, op maat',
+                'Hal en trap op maat: uw eigen lengte, omgezoomde rand, gedempte vintagelook.'],
+        ];
+
         /* Ürünlerin İngilizcesi — slug'a göre [ad, kısa açıklama] */
         $productEn = [
             'vorhang-leinenoptik-creme' => ['Linen-look Curtain, Cream',
@@ -633,11 +824,13 @@ class DatabaseSeeder extends Seeder
             Product::updateOrCreate(['slug' => $slug], [
                 'category_id'   => $cats[$catSlug]->id,
                 'name'          => $name,
+                'name_nl'       => $productNl[$slug][0] ?? null,
                 'name_en'       => $productEn[$slug][0] ?? null,
                 'name_tr'       => $nameTr,
                 'cover'         => $img($image),
                 'images'        => [$img($image)],
                 'short_desc'    => $short,
+                'short_desc_nl' => $productNl[$slug][1] ?? null,
                 'short_desc_en' => $productEn[$slug][1] ?? null,
                 'short_desc_tr' => $shortTr,
                 // Kısa açıklamayı tekrar etmiyoruz — detay sayfasında ikisi üst üste görünür.
@@ -646,6 +839,11 @@ class DatabaseSeeder extends Seeder
                     . 'Der angegebene Preis ist ein Ausgangspreis und hängt von Maß, Stoff und Ausführung ab. '
                     . 'Ihren verbindlichen Festpreis erhalten Sie nach dem kostenlosen Aufmaß — dabei zeigen wir '
                     . 'Ihnen alle Stoffe und Farben anhand von Musterbüchern in Ihren eigenen Räumen.',
+                'description_nl' => 'Dit model maken wij op maat: u bepaalt de breedte, hoogte, kleur, '
+                    . 'lichtdoorlatendheid en bedieningszijde. De montage doen onze eigen monteurs.' . "\n\n"
+                    . 'De vermelde prijs is een vanafprijs en hangt af van de maat, de stof en de uitvoering. '
+                    . 'Uw bindende vaste prijs ontvangt u na het gratis inmeten — daarbij laten wij u alle stoffen '
+                    . 'en kleuren aan de hand van stalenboeken in uw eigen ruimtes zien.',
                 'description_en' => 'We make this model to measure: you choose the width, height, colour, '
                     . 'how much light comes through and the operating side. Fitting is done by our own fitters.' . "\n\n"
                     . 'The price shown is a starting price and depends on the size, fabric and finish. You receive '
@@ -659,6 +857,7 @@ class DatabaseSeeder extends Seeder
                 'price'      => $price,
                 'price_unit' => $unit,
                 'attributes'    => $attrs,
+                'attributes_nl' => $ceviriAttr($attrs, 'nl'),
                 'attributes_en' => $ceviriAttr($attrs, 'en'),
                 'attributes_tr' => $ceviriAttr($attrs, 'tr'),
                 'featured'   => $featured,
@@ -668,6 +867,22 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------- Yapılan işler ---------------- */
+        /* Projelerin Hollandacası — slug'a göre [başlık, tür, özet] */
+        $projectNl = [
+            'wohnzimmer-wellenvorhang-greige' => ['Woonkamer met golfgordijn', 'Gordijnen',
+                'Raampartij van 4,20 m breed met golfgordijn in greige, plafondrails vlak tegen de wand.'],
+            'holzjalousien-altbau' => ['Houten jaloezieën in een oud pand', 'Jaloezieën',
+                'Zes ramen met houten jaloezieën van 50 mm in de dagkant gemonteerd — lamelkleur afgestemd op de kozijnen.'],
+            'dachfenster-wabenplissee' => ['Dakramen met duette-plissé', 'Plisségordijnen',
+                'Een warme zolder: vier dakschuintes met isolerend duette-plissé, bediening met een telescoopstok.'],
+            'buero-lamellenvorhang' => ['Kantoor met verticale lamellen', 'Verticale lamellen',
+                'Twaalf werkplekken, zuidgevel: lamellen van 127 mm tegen spiegeling op beeldschermen, montage in het weekend.'],
+            'schlafzimmer-verdunkelung' => ['Slaapkamer volledig verduisterd', 'Rolgordijnen',
+                'Verduisterend rolgordijn met zijgeleiding plus een zwaar gordijn — geen lichtkier aan de randen.'],
+            'flur-laeufer-nach-mass' => ['Hal met een loper op maat', 'Tapijten',
+                'Smalle hal in een oud pand, 9,40 m: loper op maat gesneden en omgezoomd, traptreden passend belegd.'],
+        ];
+
         /* Projelerin İngilizcesi — slug'a göre [başlık, tür, özet] */
         $projectEn = [
             'wohnzimmer-wellenvorhang-greige' => ['Living room with wave curtains', 'Curtains',
@@ -713,20 +928,26 @@ class DatabaseSeeder extends Seeder
         foreach ($projects as $i => [$image, $slug, $title, $titleTr, $kind, $kindTr, $loc, $featured, $summary, $summaryTr]) {
             Project::updateOrCreate(['slug' => $slug], [
                 'title'      => $title,
+                'title_nl'   => $projectNl[$slug][0] ?? null,
                 'title_en'   => $projectEn[$slug][0] ?? null,
                 'title_tr'   => $titleTr,
                 'kind'       => $kind,
+                'kind_nl'    => $projectNl[$slug][1] ?? null,
                 'kind_en'    => $projectEn[$slug][1] ?? null,
                 'kind_tr'    => $kindTr,
                 'location'   => $loc,
                 'cover'      => $img($image),
                 'images'     => [$img($image)],
                 'summary'    => $summary,
+                'summary_nl' => $projectNl[$slug][2] ?? null,
                 'summary_en' => $projectEn[$slug][2] ?? null,
                 'summary_tr' => $summaryTr,
                 'content'    => $summary . "\n\n"
                     . 'Ablauf wie immer: kostenloses Aufmaß vor Ort, schriftliches Angebot, Fertigung nach Maß und '
                     . 'Montage durch unsere eigenen Monteure.',
+                'content_nl' => ($projectNl[$slug][2] ?? '') . "\n\n"
+                    . 'De werkwijze is altijd dezelfde: gratis inmeten ter plaatse, een schriftelijke prijsopgave, '
+                    . 'productie op maat en montage door onze eigen monteurs.',
                 'content_en' => ($projectEn[$slug][2] ?? '') . "\n\n"
                     . 'The process is always the same: free measuring on site, a written quotation, '
                     . 'made-to-measure production and fitting by our own fitters.',
@@ -741,6 +962,57 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------- Rehber yazıları ---------------- */
+        /* Yazıların Hollandacası — slug'a göre [kategori, başlık, özet, içerik] */
+        $postNl = [
+            'vorhang-richtig-ausmessen' => [
+                'Advies',
+                'Gordijnen goed opmeten — de vier meestgemaakte fouten',
+                'Te kort, te smal, de rails op de verkeerde hoogte: wie zelf meet, trapt meestal in dezelfde valkuilen. Waar u op moet letten.',
+                "**1. De stoftoeslag voor de plooien vergeten.** Een gordijn heeft 2 tot 2,5 keer de railsbreedte nodig "
+                . "voordat het überhaupt plooien vormt. Wie de railsbreedte als stofbreedte bestelt, krijgt een vlak laken.\n\n"
+                . "**2. Vanaf het verkeerde punt meten.** De hoogte wordt gemeten vanaf de bovenkant van de rails of "
+                . "roede — niet vanaf het kozijn. En de rails hangt idealiter een stukje boven het raam, niet er direct op.\n\n"
+                . "**3. Op maar één plek meten.** In oude panden is een dagkant boven vaak 1–2 cm breder dan onder. "
+                . "Meet boven, in het midden en onder — en gebruik de kleinste maat.\n\n"
+                . "**4. De vloerafstand niet bepalen.** Vloerlange gordijnen moeten óf 1–2 cm boven de vloer zweven óf "
+                . "er bewust op rusten. Alles daartussen ziet uit als een vergissing.\n\n"
+                . "Bij twijfel: tijdens de gratis inmeetafspraak meten wij zelf — en dan zijn wij ook aansprakelijk voor de maten.",
+            ],
+            'welcher-sonnenschutz-passt' => [
+                'Materiaalkennis',
+                'Plissé, rolgordijn of jaloezie — wat past bij welke ruimte?',
+                'Alle drie zitten direct tegen het glas en kosten ongeveer hetzelfde. Het verschil zit in wat ze met het licht doen.',
+                "**Plisségordijnen** zijn de specialist voor bijzondere vormen. Omdat ze van boven *en* van onder "
+                . "verstelbaar zijn, kunt u het midden van een raam vrijlaten — handig in de badkamer en op de begane "
+                . "grond. Voor dakschuintes, trapeziums en driehoeken zijn ze meestal de enige nette oplossing. Als "
+                . "duette-plissé isoleren ze bovendien.\n\n"
+                . "**Rolgordijnen** geven het rustigste beeld: één stofbaan, geen structuur, veel kleurkeuze. Ze regelen "
+                . "licht alleen via de hoogte — helemaal of gedeeltelijk dicht. Met een verduisterende coating en "
+                . "zijgeleiding wordt een slaapkamer echt donker. Het duo-rolgordijn is het compromis voor overdag.\n\n"
+                . "**Jaloezieën** zijn de enige van de drie die licht *richten*: door de lamellen te kantelen stuurt u "
+                . "daglicht naar het plafond zonder het uitzicht helemaal te verliezen. Daarom winnen ze op de werkplek "
+                . "en in de keuken — aluminium kan daar tegen vocht, echt hout niet.\n\n"
+                . "Kort: bijzondere vorm → plissé. Rustig vlak en verduistering → rolgordijn. Lichtwering met uitzicht → jaloezie.",
+            ],
+            'teppich-pflege-und-groesse' => [
+                'Tapijten',
+                'De juiste tapijtmaat kiezen — en uw tapijt mooi houden',
+                'De meestgemaakte fout bij het kopen van een tapijt is niet de kleur maar de maat. En verder: wat wol echt nodig heeft.',
+                "**Maat.** Een te klein tapijt maakt een ruimte onrustig. Vuistregel voor de woonkamer: de voorpoten van "
+                . "de bank en de fauteuils horen op het tapijt te staan. In een eethoek moet het tapijt zo groot zijn dat "
+                . "de stoelen er bij achteruitschuiven niet met de achterpoten afglijden — meestal 60–70 cm meer dan de "
+                . "tafel aan elke zijde. In een hal laat u langs de lange zijden het liefst 10–15 cm vloer vrij.\n\n"
+                . "**Nieuwe pool laat los.** Wollen tapijten laten de eerste weken korte vezels los. Dat is normaal en "
+                . "geen gebrek — regelmatig stofzuigen en het stopt.\n\n"
+                . "**Vlekken direct opnemen, niet wrijven.** Dep met een lichte doek van buiten naar binnen. Wrijven "
+                . "duwt de vlek in de pool en maakt de wol klittig.\n\n"
+                . "**Indrukken.** Meubelpoten laten sporen achter. Leg een ijsblokje op de plek, laat het smelten en til "
+                . "de pool met uw hand op — meestal verdwijnen ze volledig.\n\n"
+                . "**Vloerverwarming.** Vlakgeweven tapijten zoals kelims geleiden warmte goed. Heel dikke, hoogpolige "
+                . "tapijten isoleren juist en verlagen de warmteafgifte.",
+            ],
+        ];
+
         /* Yazıların İngilizcesi — slug'a göre [kategori, başlık, özet, içerik] */
         $postEn = [
             'vorhang-richtig-ausmessen' => [
@@ -878,6 +1150,10 @@ class DatabaseSeeder extends Seeder
         foreach ($posts as $i => [$image, $slug, $cat, $catTr, $title, $titleTr, $summary, $summaryTr, $content, $contentTr]) {
             Post::updateOrCreate(['slug' => $slug], [
                 'title'       => $title,
+                'title_nl'    => $postNl[$slug][1] ?? null,
+                'category_nl' => $postNl[$slug][0] ?? null,
+                'summary_nl'  => $postNl[$slug][2] ?? null,
+                'content_nl'  => $postNl[$slug][3] ?? null,
                 'title_en'    => $postEn[$slug][1] ?? null,
                 'category_en' => $postEn[$slug][0] ?? null,
                 'summary_en'  => $postEn[$slug][2] ?? null,
@@ -899,6 +1175,13 @@ class DatabaseSeeder extends Seeder
          | ÖNEMLİ: Bunlar örnek metinlerdir. Yayına almadan önce müşterinin
          | gerçek yorumlarıyla değiştirilmeli (uydurma referans yayınlanmamalı).
          */
+        /* Yorumların Hollandacası — ada göre */
+        $testimonialNl = [
+            'Familie V.' => 'Zaterdag ingemeten, drie weken later gemonteerd — precies zoals afgesproken. De golfgordijnen hangen kaarsrecht.',
+            'J. de Boer' => 'Onze zolder was in de zomer onbruikbaar. Met de duette-plissés is het nu een paar graden koeler.',
+            'S. Yılmaz'  => 'Advies in onze eigen taal, een schriftelijke prijsopgave met vaste prijs, geen verrassingen op de factuur. Graag weer.',
+        ];
+
         /* Yorumların İngilizcesi — ada göre */
         $testimonialEn = [
             'Familie V.' => 'Measured on Saturday, fitted three weeks later — exactly as agreed. The wave curtains hang perfectly straight.',
@@ -920,9 +1203,11 @@ class DatabaseSeeder extends Seeder
         foreach ($testimonials as [$name, $city, $stars, $comment, $commentTr]) {
             Testimonial::updateOrCreate(['name' => $name], [
                 'title'      => $city,
+                'title_nl'   => $city,
                 'title_en'   => $city,
                 'title_tr'   => $city,
                 'comment'    => $comment,
+                'comment_nl' => $testimonialNl[$name] ?? null,
                 'comment_en' => $testimonialEn[$name] ?? null,
                 'comment_tr' => $commentTr,
                 'stars'      => $stars,

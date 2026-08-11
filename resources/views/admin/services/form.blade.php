@@ -48,6 +48,7 @@ if ($seciliIkon && ! isset($iconlar[$seciliIkon])) {
                 'fields' => [
                     ['name' => 'title', 'label' => 'Başlık', 'required' => true,
                      'placeholder' => 'z. B. Kostenloses Aufmaß & Beratung',
+                     'placeholder_nl' => 'bijv. Gratis inmeten & advies',
                      'placeholder_en' => 'e.g. Free Measuring & Advice',
                      'placeholder_tr' => 'örn. Ücretsiz ölçü & danışmanlık'],
                     ['name' => 'summary', 'label' => 'Özet', 'type' => 'textarea', 'rows' => 3,

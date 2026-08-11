@@ -17,11 +17,18 @@ namespace App\Support;
  */
 final class Locales
 {
-    /** kod => [etiket, html lang, og:locale] */
+    /**
+     * kod => [etiket, html lang, og:locale]
+     *
+     * Sıra menüdeki dil değiştiricinin sırasıdır. Etiketler kasıtlı olarak
+     * dilin KENDİ adıdır (Nederlands, değil "Niederländisch") — ziyaretçi
+     * hangi dili bilmiyorsa da kendi dilini tanır.
+     */
     public const ALL = [
-        'de' => ['Deutsch', 'de', 'de_DE'],
-        'en' => ['English', 'en', 'en_US'],
-        'tr' => ['Türkçe',  'tr', 'tr_TR'],
+        'de' => ['Deutsch',    'de', 'de_DE'],
+        'nl' => ['Nederlands', 'nl', 'nl_NL'],
+        'en' => ['English',    'en', 'en_US'],
+        'tr' => ['Türkçe',     'tr', 'tr_TR'],
     ];
 
     /** @return array<string,string> kod => etiket */
@@ -71,7 +78,7 @@ final class Locales
 
     /**
      * Bir alan adını tüm dillerdeki kolon/anahtar adlarına açar.
-     * `site_aciklama` → ['site_aciklama', 'site_aciklama_en', 'site_aciklama_tr']
+     * `site_aciklama` → ['site_aciklama', 'site_aciklama_nl', 'site_aciklama_en', 'site_aciklama_tr']
      *
      * @param  list<string>  $fields
      * @return list<string>
