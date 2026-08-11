@@ -313,6 +313,9 @@ footer .contact-li a:hover{padding-left:0}
 .wa-float{position:fixed;right:20px;bottom:20px;z-index:1050;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.7rem;box-shadow:0 14px 30px -12px rgba(37,211,102,.8);transition:.25s}
 .wa-float:hover{color:#fff;transform:translateY(-3px) scale(1.05)}
 
+/* Honeypot alanı — görünmez ama display:none DEĞİL (bazı botlar display:none'ı atlar) */
+.hp-field{position:absolute!important;left:-9999px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
+
 /* Sayfalama */
 .pagination{--bs-pagination-color:var(--ink);--bs-pagination-hover-color:var(--primary-text);--bs-pagination-active-bg:var(--primary);--bs-pagination-active-border-color:var(--primary);--bs-pagination-active-color:var(--ink);--bs-pagination-border-color:var(--line);--bs-pagination-focus-box-shadow:0 0 0 .2rem rgba(201,162,39,.2)}
 

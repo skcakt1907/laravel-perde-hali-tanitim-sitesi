@@ -12,7 +12,7 @@
     <div class="image-field">
         <div class="thumb-box {{ $hero ? '' : 'empty' }}">
             @if($hero)
-                <img src="{{ $hero }}" alt="" id="heroPreview">
+                <img src="{{ media($hero) }}" alt="" id="heroPreview">
             @else
                 <span>Görsel yok</span>
             @endif

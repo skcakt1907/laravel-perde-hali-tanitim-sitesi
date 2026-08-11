@@ -52,7 +52,7 @@ class Product extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return $this->cover ?: 'https://placehold.co/800x800/141414/c9a227?text=MC+Gordijnen';
+        return media($this->cover) ?: 'https://placehold.co/800x800/141414/c9a227?text=MC+Gordijnen';
     }
 
     /**
@@ -84,6 +84,9 @@ class Product extends Model
     /** Kapak + galeri, tek dizide */
     public function getGalleryAttribute(): array
     {
-        return array_values(array_filter(array_merge([$this->cover], $this->images ?? [])));
+        return array_values(array_filter(array_map(
+            'media',
+            array_merge([$this->cover], $this->images ?? []),
+        )));
     }
 }

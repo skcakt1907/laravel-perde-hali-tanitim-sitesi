@@ -19,6 +19,12 @@
         ['type' => 'link', 'label' => 'Yapılan İşler', 'icon' => 'images',
          'url' => route('admin.projects.index'), 'active' => str_starts_with($r, 'admin.projects')],
 
+        ['type' => 'section', 'label' => 'İçerik'],
+        ['type' => 'link', 'label' => 'Rehber Yazıları', 'icon' => 'newspaper',
+         'url' => route('admin.posts.index'), 'active' => str_starts_with($r, 'admin.posts')],
+        ['type' => 'link', 'label' => 'Müşteri Yorumları', 'icon' => 'message-square-quote',
+         'url' => route('admin.testimonials.index'), 'active' => str_starts_with($r, 'admin.testimonials')],
+
         ['type' => 'section', 'label' => 'Talepler'],
         ['type' => 'link', 'label' => 'Ölçü Talepleri', 'icon' => 'ruler',
          'url' => route('admin.appointments.index'), 'active' => str_starts_with($r, 'admin.appointments'),

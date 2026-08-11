@@ -35,11 +35,14 @@ class Project extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return $this->cover ?: 'https://placehold.co/900x700/141414/c9a227?text=MC+Gordijnen';
+        return media($this->cover) ?: 'https://placehold.co/900x700/141414/c9a227?text=MC+Gordijnen';
     }
 
     public function getGalleryAttribute(): array
     {
-        return array_values(array_filter(array_merge([$this->cover], $this->images ?? [])));
+        return array_values(array_filter(array_map(
+            'media',
+            array_merge([$this->cover], $this->images ?? []),
+        )));
     }
 }

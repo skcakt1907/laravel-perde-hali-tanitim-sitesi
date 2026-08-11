@@ -59,7 +59,8 @@ trait HandlesUploads
 
         $file->move($path, $name);
 
-        return asset('uploads/' . $dir . '/' . $name);
+        // GÖRELİ yol saklanır — alan adı değişince görseller kırılmasın (bkz. media()).
+        return 'uploads/' . $dir . '/' . $name;
     }
 
     /** Satır satır "Anahtar: Değer" metnini diziye çevirir. */

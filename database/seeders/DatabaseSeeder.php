@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $img = fn (string $name) => url('img/demo/' . $name . '.jpg');
+        // GÖRELİ yol: alan adı değişse bile görseller çalışır (bkz. media() yardımcısı)
+        $img = fn (string $name) => 'img/demo/' . $name . '.jpg';
 
         /* ---------------- Yönetici ---------------- */
         $admin = User::updateOrCreate(['email' => 'admin@ornek-perde.nl'], [
@@ -58,7 +59,7 @@ class DatabaseSeeder extends Seeder
             'calisma_saatleri_en' => "Mon–Fri 09:00–18:00\nSat 10:00–16:00 (by appointment)",
             'calisma_saatleri_tr' => "Pzt–Cum 09:00–18:00\nCmt 10:00–16:00 (randevu ile)",
 
-            'hero_gorsel' => url('img/demo/hero.jpg'),
+            'hero_gorsel' => 'img/demo/hero.jpg',
             'hero_baslik' => "Maßgefertigte Fensterdekoration\nfür Ihr Zuhause",
             'hero_metin'  => 'Von Plissees und Rollos bis zu Vorhängen und handverlesenen Teppichen: '
                 . 'Wir messen kostenlos bei Ihnen aus, beraten Sie in Ruhe und montieren fachgerecht.',
@@ -74,7 +75,7 @@ class DatabaseSeeder extends Seeder
             'istatistik_musteri'  => '3.400',
             'istatistik_bolge'    => '100',
 
-            'hakkimizda_gorsel' => url('img/demo/about.jpg'),
+            'hakkimizda_gorsel' => 'img/demo/about.jpg',
             'hakkimizda_baslik' => 'Ein Familienbetrieb für Fensterdekoration — mit Maßband und Musterbuch bei Ihnen vor Ort',
             'hakkimizda_metin'  => "MC Gordijnen ist ein Familienbetrieb für Gardinen, Sonnenschutz und Teppiche. "
                 . "Wir kommen zu Ihnen nach Hause, messen jedes Fenster selbst aus und bringen Stoffmuster mit — "

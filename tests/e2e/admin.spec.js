@@ -142,6 +142,10 @@ test.describe('Yönetim paneli', () => {
             '/yonetim/categories',
             '/yonetim/services',
             '/yonetim/projects',
+            '/yonetim/posts',
+            '/yonetim/posts/create',
+            '/yonetim/testimonials',
+            '/yonetim/testimonials/create',
             '/yonetim/appointments',
             '/yonetim/messages',
             '/yonetim/settings',
@@ -349,6 +353,140 @@ test.describe('Ayarlar — bölümler', () => {
         // site adı değişmemiş olmalı (sekme başlığından doğrula)
         await page.goto('/yonetim/settings/genel');
         await expect(page.locator('input[name="site_adi"]')).not.toHaveValue('BEYAZ-LISTE-KIRILDI');
+    });
+});
+
+test.describe('İçerik yönetimi (rehber + yorumlar)', () => {
+    test('rehber yazısı eklenip sitede görünüyor, sonra siliniyor', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/posts/create');
+
+        await page.fill('input[name="title"]', 'PW Testbeitrag');
+        await page.fill('input[name="title_en"]', 'PW Test Article');
+        await page.fill('textarea[name="summary"]', 'Kurzfassung aus dem Test.');
+        await page.click('form button[type="submit"]');
+        await expect(page.locator('.alert-success')).toContainText('eklendi');
+
+        // Almanca listede ve İngilizce listede kendi başlığıyla
+        await page.goto('/de/ratgeber');
+        await expect(page.locator('body')).toContainText('PW Testbeitrag');
+        await page.goto('/en/ratgeber');
+        await expect(page.locator('body')).toContainText('PW Test Article');
+
+        // temizle
+        await page.goto('/yonetim/posts');
+        page.once('dialog', d => d.accept());
+        await page.locator('tr', { hasText: 'PW Testbeitrag' }).locator('button.danger').click();
+        await expect(page.locator('.alert-success')).toContainText('silindi');
+    });
+
+    test('müşteri yorumu eklenip anasayfada görünüyor, sonra siliniyor', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/testimonials/create');
+
+        await page.fill('input[name="name"]', 'PW Kunde');
+        await page.fill('textarea[name="comment"]', 'Sehr zufrieden mit dem Test.');
+        await page.selectOption('select[name="stars"]', '4');
+        await page.click('form button[type="submit"]');
+        await expect(page.locator('.alert-success')).toContainText('eklendi');
+
+        await page.goto('/de');
+        await expect(page.locator('body')).toContainText('PW Kunde');
+
+        await page.goto('/yonetim/testimonials');
+        page.once('dialog', d => d.accept());
+        await page.locator('tr', { hasText: 'PW Kunde' }).locator('button.danger').click();
+        await expect(page.locator('.alert-success')).toContainText('silindi');
+    });
+});
+
+test.describe('Formlar — spam koruması', () => {
+    test('honeypot dolu gönderim kayıt oluşturmuyor', async ({ page }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim/messages');
+        const oncekiSatir = await page.locator('.data-table tbody tr').count();
+
+        await page.goto('/tr/kontakt');
+        await page.fill('input[name="name"]', 'PW Bot');
+        await page.fill('textarea[name="message"]', 'Bot mesaji');
+        await page.check('input[name="privacy"]');
+        await page.fill('input[name="website"]', 'http://spam.example');   // honeypot
+        await page.click('form button[type="submit"]');
+
+        // Kullanıcıya başarı gösterilir (bota ipucu vermemek için) ama kayıt açılmaz
+        await expect(page.locator('.alert-success')).toBeVisible();
+
+        await page.goto('/yonetim/messages');
+        await expect(page.locator('.data-table tbody tr')).toHaveCount(oncekiSatir);
+        await expect(page.locator('body')).not.toContainText('PW Bot');
+    });
+
+    test('honeypot alanı görüntü alanının dışında', async ({ page }) => {
+        await page.goto('/de/aufmass');
+
+        // Bilinçli olarak display:none DEĞİL (bazı botlar onu atlar); ekran dışına itiliyor.
+        const box = await page.locator('input[name="website"]').boundingBox();
+        expect(box.x + box.width, 'honeypot ekranın solunda kalmalı').toBeLessThan(0);
+    });
+});
+
+test.describe('Dış bağımlılık ve hata sayfaları', () => {
+    test('sayfa hiçbir dış sunucuya istek atmıyor', async ({ page, baseURL }) => {
+        const kendiHost = new URL(baseURL).host;
+        const disHost = new Set();
+
+        page.on('request', (req) => {
+            const url = req.url();
+            if (url.startsWith('data:') || url.startsWith('blob:')) return;
+            const host = new URL(url).host;
+            if (host !== kendiHost) disHost.add(host);
+        });
+
+        await page.goto('/de', { waitUntil: 'networkidle' });
+
+        // Görseller de göreli yoldan geldiği için başka bir host görünmemeli
+        // (mutlak URL saklanırsa alan adı değişince kırılır — bkz. media() yardımcısı).
+        expect([...disHost], 'dış host listesi boş olmalı').toEqual([]);
+    });
+
+    test('fontlar ve Bootstrap yerelden sunuluyor', async ({ request }) => {
+        for (const yol of [
+            '/css/fonts.css',
+            '/vendor/bootstrap/bootstrap.min.css',
+            '/vendor/bootstrap/bootstrap.bundle.min.js',
+            '/vendor/bootstrap-icons/bootstrap-icons.min.css',
+            '/vendor/bootstrap-icons/fonts/bootstrap-icons.woff2',
+        ]) {
+            const resp = await request.get(yol);
+            expect(resp.status(), yol).toBe(200);
+        }
+    });
+
+    test('404 sayfası dil önekine göre çeviriliyor', async ({ page }) => {
+        const beklenen = {
+            de: 'Diese Seite gibt es nicht',
+            en: 'This page does not exist',
+            tr: 'Böyle bir sayfa yok',
+        };
+
+        for (const [locale, metin] of Object.entries(beklenen)) {
+            const resp = await page.goto(`/${locale}/olmayan-sayfa`);
+            expect(resp.status(), `${locale} durum`).toBe(404);
+            await expect(page.locator('h1'), `${locale} metin`).toContainText(metin);
+        }
+    });
+
+    test('404 sayfasında ana menü bağlantıları var', async ({ page }) => {
+        await page.goto('/de/olmayan-sayfa');
+        await expect(page.locator('.err-links a')).toHaveCount(5);
+        await expect(page.locator('.err-actions')).toContainText('Startseite');
+    });
+
+    test('robots.txt mutlak sitemap adresi veriyor', async ({ request }) => {
+        const resp = await request.get('/robots.txt');
+        const body = await resp.text();
+        expect(body).toContain('Disallow: /yonetim');
+        expect(body).toMatch(/Sitemap: https?:\/\/.+\/sitemap\.xml/);
     });
 });
 

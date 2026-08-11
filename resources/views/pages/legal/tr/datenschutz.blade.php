@@ -51,8 +51,9 @@
 <h2>6. Çerezler ve dış servisler</h2>
 <p>
     Bu site teknik olarak gerekli çerezleri kullanır (oturum ve formların kötüye kullanıma
-    karşı korunması için). Yazı tipleri ve tasarım öğeleri dış sağlayıcılardan (Google Fonts,
-    jsDelivr CDN) yüklenir; bu sırada IP adresiniz ilgili sağlayıcıya iletilir. Ayrıntılar
+    karşı korunması için). <strong>Yazı tipleri, ikonlar ve diğer tüm tasarım dosyaları
+    yalnızca kendi sunucumuzdan yüklenir</strong> — Google Fonts, CDN ya da başka bir üçüncü
+    tarafa bağlantı kurulmaz ve IP adresiniz kimseyle paylaşılmaz. Ayrıntılar
     <a href="{{ route('legal', 'cookies') }}">Çerez Bilgilendirmesi</a> sayfasındadır.
 </p>
 

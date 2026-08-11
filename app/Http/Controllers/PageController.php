@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactMessageMail;
+use App\Mail\AufmassConfirmation;
 use App\Mail\AufmassRequested;
+use App\Mail\ContactConfirmation;
+use App\Mail\ContactMessageMail;
 use App\Models\Appointment;
 use App\Models\Category;
 use App\Models\ContactMessage;
@@ -59,6 +61,16 @@ class PageController extends Controller
         return view('pages.contact');
     }
 
+    /**
+     * Honeypot: CSS ile gizlenmiş `website` alanı insanlar tarafından hiç doldurulmaz,
+     * botlar ise her alanı doldurur. Doluysa isteği sessizce başarılı sayıyoruz —
+     * bota "yakalandın" demiyoruz, ama kayıt açılmıyor ve mail gitmiyor.
+     */
+    protected function botMu(Request $request): bool
+    {
+        return filled($request->input('website'));
+    }
+
     public function contactStore(Request $request)
     {
         $data = $request->validate([
@@ -68,9 +80,14 @@ class PageController extends Controller
             'subject' => 'nullable|string|max:160',
             'message' => 'required|string|max:2000',
             'privacy' => 'accepted',
+            'website' => 'nullable|string|max:200',   // honeypot
         ]);
 
-        unset($data['privacy']);
+        if ($this->botMu($request)) {
+            return back()->with('success', __('site.contact.sent'));
+        }
+
+        unset($data['privacy'], $data['website']);
         $data['locale'] = app()->getLocale();
 
         $message = ContactMessage::create($data);
@@ -78,6 +95,11 @@ class PageController extends Controller
         try {
             if ($adminMail = setting('eposta')) {
                 Mail::to($adminMail)->send(new ContactMessageMail($message));
+            }
+
+            // Ziyaretçiye kendi dilinde onay
+            if ($message->email) {
+                Mail::to($message->email)->send(new ContactConfirmation($message));
             }
         } catch (\Throwable $e) {
             Log::error('İletişim maili gönderilemedi', ['err' => $e->getMessage()]);
@@ -108,9 +130,14 @@ class PageController extends Controller
             'time'    => 'nullable|string|max:20',
             'note'    => 'nullable|string|max:1500',
             'privacy' => 'accepted',
+            'website' => 'nullable|string|max:200',   // honeypot
         ]);
 
-        unset($data['privacy']);
+        if ($this->botMu($request)) {
+            return back()->with('success', __('site.aufmass.sent'));
+        }
+
+        unset($data['privacy'], $data['website']);
         $data['locale'] = app()->getLocale();
 
         $appointment = Appointment::create($data);
@@ -119,8 +146,13 @@ class PageController extends Controller
             if ($adminMail = setting('eposta')) {
                 Mail::to($adminMail)->send(new AufmassRequested($appointment));
             }
+
+            // Ziyaretçiye kendi dilinde onay
+            if ($appointment->email) {
+                Mail::to($appointment->email)->send(new AufmassConfirmation($appointment));
+            }
         } catch (\Throwable $e) {
-            Log::error('Aufmaß bildirim maili gönderilemedi', ['err' => $e->getMessage()]);
+            Log::error('Aufmaß maili gönderilemedi', ['err' => $e->getMessage()]);
         }
 
         return back()->with('success', __('site.aufmass.sent'));

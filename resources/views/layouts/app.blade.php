@@ -21,11 +21,11 @@
     <meta property="og:image" content="@yield('og_image', asset('img/og-image.jpg'))">
     <meta property="og:locale" content="{{ \App\Support\Locales::ogLocale() }}">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+{{-- Tüm varlıklar YEREL: dışarıya (Google Fonts / CDN) hiç istek gitmez.
+         Böylece ziyaretçinin IP'si üçüncü taraflara aktarılmaz — çerez bandına gerek kalmaz. --}}
+    <link href="{{ asset('css/fonts.css') }}?v={{ filemtime(public_path('css/fonts.css')) }}" rel="stylesheet">
+    <link href="{{ asset('vendor/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}?v={{ filemtime(public_path('css/style.css')) }}" rel="stylesheet">
     <link href="{{ asset('css/catalog.css') }}?v={{ filemtime(public_path('css/catalog.css')) }}" rel="stylesheet">
 </head>
@@ -50,7 +50,7 @@
        title="WhatsApp" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
 @endif
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
 <script>
     // navbar scroll efekti
     const nav = document.querySelector('.navbar');

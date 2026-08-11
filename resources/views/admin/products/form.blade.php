@@ -127,7 +127,7 @@
                 <div class="section-title"><i data-lucide="image"></i> Görseller</div>
 
                 @if($product->cover)
-                    <img src="{{ $product->cover }}" class="img-preview" alt="">
+                    <img src="{{ media($product->cover) }}" class="img-preview" alt="">
                 @endif
 
                 <div class="form-group">
@@ -145,7 +145,7 @@
                         <div class="gallery-keep">
                             @foreach($product->images as $img)
                                 <div class="gallery-keep-item">
-                                    <img src="{{ $img }}" alt="">
+                                    <img src="{{ media($img) }}" alt="">
                                     <label><input type="checkbox" name="keep_images[]" value="{{ $img }}" checked> Kalsın</label>
                                 </div>
                             @endforeach

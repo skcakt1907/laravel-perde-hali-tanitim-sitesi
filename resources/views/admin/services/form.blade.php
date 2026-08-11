@@ -87,7 +87,7 @@ if ($seciliIkon && ! isset($iconlar[$seciliIkon])) {
             <div class="card">
                 <div class="section-title"><i data-lucide="image"></i> Detay sayfası görseli</div>
                 @if($service->image)
-                    <img src="{{ $service->image }}" class="img-preview" alt="">
+                    <img src="{{ media($service->image) }}" class="img-preview" alt="">
                 @endif
                 <div class="form-group">
                     <label class="form-label">Görsel URL</label>

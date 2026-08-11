@@ -181,4 +181,32 @@ return [
         'widerruf'     => 'Widerrufsrecht',
         'cookies'      => 'Cookie-Hinweise',
     ],
+    /* ---- Fehlerseiten ---- */
+    'errors' => [
+        'home' => 'Zur Startseite',
+        'e404' => [
+            'title' => 'Diese Seite gibt es nicht',
+            'text'  => 'Die Adresse ist falsch oder die Seite wurde verschoben. '
+                . 'Über das Menü unten finden Sie weiter.',
+        ],
+        'e403' => [
+            'title' => 'Kein Zugriff',
+            'text'  => 'Für diesen Bereich fehlt die Berechtigung.',
+        ],
+        'e419' => [
+            'title' => 'Sitzung abgelaufen',
+            'text'  => 'Das Formular war zu lange offen. Bitte laden Sie die Seite neu '
+                . 'und senden Sie es erneut ab.',
+        ],
+        'e500' => [
+            'title' => 'Etwas ist schiefgelaufen',
+            'text'  => 'Ein technischer Fehler ist aufgetreten. Bitte versuchen Sie es später '
+                . 'noch einmal — oder rufen Sie uns einfach an.',
+        ],
+        'e503' => [
+            'title' => 'Kurz nicht erreichbar',
+            'text'  => 'Wir führen gerade Wartungsarbeiten durch und sind in wenigen Minuten '
+                . 'wieder da.',
+        ],
+    ],
 ];

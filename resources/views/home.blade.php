@@ -7,7 +7,7 @@
 
 {{-- ===================== HERO ===================== --}}
 <section class="hero">
-    <img class="hero-bg" src="{{ setting('hero_gorsel', asset('img/demo/hero.jpg')) }}" alt="">
+    <img class="hero-bg" src="{{ media(setting('hero_gorsel'), 'img/demo/hero.jpg') }}" alt="">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
@@ -223,7 +223,7 @@
                             <p>{{ $t->t('comment') }}</p>
                             <div class="testi-user">
                                 @if($t->photo)
-                                    <img src="{{ $t->photo }}" alt="{{ $t->name }}" loading="lazy">
+                                    <img src="{{ media($t->photo) }}" alt="{{ $t->name }}" loading="lazy">
                                 @else
                                     <div class="avatar-fallback">{{ Str::upper(Str::substr($t->name, 0, 1)) }}</div>
                                 @endif

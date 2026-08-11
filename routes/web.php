@@ -15,6 +15,23 @@ Route::get('/', fn () => redirect('/' . config('app.fallback_locale')));
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
+/* robots.txt rota olarak sunulur — Sitemap satırındaki MUTLAK adres alan adına göre
+   kendiliğinden doğru olsun diye (statik dosyada elle güncellemek gerekiyordu). */
+Route::get('/robots.txt', function () {
+    $lines = [
+        'User-agent: *',
+        'Disallow: /yonetim',
+        'Disallow: /giris',
+        'Allow: /',
+        '',
+        'Sitemap: ' . route('sitemap'),
+    ];
+
+    return response(implode("
+", $lines) . "
+")->header('Content-Type', 'text/plain');
+})->name('robots');
+
 /* ---------------- Vitrin (dil önekli) ----------------
  | Yol adları Almanca; dil yalnızca önekte değişir (/de/produkte, /tr/produkte).
  | SetLocale middleware'i URL::defaults ile {locale}'i doldurur, bu yüzden
@@ -42,10 +59,14 @@ Route::prefix('{locale}')
         Route::get('/ueber-uns', [PageController::class, 'about'])->name('about');
 
         Route::get('/kontakt', [PageController::class, 'contact'])->name('contact');
-        Route::post('/kontakt', [PageController::class, 'contactStore'])->name('contact.store');
-
         Route::get('/aufmass', [PageController::class, 'aufmass'])->name('aufmass');
-        Route::post('/aufmass', [PageController::class, 'aufmassStore'])->name('aufmass.store');
+
+        // Herkese açık formlar: IP başına dakikada en fazla 5 gönderim (spam/bot freni).
+        // Ek olarak formlarda honeypot alanı var (bkz. PageController::botMu).
+        Route::middleware('throttle:5,1')->group(function () {
+            Route::post('/kontakt', [PageController::class, 'contactStore'])->name('contact.store');
+            Route::post('/aufmass', [PageController::class, 'aufmassStore'])->name('aufmass.store');
+        });
 
         Route::get('/seite/{slug}', [LegalController::class, 'show'])->name('legal');
     });
@@ -65,6 +86,8 @@ Route::middleware(['auth', 'admin'])->prefix('yonetim')->name('admin.')->group(f
     Route::resource('categories', Admin\CategoryController::class)->except('show');
     Route::resource('projects', Admin\ProjectController::class)->except('show');
     Route::resource('services', Admin\ServiceController::class)->except('show');
+    Route::resource('posts', Admin\PostController::class)->except('show');
+    Route::resource('testimonials', Admin\TestimonialController::class)->except('show');
 
     // Ayarlar bölümlere ayrıldı (genel / iletisim / sosyal / anasayfa / hakkimizda / kunye)
     Route::get('/settings/{page?}', [Admin\SettingController::class, 'edit'])->name('settings.edit');

@@ -181,4 +181,28 @@ return [
         'widerruf'     => 'Cayma Hakkı',
         'cookies'      => 'Çerez Bilgilendirmesi',
     ],
+    /* ---- Hata sayfaları ---- */
+    'errors' => [
+        'home' => 'Anasayfaya dön',
+        'e404' => [
+            'title' => 'Böyle bir sayfa yok',
+            'text'  => 'Adres yanlış ya da sayfa taşınmış. Aşağıdaki menüden devam edebilirsiniz.',
+        ],
+        'e403' => [
+            'title' => 'Erişim yok',
+            'text'  => 'Bu bölüm için yetkiniz bulunmuyor.',
+        ],
+        'e419' => [
+            'title' => 'Oturum süresi doldu',
+            'text'  => 'Form çok uzun süre açık kaldı. Lütfen sayfayı yenileyip tekrar gönderin.',
+        ],
+        'e500' => [
+            'title' => 'Bir şeyler ters gitti',
+            'text'  => 'Teknik bir hata oluştu. Lütfen daha sonra tekrar deneyin — ya da bizi arayın.',
+        ],
+        'e503' => [
+            'title' => 'Kısa süre erişilemiyor',
+            'text'  => 'Bakım çalışması yapıyoruz, birkaç dakika içinde geri döneceğiz.',
+        ],
+    ],
 ];

@@ -89,6 +89,12 @@
                             <label class="form-label" for="c-message">{{ __('site.form.message') }} *</label>
                             <textarea id="c-message" name="message" rows="6" class="form-control" required>{{ old('message') }}</textarea>
                         </div>
+                        {{-- Honeypot: ekran okuyucudan ve gözden gizli; yalnızca botlar doldurur --}}
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="c-website">Website</label>
+                            <input type="text" id="c-website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <div class="col-12">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="privacy" value="1" id="c-privacy" required>

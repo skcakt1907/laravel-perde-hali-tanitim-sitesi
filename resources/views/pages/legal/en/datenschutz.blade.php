@@ -52,8 +52,9 @@
 <h2>6. Cookies and external services</h2>
 <p>
     This website uses technically necessary cookies (for the session and to protect forms
-    against misuse). Fonts and design elements are loaded from external providers (Google
-    Fonts, jsDelivr CDN); in doing so your IP address is transmitted to the provider concerned.
+    against misuse). <strong>Fonts, icons and all other design files are served exclusively
+    from our own server</strong> — no Google Fonts, CDNs or other third parties are involved,
+    and your IP address is not passed on to anyone.
     Details can be found in our <a href="{{ route('legal', 'cookies') }}">cookie notice</a>.
 </p>
 

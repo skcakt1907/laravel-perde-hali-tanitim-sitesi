@@ -15,7 +15,7 @@
         <div class="row g-5">
             <div class="col-lg-8">
                 @if($service->image)
-                    <img src="{{ $service->image }}" alt="{{ $service->t('title') }}"
+                    <img src="{{ media($service->image) }}" alt="{{ $service->t('title') }}"
                          style="width:100%;border-radius:12px;margin-bottom:2rem">
                 @endif
                 <div class="prose">

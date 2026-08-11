@@ -28,6 +28,26 @@ if (! function_exists('tsetting')) {
     }
 }
 
+if (! function_exists('media')) {
+    /**
+     * Görsel adresi. Göreli yol verilirse asset()'e çevirir, mutlak URL'i
+     * (http/https veya //) olduğu gibi bırakır.
+     *
+     * Neden: görselleri göreli saklıyoruz ki alan adı değişince (canlıya çıkış,
+     * https, farklı port) hiçbir görsel kırılmasın.
+     */
+    function media(?string $path, ?string $default = null): ?string
+    {
+        $path = filled($path) ? $path : $default;
+
+        if (blank($path)) {
+            return null;
+        }
+
+        return preg_match('#^(https?:)?//#i', $path) ? $path : asset(ltrim($path, '/'));
+    }
+}
+
 if (! function_exists('money')) {
     function money($amount): string
     {

@@ -52,9 +52,10 @@
 <h2>6. Cookies und externe Dienste</h2>
 <p>
     Diese Website setzt technisch notwendige Cookies ein (z. B. für die Sitzung und den
-    Schutz von Formularen vor Missbrauch). Für Schriftarten und Gestaltungselemente werden
-    Inhalte von externen Anbietern (Google Fonts, jsDelivr CDN) geladen; dabei wird Ihre
-    IP-Adresse an den jeweiligen Anbieter übermittelt. Details finden Sie in unseren
+    Schutz von Formularen vor Missbrauch). <strong>Schriftarten, Symbole und alle weiteren
+    Gestaltungsdateien werden ausschließlich von unserem eigenen Server geladen</strong> —
+    es findet keine Einbindung von Google Fonts, CDNs oder anderen Drittanbietern statt und
+    Ihre IP-Adresse wird dabei an niemanden weitergegeben. Details finden Sie in unseren
     <a href="{{ route('legal', 'cookies') }}">Cookie-Hinweisen</a>.
 </p>
 

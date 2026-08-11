@@ -7,6 +7,7 @@
     <meta name="theme-color" content="#2563eb">
     <title>Yönetim Girişi — {{ setting('site_adi') }}</title>
     <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="any">
+    <link href="{{ asset('css/fonts.css') }}?v={{ @filemtime(public_path('css/fonts.css')) ?: time() }}" rel="stylesheet">
     <link rel="stylesheet"
           href="{{ asset('css/admin-theme.css') }}?v={{ @filemtime(public_path('css/admin-theme.css')) ?: time() }}">
     <script src="{{ asset('vendor/lucide/lucide.min.js') }}" defer></script>

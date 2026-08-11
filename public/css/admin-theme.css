@@ -4,8 +4,10 @@
    Palet: MAVİ / BEYAZ
    ═══════════════════════════════════════════════════════════ */
 
-/* ─── FONT ─────────────────────────────────────────────────── */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+/* ─── FONT ───────────────────────────────────────────────────
+   Poppins YEREL olarak public/css/fonts.css içinde tanımlıdır;
+   şablonlar onu bu dosyadan ÖNCE yükler. Buraya @import KOYMA:
+   dış istek hem gecikme hem AB veri aktarımı demek. */
 
 /* ─── CSS DEĞİŞKENLERİ ─────────────────────────────────────── */
 :root {

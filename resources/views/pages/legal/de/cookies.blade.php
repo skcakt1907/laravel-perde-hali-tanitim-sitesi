@@ -13,14 +13,15 @@
 <h2>Welche Cookies wir einsetzen</h2>
 <table>
     <tr><td>Sitzungs-Cookie</td><td>Hält Ihre Sitzung aufrecht und schützt Formulare (CSRF-Token). Technisch notwendig, wird beim Schließen des Browsers bzw. nach kurzer Zeit gelöscht.</td></tr>
-    <tr><td>Spracheinstellung</td><td>Die gewählte Sprache steht in der Adresse der Seite (/de/ oder /tr/) und wird nicht in einem Cookie gespeichert.</td></tr>
+    <tr><td>Spracheinstellung</td><td>Die gewählte Sprache steht in der Adresse der Seite (/de/, /en/ oder /tr/) und wird nicht in einem Cookie gespeichert.</td></tr>
 </table>
 
 <h2>Externe Inhalte</h2>
 <p>
-    Für Schriftarten und Gestaltungselemente laden wir Dateien von Google Fonts und dem
-    jsDelivr-CDN. Dabei wird Ihre IP-Adresse an den jeweiligen Anbieter übermittelt. Diese
-    Anbieter setzen dabei keine Cookies für Werbezwecke.
+    <strong>Diese Website lädt keine Inhalte von Drittanbietern.</strong> Schriftarten
+    (Inter, Playfair Display) und Symbole liegen auf unserem eigenen Server. Es werden also
+    keine Verbindungen zu Google Fonts, CDNs oder Tracking-Diensten aufgebaut — Ihre
+    IP-Adresse verlässt unseren Server nicht.
 </p>
 
 <h2>Analyse- und Marketing-Cookies</h2>

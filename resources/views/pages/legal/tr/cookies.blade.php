@@ -13,14 +13,14 @@
 <h2>Kullandığımız çerezler</h2>
 <table>
     <tr><td>Oturum çerezi</td><td>Oturumunuzu sürdürür ve formları korur (CSRF anahtarı). Teknik olarak gereklidir; tarayıcı kapandığında veya kısa süre sonra silinir.</td></tr>
-    <tr><td>Dil seçimi</td><td>Seçilen dil sayfanın adresinde yer alır (/de/ veya /tr/) ve çerezde saklanmaz.</td></tr>
+    <tr><td>Dil seçimi</td><td>Seçilen dil sayfanın adresinde yer alır (/de/, /en/ veya /tr/) ve çerezde saklanmaz.</td></tr>
 </table>
 
 <h2>Dış içerikler</h2>
 <p>
-    Yazı tipleri ve tasarım öğeleri için Google Fonts ve jsDelivr CDN üzerinden dosya
-    yüklüyoruz. Bu sırada IP adresiniz ilgili sağlayıcıya iletilir. Bu sağlayıcılar reklam
-    amaçlı çerez yerleştirmez.
+    <strong>Bu site hiçbir üçüncü taraf içeriği yüklemez.</strong> Yazı tipleri
+    (Inter, Playfair Display) ve ikonlar kendi sunucumuzda barındırılır. Google Fonts, CDN
+    veya izleme servislerine bağlantı kurulmaz — IP adresiniz sunucumuzun dışına çıkmaz.
 </p>
 
 <h2>Analiz ve pazarlama çerezleri</h2>

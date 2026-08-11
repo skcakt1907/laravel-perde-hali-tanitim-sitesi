@@ -12,6 +12,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Dili yönlendirmeden ÖNCE belirler — hata sayfaları da doğru dilde gelsin diye
+        $middleware->prepend(\App\Http\Middleware\DetectLocaleFromPath::class);
+
         $middleware->alias([
             'admin'     => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'setlocale' => \App\Http\Middleware\SetLocale::class,

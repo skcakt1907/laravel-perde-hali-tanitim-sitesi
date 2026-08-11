@@ -28,6 +28,6 @@ class Post extends Model
 
     public function getImageUrlAttribute(): string
     {
-        return $this->image ?: 'https://placehold.co/900x600/141414/c9a227?text=MC+Gordijnen';
+        return media($this->image) ?: 'https://placehold.co/900x600/141414/c9a227?text=MC+Gordijnen';
     }
 }

@@ -16,7 +16,7 @@
         <div class="row g-5 align-items-center">
             <div class="col-lg-6">
                 <div class="about-img-wrap">
-                    <img src="{{ setting('hakkimizda_gorsel', asset('img/demo/about.jpg')) }}" alt="{{ setting('site_adi') }}">
+                    <img src="{{ media(setting('hakkimizda_gorsel'), 'img/demo/about.jpg') }}" alt="{{ setting('site_adi') }}">
                     <div class="exp-badge">
                         <span class="num">{{ setting('istatistik_yil', '15') }}+</span>
                         <span class="lbl">{{ __('site.stats.years_short') }}</span>

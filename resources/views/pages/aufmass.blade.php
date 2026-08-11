@@ -76,6 +76,12 @@
                             <textarea id="a-note" name="note" rows="5" class="form-control"
                                       placeholder="{{ __('site.aufmass.note_hint') }}">{{ old('note') }}</textarea>
                         </div>
+                        {{-- Honeypot: ekran okuyucudan ve gözden gizli; yalnızca botlar doldurur --}}
+                        <div class="hp-field" aria-hidden="true">
+                            <label for="a-website">Website</label>
+                            <input type="text" id="a-website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
                         <div class="col-12">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="privacy" value="1" id="a-privacy" required>

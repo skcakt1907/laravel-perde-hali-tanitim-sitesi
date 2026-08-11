@@ -18,9 +18,9 @@
 
 <h2>External content</h2>
 <p>
-    For fonts and design elements we load files from Google Fonts and the jsDelivr CDN. In doing
-    so your IP address is transmitted to the provider concerned. These providers do not set
-    cookies for advertising purposes in this process.
+    <strong>This website does not load any third-party content.</strong> The fonts
+    (Inter, Playfair Display) and the icons are hosted on our own server. No connections are
+    made to Google Fonts, CDNs or tracking services — your IP address never leaves our server.
 </p>
 
 <h2>Analytics and marketing cookies</h2>

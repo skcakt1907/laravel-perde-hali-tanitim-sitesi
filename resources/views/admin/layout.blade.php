@@ -20,8 +20,9 @@ Yapı: İş Ortağım panel mimarisi · Palet: mavi/beyaz
     <link rel="stylesheet"
           href="{{ asset('css/admin-theme.css') }}?v={{ @filemtime(public_path('css/admin-theme.css')) ?: time() }}">
 
-    {{-- Bootstrap Icons: ürün/kategori ikon seçicileri bu setten seçiyor --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    {{-- Fontlar ve ikonlar yerel — panelden de dışarıya istek gitmez --}}
+    <link href="{{ asset('css/fonts.css') }}?v={{ @filemtime(public_path('css/fonts.css')) ?: time() }}" rel="stylesheet">
+    <link href="{{ asset('vendor/bootstrap-icons/bootstrap-icons.min.css') }}" rel="stylesheet">
 
     {{-- Lucide (yerel — CDN engellemelerine takılmasın) --}}
     <script src="{{ asset('vendor/lucide/lucide.min.js') }}" defer></script>

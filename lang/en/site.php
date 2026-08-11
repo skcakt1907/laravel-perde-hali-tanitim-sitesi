@@ -191,4 +191,29 @@ return [
         'widerruf'    => 'Right of withdrawal',
         'cookies'     => 'Cookie notice',
     ],
+    /* ---- Error pages ---- */
+    'errors' => [
+        'home' => 'Back to the homepage',
+        'e404' => [
+            'title' => 'This page does not exist',
+            'text'  => 'The address is wrong or the page has moved. '
+                . 'The menu below will help you find your way.',
+        ],
+        'e403' => [
+            'title' => 'No access',
+            'text'  => 'You do not have permission for this area.',
+        ],
+        'e419' => [
+            'title' => 'Session expired',
+            'text'  => 'The form was open for too long. Please reload the page and send it again.',
+        ],
+        'e500' => [
+            'title' => 'Something went wrong',
+            'text'  => 'A technical error occurred. Please try again later — or simply give us a call.',
+        ],
+        'e503' => [
+            'title' => 'Briefly unavailable',
+            'text'  => 'We are carrying out maintenance and will be back in a few minutes.',
+        ],
+    ],
 ];
