@@ -110,7 +110,11 @@ değiştir** — kurulum şifresi zipte ve konsol geçmişinde kalıyor.
   uyduğundan emin ol.
 - **Google Search Console'a sitemap'i ver** (`alanadi.nl/sitemap.xml`) — dört dilin
   adresleri orada listeli, hreflang ile birbirlerine bağlı.
-- Görseller: yer tutucu dokular yerine müşterinin fotoğrafları
+- **Görseller:** jaluzi ve dikey lamel fotoğrafları müşteriden geldi ve yerleştirildi.
+  **Fon perde, plise, stor ve halı fotoğrafı hâlâ yok** — o kartlarda yer tutucu doku
+  görünüyor. Fotoğraf gelince panelden ilgili kategori/ürünü açıp yükle
+- **Galeri projelerine şehir gir:** işlerin `Konum` alanı boş bırakıldı (gerçek şehri
+  bilmiyoruz). Panelden doldurulunca kartta görünür
 
 ---
 

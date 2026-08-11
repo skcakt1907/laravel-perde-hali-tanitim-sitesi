@@ -24,8 +24,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // GÖRELİ yol: alan adı değişse bile görseller çalışır (bkz. media() yardımcısı)
-        $img = fn (string $name) => 'img/demo/' . $name . '.jpg';
+        /* GÖRELİ yol: alan adı değişse bile görseller çalışır (bkz. media() yardımcısı)
+           - $foto : müşterinin GERÇEK fotoğrafları (public/img/foto)
+           - $img  : üretilmiş yer tutucu dokular (public/img/demo)
+           Elimizdeki 47 fotoğrafın tamamı jaluzi ve dikey lamel. Fon perde, plise,
+           stor ve halı fotoğrafı YOK; o kategori/ürünlerde yer tutucu kalıyor. */
+        $foto = fn (string $name) => 'img/foto/' . $name . '.jpg';
+        $img  = fn (string $name) => 'img/demo/' . $name . '.jpg';
 
         /* ---------------- Yönetici ----------------
          | Şifre `.env`'deki ADMIN_PASSWORD'dan gelir; yoksa RASTGELE üretilir ve
@@ -83,7 +88,7 @@ class DatabaseSeeder extends Seeder
             'calisma_saatleri_en' => "Mon–Fri 09:00–18:00\nSat 10:00–16:00 (by appointment)",
             'calisma_saatleri_tr' => "Pzt–Cum 09:00–18:00\nCmt 10:00–16:00 (randevu ile)",
 
-            'hero_gorsel' => 'img/demo/hero.jpg',
+            'hero_gorsel' => 'img/foto/hero.jpg',
             'hero_baslik_de' => "Maßgefertigte Fensterdekoration\nfür Ihr Zuhause",
             'hero_metin_de'  => 'Von Plissees und Rollos bis zu Vorhängen und handverlesenen Teppichen: '
                 . 'Wir messen kostenlos bei Ihnen aus, beraten Sie in Ruhe und montieren fachgerecht.',
@@ -102,7 +107,7 @@ class DatabaseSeeder extends Seeder
             'istatistik_musteri'  => '3.400',
             'istatistik_bolge'    => '100',
 
-            'hakkimizda_gorsel' => 'img/demo/about.jpg',
+            'hakkimizda_gorsel' => 'img/foto/about.jpg',
             'hakkimizda_baslik_de' => 'Ein Familienbetrieb für Fensterdekoration — mit Maßband und Musterbuch bei Ihnen vor Ort',
             'hakkimizda_metin_de'  => "MC Gordijnen ist ein Familienbetrieb für Gardinen, Sonnenschutz und Teppiche. "
                 . "Wir kommen zu Ihnen nach Hause, messen jedes Fenster selbst aus und bringen Stoffmuster mit — "
@@ -201,7 +206,7 @@ class DatabaseSeeder extends Seeder
                 'description_tr' => 'Net çizgiler, geniş kumaş seçeneği: zincir mekanizmalı storlar, zebra (çift) storlar ve yatak odası için tam karartma.',
             ],
             [
-                'slug' => 'jaloezieen', 'slug_de' => 'jalousien', 'slug_en' => 'venetian-blinds', 'slug_tr' => 'jaluzi', 'icon' => 'bi-list', 'image' => $img('kat-jalousien'),
+                'slug' => 'jaloezieen', 'slug_de' => 'jalousien', 'slug_en' => 'venetian-blinds', 'slug_tr' => 'jaluzi', 'icon' => 'bi-list', 'image' => $foto('kat-jaloezieen'),
                 'name' => 'Jaloezieën',
                 'description' => 'Licht doseren in plaats van buitensluiten: houten, bamboe en aluminium lamellen van 25 tot 50 mm, traploos kantelbaar.',
                 'name_en' => 'Venetian Blinds',
@@ -211,7 +216,7 @@ class DatabaseSeeder extends Seeder
                 'description_tr' => 'Işığı kesmek yerine ayarlamak: 25–50 mm ahşap, bambu ve alüminyum lameller, kademesiz açı ayarı.',
             ],
             [
-                'slug' => 'verticale-lamellen', 'slug_de' => 'lamellenvorhaenge', 'slug_en' => 'vertical-blinds', 'slug_tr' => 'dikey-lamelli-perde', 'icon' => 'bi-distribute-vertical', 'image' => $img('kat-lamellen'),
+                'slug' => 'verticale-lamellen', 'slug_de' => 'lamellenvorhaenge', 'slug_en' => 'vertical-blinds', 'slug_tr' => 'dikey-lamelli-perde', 'icon' => 'bi-distribute-vertical', 'image' => $foto('kat-lamellen'),
                 'name' => 'Verticale lamellen',
                 'description' => 'Voor brede raampartijen en terrasdeuren: verticale lamellen die kunnen draaien en volledig naar de zijkant schuiven.',
                 'name_en' => 'Vertical Blinds',
@@ -307,6 +312,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'levering-en-montage', 'icon' => 'bi-tools',
+                'image' => $foto('hizmet-montaj'),
                 'title' => 'Levering & montage',
                 'summary' => 'Eigen monteurs, afgesproken tijden, een schone werkplek — inclusief fijnafstelling ter plaatse.',
                 'content' => "De montage wordt gedaan door onze eigen monteurs, niet door steeds wisselende "
@@ -397,6 +403,7 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'slug' => 'kantoor-en-projecten', 'icon' => 'bi-building',
+                'image' => $foto('hizmet-ofis'),
                 'title' => 'Kantoor, praktijk & projecten',
                 'summary' => 'Meerdere ruimtes, één aanspreekpunt: lichtwering, akoestiek en brandvertragende stoffen voor bedrijfsruimtes.',
                 'content' => "Voor kantoren, praktijken, vakantiewoningen en horeca plannen wij complete ruimtes: één "
@@ -799,13 +806,13 @@ class DatabaseSeeder extends Seeder
             ],
 
             // Jalousien
-            ['jaloezieen', 'p-jalousie-holz', 'houten-jaloezie-50mm-naturel', true, 149.00, 'Stück',
+            ['jaloezieen', 'FOTO:p-jaloezie-hout', 'houten-jaloezie-50mm-naturel', true, 149.00, 'Stück',
                 'Holzjalousie 50 mm Natur', 'Ahşap Jaluzi 50 mm — Natürel',
                 'Echtholzlamellen mit Leiterband — warm, wertig und stufenlos kippbar.',
                 'Şeritli gerçek ahşap lameller — sıcak, kaliteli ve kademesiz açı ayarlı.',
                 ['Material' => 'Echtholz (Basswood), lackiert', 'Lamellenbreite' => '50 mm', 'Bedienung' => 'Wendestab und Zugschnur', 'Montage' => 'Wand, Decke oder Nische', 'Hinweis' => 'nicht für Feuchträume'],
             ],
-            ['jaloezieen', 'p-jalousie-alu', 'aluminium-jaloezie-25mm', false, 69.00, 'Stück',
+            ['jaloezieen', 'FOTO:p-jaloezie-alu', 'aluminium-jaloezie-25mm', false, 69.00, 'Stück',
                 'Aluminiumjalousie 25 mm', 'Alüminyum Jaluzi 25 mm',
                 'Schmale Alulamellen: schlank, feuchtraumgeeignet und ideal gegen Bildschirmblendung.',
                 'İnce alüminyum lameller: zarif, ıslak hacme uygun ve ekran parlamasına karşı ideal.',
@@ -813,7 +820,7 @@ class DatabaseSeeder extends Seeder
             ],
 
             // Lamellenvorhänge
-            ['verticale-lamellen', 'p-lamellen-weiss', 'verticale-lamellen-127mm-wit', false, 0, null,
+            ['verticale-lamellen', 'FOTO:p-lamellen-wit', 'verticale-lamellen-127mm-wit', false, 0, null,
                 'Lamellenvorhang 127 mm Weiß', 'Dikey Lamelli Perde 127 mm — Beyaz',
                 'Für breite Fensterfronten und Terrassentüren: drehbar und komplett zur Seite schiebbar.',
                 'Geniş pencere cepheleri ve teras kapıları için: dönebilir ve tamamen yana toplanabilir.',
@@ -849,8 +856,13 @@ class DatabaseSeeder extends Seeder
                 'name_de'       => $name,
                 'name_en'       => $productEn[$slug][0] ?? null,
                 'name_tr'       => $nameTr,
-                'cover'         => $img($image),
-                'images'        => [$img($image)],
+                // 'FOTO:' önekli olanlar müşterinin gerçek fotoğrafı, ötekiler yer tutucu
+                'cover'         => str_starts_with($image, 'FOTO:')
+                    ? $foto(substr($image, 5))
+                    : $img($image),
+                'images'        => [str_starts_with($image, 'FOTO:')
+                    ? $foto(substr($image, 5))
+                    : $img($image)],
                 'short_desc'    => $productNl[$slug][1] ?? $short,
                 'short_desc_de' => $short,
                 'short_desc_en' => $productEn[$slug][1] ?? null,
@@ -891,63 +903,76 @@ class DatabaseSeeder extends Seeder
         }
 
         /* ---------------- Yapılan işler ---------------- */
+        /* GALERİ — müşterinin gerçek fotoğraflarındaki işler.
+           Eski demo projeler fon perde/plise/halı anlatıyordu; elimizdeki 47
+           fotoğrafın tamamı jaluzi olduğu için işler fotoğraflara göre yeniden
+           yazıldı. `location` BİLİNÇLİ OLARAK BOŞ: gerçek işin şehri bilinmiyor,
+           uydurmak müşteri adına yanlış beyan olur — panelden doldurulacak
+           (görünüm boş değeri gizliyor). */
+
         /* Projelerin Hollandacası — slug'a göre [başlık, tür, özet] */
         $projectNl = [
-            'woonkamer-golfgordijn-greige' => ['Woonkamer met golfgordijn', 'Gordijnen',
-                'Raampartij van 4,20 m breed met golfgordijn in greige, plafondrails vlak tegen de wand.'],
-            'houten-jaloezieen-oud-pand' => ['Houten jaloezieën in een oud pand', 'Jaloezieën',
-                'Zes ramen met houten jaloezieën van 50 mm in de dagkant gemonteerd — lamelkleur afgestemd op de kozijnen.'],
-            'dakramen-duette-plisse' => ['Dakramen met duette-plissé', 'Plisségordijnen',
-                'Een warme zolder: vier dakschuintes met isolerend duette-plissé, bediening met een telescoopstok.'],
-            'kantoor-verticale-lamellen' => ['Kantoor met verticale lamellen', 'Verticale lamellen',
-                'Twaalf werkplekken, zuidgevel: lamellen van 127 mm tegen spiegeling op beeldschermen, montage in het weekend.'],
-            'slaapkamer-verduistering' => ['Slaapkamer volledig verduisterd', 'Rolgordijnen',
-                'Verduisterend rolgordijn met zijgeleiding plus een zwaar gordijn — geen lichtkier aan de randen.'],
-            'hal-loper-op-maat' => ['Hal met een loper op maat', 'Tapijten',
-                'Smalle hal in een oud pand, 9,40 m: loper op maat gesneden en omgezoomd, traptreden passend belegd.'],
+            'woonkamer-houten-jaloezieen-wit' => ['Woonkamer met witte houten jaloezieën', 'Houten jaloezieën',
+                'Erker met drie vensters: witte houten jaloezieën van 50 mm, in de dagkant gemonteerd zodat de vensterbank vrij blijft.'],
+            'kantoor-houten-jaloezieen-naturel' => ['Kantoor met houten jaloezieën, naturel', 'Houten jaloezieën',
+                'Doorlopende raampartij in een kantoortuin: naturel houten jaloezieën tegen spiegeling op de beeldschermen.'],
+            'woonkamer-zwarte-houten-jaloezieen' => ['Woonkamer met zwarte houten jaloezieën', 'Houten jaloezieën',
+                'Brede raampartij achter de bank: zwarte houten jaloezieën, kleur afgestemd op de kozijnen.'],
+            'tuindeuren-zwarte-jaloezieen' => ['Tuindeuren met zwarte jaloezieën', 'Houten jaloezieën',
+                'Openslaande tuindeuren: per deurvleugel een eigen jaloezie, zodat de deuren vrij blijven bewegen.'],
+            'veranda-aluminium-jaloezieen' => ['Veranda met aluminium jaloezieën', 'Aluminium jaloezieën',
+                'Glazen wand onder een veranda: aluminium lamellen, geschikt voor de vochtige buitenlucht.'],
+            'erker-witte-jaloezieen' => ['Erker met witte jaloezieën', 'Houten jaloezieën',
+                'Ronde erker met vijf vensters — elk venster een eigen jaloezie, allemaal op dezelfde hoogte afgesteld.'],
         ];
 
         /* Projelerin İngilizcesi — slug'a göre [başlık, tür, özet] */
         $projectEn = [
-            'woonkamer-golfgordijn-greige' => ['Living room with wave curtains', 'Curtains',
-                'A 4.20 m wide window front with wave-heading curtains in greige, ceiling track flush to the wall.'],
-            'houten-jaloezieen-oud-pand' => ['Wooden blinds in a period building', 'Venetian Blinds',
-                'Six windows with 50 mm wooden blinds fitted in the recess — slat colour matched to the window frames.'],
-            'dakramen-duette-plisse' => ['Roof windows with honeycomb blinds', 'Pleated Blinds',
-                'An overheated loft: four sloping windows with thermal honeycomb pleated blinds, operated by telescopic rod.'],
-            'kantoor-verticale-lamellen' => ['Office with vertical blinds', 'Vertical Blinds',
-                'Twelve desks, south-facing facade: 127 mm slats against screen glare, fitted over the weekend.'],
-            'slaapkamer-verduistering' => ['Fully blacked-out bedroom', 'Roller Blinds',
-                'Blackout roller blind with side guide rails plus a heavy curtain — no gap of light at the edges.'],
-            'hal-loper-op-maat' => ['Hallway with a made-to-measure runner', 'Rugs',
-                'A narrow 9.40 m period hallway: runner cut and bound to measure, stairs covered to match.'],
+            'woonkamer-houten-jaloezieen-wit' => ['Living room with white wooden blinds', 'Wooden Blinds',
+                'A bay window with three sections: white 50 mm wooden blinds fitted in the recess so the sill stays clear.'],
+            'kantoor-houten-jaloezieen-naturel' => ['Office with natural wooden blinds', 'Wooden Blinds',
+                'A continuous window front in an open-plan office: natural wooden blinds against screen glare.'],
+            'woonkamer-zwarte-houten-jaloezieen' => ['Living room with black wooden blinds', 'Wooden Blinds',
+                'A wide window front behind the sofa: black wooden blinds, colour matched to the window frames.'],
+            'tuindeuren-zwarte-jaloezieen' => ['Garden doors with black blinds', 'Wooden Blinds',
+                'Opening garden doors: a separate blind on each door leaf so the doors keep moving freely.'],
+            'veranda-aluminium-jaloezieen' => ['Veranda with aluminium blinds', 'Aluminium Blinds',
+                'A glass wall under a veranda: aluminium slats, suitable for damp outdoor air.'],
+            'erker-witte-jaloezieen' => ['Bay window with white blinds', 'Wooden Blinds',
+                'A curved bay with five sections — each with its own blind, all set to the same height.'],
         ];
 
         $projects = [
-            ['proj-1', 'woonkamer-golfgordijn-greige', 'Wohnzimmer mit Wellenvorhang', 'Dalga Perdeli Salon',
-                'Gardinen', 'Fon Perde', 'Amsterdam', true,
-                'Fensterfront von 4,20 m Breite mit Wellenband-Vorhang in Greige, Deckenschiene bündig zur Wand.',
-                '4,20 m genişliğinde pencere cephesi; greige dalga bantlı fon perde, duvarla hizalı tavan rayı.'],
-            ['proj-2', 'houten-jaloezieen-oud-pand', 'Holzjalousien im Altbau', 'Eski Binada Ahşap Jaluzi',
-                'Jalousien', 'Jaluzi', 'Utrecht', true,
-                'Sechs Fenster mit 50-mm-Holzjalousien in Nischenmontage — Lamellenfarbe an die Fensterrahmen angepasst.',
-                'Nişe monte 50 mm ahşap jaluziyle altı pencere — lamel rengi pencere doğramasına göre seçildi.'],
-            ['proj-3', 'dakramen-duette-plisse', 'Dachfenster mit Wabenplissee', 'Çatı Penceresinde Petek Plise',
-                'Plissees', 'Plise', 'Almere', true,
-                'Aufgeheiztes Dachgeschoss: vier Dachschrägen mit Thermo-Wabenplissee, Bedienung per Teleskopstab.',
-                'Isınan çatı katı: dört çatı eğimine ısı yalıtımlı petek plise, teleskopik çubukla kumanda.'],
-            ['proj-4', 'kantoor-verticale-lamellen', 'Büro mit Lamellenvorhang', 'Ofiste Dikey Lamelli Perde',
-                'Lamellenvorhänge', 'Dikey Lamel', 'Rotterdam', false,
-                'Zwölf Arbeitsplätze, Südfassade: 127-mm-Lamellen gegen Bildschirmblendung, Montage am Wochenende.',
-                'On iki çalışma alanı, güney cephe: ekran parlamasına karşı 127 mm lamel, montaj hafta sonu yapıldı.'],
-            ['proj-5', 'slaapkamer-verduistering', 'Schlafzimmer komplett verdunkelt', 'Tam Karartmalı Yatak Odası',
-                'Rollos', 'Stor', 'Haarlem', false,
-                'Verdunkelungsrollo mit seitlichen Führungsschienen plus schwerer Vorhang — kein Lichtspalt am Rand.',
-                'Yan kılavuz raylı karartma storu ve ağır fon perde — kenarda ışık sızıntısı yok.'],
-            ['proj-6', 'hal-loper-op-maat', 'Flur mit Läufer nach Maß', 'Ölçüye Özel Yol Halılı Koridor',
-                'Teppiche', 'Halı', 'Zaanstad', false,
-                'Schmaler Altbauflur, 9,40 m: Läufer auf Maß geschnitten und eingefasst, Treppenstufen passend belegt.',
-                'Dar eski bina koridoru, 9,40 m: yol halısı ölçüye göre kesilip overloklandı, merdiven basamakları uyumlu kaplandı.'],
+            ['proj-1', 'woonkamer-houten-jaloezieen-wit',
+                'Wohnzimmer mit weißen Holzjalousien', 'Beyaz Ahşap Jaluzili Salon',
+                'Holzjalousien', 'Ahşap Jaluzi', '', true,
+                'Erker mit drei Fenstern: weiße 50-mm-Holzjalousien in Nischenmontage, damit die Fensterbank frei bleibt.',
+                'Üç bölmeli cumba: 50 mm beyaz ahşap jaluzi, denizlik boş kalsın diye nişe monte edildi.'],
+            ['proj-2', 'kantoor-houten-jaloezieen-naturel',
+                'Büro mit Holzjalousien in Natur', 'Naturel Ahşap Jaluzili Ofis',
+                'Holzjalousien', 'Ahşap Jaluzi', '', true,
+                'Durchgehende Fensterfront im Großraumbüro: Holzjalousien in Natur gegen Bildschirmblendung.',
+                'Açık ofiste kesintisiz pencere cephesi: ekran parlamasına karşı naturel ahşap jaluzi.'],
+            ['proj-3', 'woonkamer-zwarte-houten-jaloezieen',
+                'Wohnzimmer mit schwarzen Holzjalousien', 'Siyah Ahşap Jaluzili Salon',
+                'Holzjalousien', 'Ahşap Jaluzi', '', true,
+                'Breite Fensterfront hinter der Couch: schwarze Holzjalousien, farblich auf die Rahmen abgestimmt.',
+                'Koltuğun arkasındaki geniş pencere cephesi: doğrama rengine uyumlu siyah ahşap jaluzi.'],
+            ['proj-4', 'tuindeuren-zwarte-jaloezieen',
+                'Terrassentüren mit schwarzen Jalousien', 'Siyah Jaluzili Bahçe Kapısı',
+                'Holzjalousien', 'Ahşap Jaluzi', '', false,
+                'Öffnende Terrassentüren: pro Türflügel eine eigene Jalousie, damit die Türen frei beweglich bleiben.',
+                'Açılır bahçe kapıları: kanatlar serbest hareket etsin diye her kanada ayrı jaluzi.'],
+            ['proj-5', 'veranda-aluminium-jaloezieen',
+                'Veranda mit Aluminiumjalousien', 'Alüminyum Jaluzili Veranda',
+                'Aluminiumjalousien', 'Alüminyum Jaluzi', '', false,
+                'Glaswand unter einer Veranda: Aluminiumlamellen, geeignet für die feuchte Außenluft.',
+                'Veranda altındaki cam duvar: nemli dış havaya uygun alüminyum lameller.'],
+            ['proj-6', 'erker-witte-jaloezieen',
+                'Erker mit weißen Jalousien', 'Beyaz Jaluzili Cumba',
+                'Holzjalousien', 'Ahşap Jaluzi', '', false,
+                'Runder Erker mit fünf Fenstern — jedes Fenster eine eigene Jalousie, alle auf derselben Höhe eingestellt.',
+                'Beş bölmeli yuvarlak cumba — her bölmeye ayrı jaluzi, hepsi aynı seviyeye ayarlandı.'],
         ];
         foreach ($projects as $i => [$image, $slug, $title, $titleTr, $kind, $kindTr, $loc, $featured, $summary, $summaryTr]) {
             Project::updateOrCreate(['slug' => $slug], [
@@ -960,18 +985,18 @@ class DatabaseSeeder extends Seeder
                 'kind_en'    => $projectEn[$slug][1] ?? null,
                 'kind_tr'    => $kindTr,
                 'location'   => $loc,
-                'cover'      => $img($image),
-                'images'     => [$img($image)],
+                'cover'      => $foto($image),
+                'images'     => [$foto($image)],
                 'summary'    => $projectNl[$slug][2] ?? $summary,
                 'summary_de' => $summary,
                 'summary_en' => $projectEn[$slug][2] ?? null,
                 'summary_tr' => $summaryTr,
-                'content_de' => $summary . "\n\n"
-                    . 'Ablauf wie immer: kostenloses Aufmaß vor Ort, schriftliches Angebot, Fertigung nach Maß und '
-                    . 'Montage durch unsere eigenen Monteure.',
                 'content'    => ($projectNl[$slug][2] ?? '') . "\n\n"
                     . 'De werkwijze is altijd dezelfde: gratis inmeten ter plaatse, een schriftelijke prijsopgave, '
                     . 'productie op maat en montage door onze eigen monteurs.',
+                'content_de' => $summary . "\n\n"
+                    . 'Ablauf wie immer: kostenloses Aufmaß vor Ort, schriftliches Angebot, Fertigung nach Maß und '
+                    . 'Montage durch unsere eigenen Monteure.',
                 'content_en' => ($projectEn[$slug][2] ?? '') . "\n\n"
                     . 'The process is always the same: free measuring on site, a written quotation, '
                     . 'made-to-measure production and fitting by our own fitters.',
@@ -1090,7 +1115,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $posts = [
-            ['blog-1', 'gordijnen-goed-opmeten', 'Ratgeber', 'Rehber',
+            ['FOTO:blog-olcu', 'gordijnen-goed-opmeten', 'Ratgeber', 'Rehber',
                 'Vorhänge richtig ausmessen — die vier häufigsten Fehler',
                 'Fon perdeyi doğru ölçmek — en sık yapılan dört hata',
                 'Zu kurz, zu schmal, falsche Schienenhöhe: Wer selbst misst, tappt meist in dieselben Fallen. Was Sie beachten sollten.',
@@ -1114,7 +1139,7 @@ class DatabaseSeeder extends Seeder
                 . "bilinçli olarak yere değmelidir. Arası kaza gibi görünür.\n\n"
                 . "Tereddüt varsa: ücretsiz ölçü randevusunda ölçüyü biz alıyoruz — ve ölçüden biz sorumlu oluyoruz."],
 
-            ['blog-2', 'welke-zonwering-past', 'Materialkunde', 'Malzeme Bilgisi',
+            ['FOTO:blog-secim', 'welke-zonwering-past', 'Materialkunde', 'Malzeme Bilgisi',
                 'Plissee, Rollo oder Jalousie — was passt zu welchem Raum?',
                 'Plise, stor mu jaluzi mi — hangi odaya hangisi?',
                 'Alle drei sitzen direkt am Glas und kosten ähnlich viel. Der Unterschied liegt darin, was sie mit dem Licht machen.',
@@ -1189,7 +1214,9 @@ class DatabaseSeeder extends Seeder
                 'category_tr' => $catTr,
                 'summary_tr'  => $summaryTr,
                 'content_tr'  => $contentTr,
-                'image'       => $img($image),
+                'image'       => str_starts_with($image, 'FOTO:')
+                    ? $foto(substr($image, 5))
+                    : $img($image),
                 'tarih'       => now()->subWeeks(($i + 1) * 3),
                 'durum'       => true,
             ]);
