@@ -2,17 +2,22 @@
 
 namespace App\Models;
 
+use App\Support\HasLocalizedSlug;
 use App\Support\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use HasTranslations;
+    use HasLocalizedSlug, HasTranslations;
+
+    /** Çeviri slug'ları bu alandan üretilir (bkz. HasLocalizedSlug) */
+    protected string $slugKaynagi = 'name';
 
     /** Çevrilebilir alanlar — `_<dil>` kolonları HasTranslations tarafından eklenir */
     protected array $translatable = ['name', 'description'];
 
-    protected $fillable = ['parent_id', 'name', 'slug', 'icon', 'image', 'description', 'sira', 'durum'];
+    protected $fillable = ['parent_id', 'name', 'slug', 'slug_de', 'slug_en', 'slug_tr',
+        'icon', 'image', 'description', 'sira', 'durum'];
 
     protected $casts = [
         'durum' => 'boolean',

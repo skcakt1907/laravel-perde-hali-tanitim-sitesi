@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Support\HasLocalizedSlug;
 use App\Support\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasTranslations;
+    use HasLocalizedSlug, HasTranslations;
+
+    /** Çeviri slug'ları bu alandan üretilir (bkz. HasLocalizedSlug) */
+    protected string $slugKaynagi = 'name';
 
     /** Çevrilebilir alanlar — `_<dil>` kolonları HasTranslations tarafından eklenir */
     protected array $translatable = ['name', 'short_desc', 'description'];

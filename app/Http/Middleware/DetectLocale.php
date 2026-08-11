@@ -3,40 +3,48 @@
 namespace App\Http\Middleware;
 
 use App\Support\Locales;
+use App\Support\Yollar;
 use Closure;
 use Illuminate\Http\Request;
 
 /**
- * Dili belirler. URL'de dil öneki YOKTUR (müşteri isteği) — sıra:
+ * Dili belirler. URL'de dil KODU yoktur; **yol adının kendisi dili söyler**:
+ *   /producten → nl · /produkte → de · /products → en · /urunler → tr
  *
- *   1. `dil` çerezi (ziyaretçi dil değiştiriciyi kullandıysa)
- *   2. tarayıcının Accept-Language başlığı (ilk ziyaret)
- *   3. ana dil (Hollandaca)
+ * Sıra:
+ *   1. Yolun ilk parçası (`Yollar::coz`) — en güçlü sinyal, paylaşılan link
+ *      karşı tarafta da doğru dilde açılsın diye çerezi EZER
+ *   2. `taal` çerezi (ziyaretçinin son seçimi) — ana sayfa `/` için geçerli
+ *   3. Tarayıcının Accept-Language başlığı (ilk ziyaret)
+ *   4. Ana dil (Hollandaca)
  *
- * Neden global middleware ve neden `prepend`: rota grubuna bağlı bir middleware
- * yalnızca eşleşen rota bulununca çalışır; 404 ve istisna sayfaları ana dilde
- * kalıyordu. Ayrıca Blade `@section('title', __('...'))` ifadeleri ana şablondan
- * ÖNCE değerlendiği için dili görünümün içinde ayarlamak yetmiyor.
+ * Neden global ve `prepend`: rota grubuna bağlı bir middleware yalnızca eşleşen
+ * rota bulununca çalışır; 404 ve istisna sayfaları ana dilde kalıyordu. Ayrıca
+ * Blade `@section('title', __('...'))` ifadeleri ana şablondan ÖNCE değerlendiği
+ * için dili görünümün içinde ayarlamak yetmiyor.
  *
- * Çerez düz metindir (şifrelenmez) — `bootstrap/app.php` içindeki
- * `encryptCookies(except: [...])` listesinde. Sadece dil kodu tutuyor,
- * gizli bilgi değil; şifrelenirse JavaScript ya da yönlendirme yanıtı okuyamaz.
+ * Çerez adı Hollandaca (`taal`) — ziyaretçiye gösterilen çerez aydınlatma
+ * metninde bu adla geçiyor. Düz metindir (şifrelenmez): `bootstrap/app.php`
+ * içindeki `encryptCookies(except: [...])` listesinde. Sadece dil kodu tutuyor,
+ * gizli bilgi değil; şifrelenirse aynı istekte yazılıp okunması zorlaşır.
  */
 class DetectLocale
 {
-    /** Çerez adı — dil değiştirici ve çerez aydınlatma metni aynı adı kullanır */
-    public const COOKIE = 'dil';
+    public const COOKIE = 'taal';
 
     public function handle(Request $request, Closure $next)
     {
-        app()->setLocale($this->tespitEt($request));
+        $locale = $this->tespitEt($request);
+
+        app()->setLocale($locale);
 
         $response = $next($request);
 
-        /* Aynı adres ziyaretçiye göre farklı dilde dönüyor. Vary olmadan araya giren
-           bir önbellek (CDN, hosting'in sayfa önbelleği, şirket vekil sunucusu) ilk
-           gelen dili herkese servis eder — Türk ziyaretçi Almanca sayfa görür.
-           Dil URL'de olsaydı bu başlığa hiç gerek olmayacaktı. */
+        /* Ana sayfa (`/`) tek adres ve dile göre farklı içerik döndürüyor. Vary
+           olmadan araya giren bir önbellek (CDN, hosting sayfa önbelleği, şirket
+           vekil sunucusu) ilk gelen dili herkese servis eder. Alt sayfaların
+           adresi zaten dile özgü, onlarda risk yok — ama başlığı ayırmak
+           karmaşıklık katıyor, hepsine veriyoruz. */
         $response->headers->set('Vary', 'Cookie, Accept-Language');
 
         return $response;
@@ -44,13 +52,31 @@ class DetectLocale
 
     private function tespitEt(Request $request): string
     {
+        /* Yönetim paneli ve giriş her zaman ANA DİLDE çalışır.
+           Panel arayüzü Türkçe (çeviri dosyasından gelmiyor), ama app locale
+           model `getRouteKey()`'ini etkiliyor: panelde dil ziyaretçiye göre
+           değişirse aynı ürünün düzenleme adresi bir gün /yonetim/products/
+           aluminium-jaloezie-25mm, bir gün .../aluminyum-jaluzi-25-mm oluyordu.
+           Sabitlemek yer imlerini ve testleri öngörülebilir kılıyor. */
+        if ($request->is('yonetim', 'yonetim/*', 'giris', 'cikis')) {
+            return Locales::primary();
+        }
+
+        // 1. Yol dili söylüyorsa o kazanır
+        $cozum = Yollar::coz((string) $request->segment(1));
+
+        if ($cozum !== null) {
+            return $cozum[1];
+        }
+
+        // 2. Ziyaretçinin son seçimi
         $cerez = $request->cookie(self::COOKIE);
 
         if (Locales::supports($cerez)) {
             return $cerez;
         }
 
-        // Accept-Language: "nl-NL,nl;q=0.9,en;q=0.8" → sırayla dene
+        // 3. Tarayıcı dili
         foreach ($this->tarayiciDilleri($request) as $kod) {
             if (Locales::supports($kod)) {
                 return $kod;

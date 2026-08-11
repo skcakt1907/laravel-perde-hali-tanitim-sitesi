@@ -10,39 +10,70 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SitemapController;
 use App\Support\Locales;
+use App\Support\Yollar;
 use Illuminate\Support\Facades\Route;
 
 /* ---------------- Dil ----------------
- | URL'de dil öneki YOKTUR (müşteri isteği). Dil `dil` çerezinde tutulur,
- | ilk ziyarette tarayıcının Accept-Language başlığından tahmin edilir
- | (bkz. App\Http\Middleware\DetectLocale).
+ | URL'de dil KODU yoktur; yol adının kendisi dili söyler:
+ |   /producten (NL) · /produkte (DE) · /products (EN) · /urunler (TR)
+ | Sözlük: App\Support\Yollar. Dil tespiti: App\Http\Middleware\DetectLocale.
  |
- | Değiştirici JS'siz çalışsın diye normal bir bağlantıdır: çerezi yazar ve
- | ziyaretçiyi geldiği sayfaya geri gönderir.
+ | Değiştirici JS'siz çalışsın diye normal bağlantıdır: çerezi yazar ve
+ | ziyaretçiyi aynı sayfanın o dildeki adresine gönderir (bkz. locale_url()).
  */
-Route::get('/dil/{locale}', function (string $locale) {
-    abort_unless(Locales::supports($locale), 404);
+foreach (Locales::codes() as $kod) {
+    Route::get('/' . Yollar::parca('locale.switch', $kod) . '/{locale}', function (string $locale) {
+        abort_unless(Locales::supports($locale), 404);
 
-    $geri = url()->previous();
+        // `geri` parametresi hedef dildeki adresi taşır (bkz. locale_switch_url());
+        // yoksa geldiği sayfaya döneriz.
+        $geri = request()->query('geri') ?: url()->previous();
 
-    // Açık yönlendirme açığına düşmemek için yalnızca kendi alan adımıza dönüyoruz
-    if (! str_starts_with($geri, url('/'))) {
-        $geri = url('/');
+        // Açık yönlendirme açığına düşmemek için yalnızca kendi alan adımıza dönüyoruz
+        if (! str_starts_with($geri, url('/'))) {
+            $geri = url('/');
+        }
+
+        return redirect($geri)->withCookie(
+            cookie()->forever(DetectLocale::COOKIE, $locale, sameSite: 'Lax')
+        );
+    })->whereIn('locale', Locales::codes())
+      ->name($kod === Locales::primary() ? 'locale.switch' : $kod . '.locale.switch');
+}
+
+/* Eski dil önekli adresler (`/de/produkte` biçimi, bu yapıya geçmeden önce kullanılıyordu).
+   Öneki atıp yolu HEDEF DİLİN adına çeviriyoruz: /tr/produkte → /urunler. Sadece önek
+   atılsa Türkçe isteyen ziyaretçi Almanca sayfaya düşerdi. */
+Route::get('/{locale}/{yol?}', function (string $locale, ?string $yol = null) {
+    /* DİLİ ÖNCE KUR. `redirect()` de URL::formatPathUsing kancasından geçiyor;
+       dil kurulmazsa hedef yol İKİNCİ KEZ çevriliyor ve /nl/produkte → /products
+       gibi yanlış dile düşüyordu (yaşandı). Bu adreste dil kodu yolun kendisinde,
+       DetectLocale onu tanımıyor — burada elle set etmek gerekiyor. */
+    app()->setLocale($locale);
+
+    if ($yol === null) {
+        return redirect('/', 301)
+            ->withCookie(cookie()->forever(DetectLocale::COOKIE, $locale, sameSite: 'Lax'));
     }
 
-    return redirect($geri)->withCookie(
-        cookie()->forever(DetectLocale::COOKIE, $locale, sameSite: 'Lax')
-    );
-})->whereIn('locale', Locales::codes())->name('locale.switch');
+    $parcalar = explode('/', $yol);
+    $cozum    = Yollar::coz($parcalar[0]);
 
-/* Eski dil önekli adresler (yayına almadan önce kullanılan /de/... biçimi) —
-   paylaşılmış link ya da indekslenmiş sayfa varsa kaybolmasın: dili çereze
-   yazıp öneksiz karşılığına 301 gönderiyoruz. */
-Route::get('/{locale}/{yol?}', function (string $locale, ?string $yol = null) {
-    return redirect(
-        $yol === null ? '/' : '/' . $yol,
-        301
-    )->withCookie(cookie()->forever(DetectLocale::COOKIE, $locale, sameSite: 'Lax'));
+    if ($cozum !== null) {
+        $parcalar[0] = Yollar::parca($cozum[0], $locale);
+
+        // Yasal sayfada slug da dile göre değişiyor: /tr/seite/impressum → /sayfa/kunye
+        if ($cozum[0] === 'legal' && isset($parcalar[1])) {
+            $anahtar = LegalController::anahtar($parcalar[1]);
+
+            if ($anahtar !== null) {
+                $parcalar[1] = LegalController::slug($anahtar, $locale);
+            }
+        }
+    }
+
+    return redirect('/' . implode('/', $parcalar), 301)
+        ->withCookie(cookie()->forever(DetectLocale::COOKIE, $locale, sameSite: 'Lax'));
 })->whereIn('locale', Locales::codes())->where('yol', '.*');
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
@@ -65,37 +96,52 @@ Route::get('/robots.txt', function () {
 })->name('robots');
 
 /* ---------------- Vitrin ----------------
- | Dil öneki yok; yol adları Almanca kaldı (site Almanca tek dille kurulmuştu,
- | değiştirmek mevcut linkleri kırar). Dili DetectLocale global middleware'i kurar.
+ | Her sayfa HER DİL İÇİN ayrı kaydedilir; yol adı dile göre değişir
+ | (`Yollar::SAYFALAR`). Ana dilin rotaları KANONİK adı taşır (`catalog`),
+ | diğer diller `de.catalog` gibi önekli ad alır ve isimle hiç çağrılmaz —
+ | yalnızca gelen isteği eşlemek için varlar.
+ |
+ | Adres ÜRETİMİ tek bir yerden çevrilir: AppServiceProvider'daki
+ | `URL::formatPathUsing`, üretilen yolun ilk parçasını geçerli dile çevirir.
+ | Bu yüzden view'lerde `route('catalog')` gibi çağrılar aynen kalabiliyor —
+ | 60'tan fazla çağrıyı elle değiştirmek gerekmedi.
+ |
+ | Ana sayfa tek istisna: her dilde `/` (dili çerez/tarayıcı belirler).
  */
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/produkte', [CatalogController::class, 'index'])->name('catalog');
-Route::get('/produkte/{category}', [CatalogController::class, 'category'])->name('catalog.category');
-Route::get('/produkt/{product}', [CatalogController::class, 'show'])->name('product');
+foreach (Locales::codes() as $kod) {
+    $anaDil = $kod === Locales::primary();
+    $ad = fn (string $isim) => $anaDil ? $isim : $kod . '.' . $isim;
+    $p = fn (string $sayfa) => '/' . Yollar::parca($sayfa, $kod);
 
-Route::get('/leistungen', [PageController::class, 'services'])->name('services');
-Route::get('/leistungen/{service}', [PageController::class, 'serviceShow'])->name('service.show');
+    Route::get($p('catalog'), [CatalogController::class, 'index'])->name($ad('catalog'));
+    Route::get($p('catalog') . '/{category}', [CatalogController::class, 'category'])->name($ad('catalog.category'));
+    Route::get($p('product') . '/{product}', [CatalogController::class, 'show'])->name($ad('product'));
 
-Route::get('/galerie', [ProjectController::class, 'index'])->name('gallery');
-Route::get('/galerie/{project}', [ProjectController::class, 'show'])->name('gallery.show');
+    Route::get($p('services'), [PageController::class, 'services'])->name($ad('services'));
+    Route::get($p('services') . '/{service}', [PageController::class, 'serviceShow'])->name($ad('service.show'));
 
-Route::get('/ratgeber', [PageController::class, 'blog'])->name('blog');
-Route::get('/ratgeber/{post}', [PageController::class, 'blogShow'])->name('blog.show');
+    Route::get($p('gallery'), [ProjectController::class, 'index'])->name($ad('gallery'));
+    Route::get($p('gallery') . '/{project}', [ProjectController::class, 'show'])->name($ad('gallery.show'));
 
-Route::get('/ueber-uns', [PageController::class, 'about'])->name('about');
+    Route::get($p('blog'), [PageController::class, 'blog'])->name($ad('blog'));
+    Route::get($p('blog') . '/{post}', [PageController::class, 'blogShow'])->name($ad('blog.show'));
 
-Route::get('/kontakt', [PageController::class, 'contact'])->name('contact');
-Route::get('/aufmass', [PageController::class, 'aufmass'])->name('aufmass');
+    Route::get($p('about'), [PageController::class, 'about'])->name($ad('about'));
 
-// Herkese açık formlar: IP başına dakikada en fazla 5 gönderim (spam/bot freni).
-// Ek olarak formlarda honeypot alanı var (bkz. PageController::botMu).
-Route::middleware('throttle:5,1')->group(function () {
-    Route::post('/kontakt', [PageController::class, 'contactStore'])->name('contact.store');
-    Route::post('/aufmass', [PageController::class, 'aufmassStore'])->name('aufmass.store');
-});
+    Route::get($p('contact'), [PageController::class, 'contact'])->name($ad('contact'));
+    Route::get($p('aufmass'), [PageController::class, 'aufmass'])->name($ad('aufmass'));
 
-Route::get('/seite/{slug}', [LegalController::class, 'show'])->name('legal');
+    // Herkese açık formlar: IP başına dakikada en fazla 5 gönderim (spam/bot freni).
+    // Ek olarak formlarda honeypot alanı var (bkz. PageController::botMu).
+    Route::middleware('throttle:5,1')->group(function () use ($p, $ad) {
+        Route::post($p('contact'), [PageController::class, 'contactStore'])->name($ad('contact.store'));
+        Route::post($p('aufmass'), [PageController::class, 'aufmassStore'])->name($ad('aufmass.store'));
+    });
+
+    Route::get($p('legal') . '/{slug}', [LegalController::class, 'show'])->name($ad('legal'));
+}
 
 /* ---------------- Yönetim girişi (Türkçe panel) ---------------- */
 Route::middleware('guest')->group(function () {

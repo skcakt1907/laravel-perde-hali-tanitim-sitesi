@@ -100,9 +100,12 @@ Kurulumdan gelen şifre `admin123` — herkese açık depoda ve dokümanda yazı
 - **Dört dil:** her içerik kaydında NL / DE / EN / TR kutusu var. **Hollandaca ana dildir** —
   zorunlu alan odur. Boş bırakılan diğer dil alanları sitede **Hollandaca** görünür; yani
   eksik çeviri siteyi kırmaz, sadece o satır Hollandaca kalır.
-- **URL'de dil öneki yok:** adres her dilde aynı (`/produkte`), dil `dil` çerezinde tutulur.
+- **URL'de dil kodu yok, yol adı dili söylüyor:** `/producten` (NL), `/produkte` (DE),
+  `/products` (EN), `/urunler` (TR). Ana sayfa her dilde `/` — orada dili çerez belirler.
   Hosting'de sayfa önbelleği (Varnish / Cloudflare cache) açarsan `Vary: Cookie` başlığına
-  uyduğundan emin ol — uymazsa tüm ziyaretçiler ilk gelenin dilini görür.
+  uyduğundan emin ol.
+- **Google Search Console'a sitemap'i ver** (`alanadi.nl/sitemap.xml`) — dört dilin
+  adresleri orada listeli, hreflang ile birbirlerine bağlı.
 - Görseller: yer tutucu dokular yerine müşterinin fotoğrafları
 
 ---

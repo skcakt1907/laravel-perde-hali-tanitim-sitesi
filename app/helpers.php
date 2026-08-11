@@ -79,14 +79,58 @@ if (! function_exists('locale_code_list')) {
 
 if (! function_exists('locale_url')) {
     /**
-     * Dil değiştirme bağlantısı.
+     * Bulunulan sayfanın başka dildeki adresi.
      *
-     * URL'de dil öneki olmadığı için "aynı sayfanın başka dildeki adresi" diye
-     * bir şey yok; onun yerine çerezi yazıp ziyaretçiyi aynı sayfaya geri
-     * gönderen bir rota kullanılıyor.
+     * Yol adları ve içerik slug'ları dile göre değiştiği için gerçek bir
+     * karşılık üretilebiliyor: `/produkte/gardinen` ↔ `/producten/gordijnen`.
+     * Hem dil değiştiricide hem `hreflang` etiketlerinde kullanılır.
+     *
+     * Rota adları ikincil dillerde `de.catalog` gibi önekli; kanonik ada
+     * indirip hedef dilde tekrar üretiyoruz. Parametreler ÇÖZÜLMÜŞ model
+     * nesneleri olduğu için `getRouteKey()` hedef dilin slug'ını döndürür.
      */
     function locale_url(string $locale): string
     {
-        return route('locale.switch', $locale);
+        $rota = request()->route();
+        $ad   = $rota?->getName();
+
+        if ($ad === null) {
+            return url('/');
+        }
+
+        // 'de.catalog.category' → 'catalog.category'
+        foreach (Locales::codes() as $kod) {
+            if (str_starts_with($ad, $kod . '.')) {
+                $ad = substr($ad, strlen($kod) + 1);
+                break;
+            }
+        }
+
+        $oncekiDil = app()->getLocale();
+        app()->setLocale($locale);
+
+        try {
+            $url = route($ad, $rota->parameters());
+        } catch (\Throwable) {
+            // Adı çözülemeyen bir rota (ör. kapanış rotası) → ana sayfa
+            $url = url('/');
+        } finally {
+            app()->setLocale($oncekiDil);
+        }
+
+        $query = request()->getQueryString();
+
+        return $query ? $url . '?' . $query : $url;
+    }
+}
+
+if (! function_exists('locale_switch_url')) {
+    /**
+     * Dil değiştirici bağlantısı: hedef dildeki adrese gider VE tercihi
+     * çereze yazar (ana sayfa `/` her dilde aynı adres olduğu için gerekli).
+     */
+    function locale_switch_url(string $locale): string
+    {
+        return route('locale.switch', $locale) . '?geri=' . urlencode(locale_url($locale));
     }
 }

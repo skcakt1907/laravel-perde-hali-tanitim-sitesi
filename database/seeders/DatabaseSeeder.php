@@ -150,7 +150,7 @@ class DatabaseSeeder extends Seeder
         /* ---------------- Kategoriler ---------------- */
         $catData = [
             [
-                'slug' => 'gardinen', 'icon' => 'bi-columns-gap', 'image' => $img('kat-gardinen'),
+                'slug' => 'gordijnen', 'slug_de' => 'gardinen-vorhaenge', 'slug_en' => 'curtains-drapes', 'slug_tr' => 'fon-perde-tul', 'icon' => 'bi-columns-gap', 'image' => $img('kat-gardinen'),
                 'name' => 'Gordijnen & Overgordijnen',
                 'description' => 'Overgordijnen, zijpanelen en vitrage met plooiband, ringen of golfrail — van lichte vitrage tot zware verduisterende stof.',
                 'name_en' => 'Curtains & Drapes',
@@ -160,7 +160,7 @@ class DatabaseSeeder extends Seeder
                 'description_tr' => 'Pileli, kuş gözlü ya da dalga formunda fon perde, yan perde ve tül — hafif tülden ağır karartma kumaşına.',
             ],
             [
-                'slug' => 'plissees', 'icon' => 'bi-layers', 'image' => $img('kat-plissee'),
+                'slug' => 'plissegordijnen', 'slug_de' => 'plissees', 'slug_en' => 'pleated-blinds', 'slug_tr' => 'plise-perde', 'icon' => 'bi-layers', 'image' => $img('kat-plissee'),
                 'name' => 'Plisségordijnen',
                 'description' => 'De allrounder voor dakramen en lastige vormen: van boven en van onder verstelbaar, ook als isolerend duette-plissé.',
                 'name_en' => 'Pleated Blinds',
@@ -170,7 +170,7 @@ class DatabaseSeeder extends Seeder
                 'description_tr' => 'Çatı pencereleri ve zor formlar için ideal: alttan ve üstten ayarlanabilir, yalıtım sağlayan petek plise seçeneğiyle.',
             ],
             [
-                'slug' => 'rollos', 'icon' => 'bi-window-sidebar', 'image' => $img('kat-rollo'),
+                'slug' => 'rolgordijnen', 'slug_de' => 'rollos', 'slug_en' => 'roller-blinds', 'slug_tr' => 'stor-perde', 'icon' => 'bi-window-sidebar', 'image' => $img('kat-rollo'),
                 'name' => 'Rolgordijnen',
                 'description' => 'Strakke lijnen, veel stofkeuze: rolgordijnen met zijtrek of kettingbediening, duo-rolgordijnen en volledige verduistering voor de slaapkamer.',
                 'name_en' => 'Roller Blinds',
@@ -180,7 +180,7 @@ class DatabaseSeeder extends Seeder
                 'description_tr' => 'Net çizgiler, geniş kumaş seçeneği: zincir mekanizmalı storlar, zebra (çift) storlar ve yatak odası için tam karartma.',
             ],
             [
-                'slug' => 'jalousien', 'icon' => 'bi-list', 'image' => $img('kat-jalousien'),
+                'slug' => 'jaloezieen', 'slug_de' => 'jalousien', 'slug_en' => 'venetian-blinds', 'slug_tr' => 'jaluzi', 'icon' => 'bi-list', 'image' => $img('kat-jalousien'),
                 'name' => 'Jaloezieën',
                 'description' => 'Licht doseren in plaats van buitensluiten: houten, bamboe en aluminium lamellen van 25 tot 50 mm, traploos kantelbaar.',
                 'name_en' => 'Venetian Blinds',
@@ -190,7 +190,7 @@ class DatabaseSeeder extends Seeder
                 'description_tr' => 'Işığı kesmek yerine ayarlamak: 25–50 mm ahşap, bambu ve alüminyum lameller, kademesiz açı ayarı.',
             ],
             [
-                'slug' => 'lamellenvorhaenge', 'icon' => 'bi-distribute-vertical', 'image' => $img('kat-lamellen'),
+                'slug' => 'verticale-lamellen', 'slug_de' => 'lamellenvorhaenge', 'slug_en' => 'vertical-blinds', 'slug_tr' => 'dikey-lamelli-perde', 'icon' => 'bi-distribute-vertical', 'image' => $img('kat-lamellen'),
                 'name' => 'Verticale lamellen',
                 'description' => 'Voor brede raampartijen en terrasdeuren: verticale lamellen die kunnen draaien en volledig naar de zijkant schuiven.',
                 'name_en' => 'Vertical Blinds',
@@ -200,7 +200,7 @@ class DatabaseSeeder extends Seeder
                 'description_tr' => 'Geniş pencere cepheleri ve teras kapıları için: dönebilen ve tamamen yana toplanabilen dikey lameller.',
             ],
             [
-                'slug' => 'teppiche', 'icon' => 'bi-grid-3x3', 'image' => $img('kat-teppiche'),
+                'slug' => 'tapijten', 'slug_de' => 'teppiche', 'slug_en' => 'rugs-runners', 'slug_tr' => 'hali-yol-halisi', 'icon' => 'bi-grid-3x3', 'image' => $img('kat-teppiche'),
                 'name' => 'Tapijten & Lopers',
                 'description' => 'Wol, kelim en laagpolig — van standaardmaten tot tapijt op maat met omgezoomde rand voor trap en hal.',
                 'name_en' => 'Rugs & Runners',
@@ -222,7 +222,7 @@ class DatabaseSeeder extends Seeder
         /* ---------------- Hizmetler ---------------- */
         $services = [
             [
-                'slug' => 'kostenloses-aufmass', 'icon' => 'bi-rulers',
+                'slug' => 'gratis-inmeten-en-advies', 'icon' => 'bi-rulers',
                 'title' => 'Gratis inmeten & advies',
                 'summary' => 'Wij komen naar u toe, meten elk raam nauwkeurig op en nemen stofstalen mee — gratis en zonder verplichtingen.',
                 'content' => "De afspraak duurt, afhankelijk van het aantal ramen, 30 tot 60 minuten. Wij meten breedte, "
@@ -255,7 +255,7 @@ class DatabaseSeeder extends Seeder
                     . "iki iş günü içinde alıyorsunuz. Ölçü, yol ve danışmanlık ücretsizdir — sonrasında başka bir karar verseniz bile.",
             ],
             [
-                'slug' => 'massanfertigung', 'icon' => 'bi-scissors',
+                'slug' => 'maatwerk', 'icon' => 'bi-scissors',
                 'title' => 'Maatwerk',
                 'summary' => 'Elk raam is anders. Uw raamdecoratie wordt op basis van onze maten tot op de millimeter gemaakt.',
                 'content' => "Confectiematen passen zelden echt: oude panden staan niet haaks, dakschuintes lopen toe, "
@@ -285,7 +285,7 @@ class DatabaseSeeder extends Seeder
                     . "Üretim süresi kumaşa bağlı olarak genellikle iki ile dört hafta arasındadır.",
             ],
             [
-                'slug' => 'montage', 'icon' => 'bi-tools',
+                'slug' => 'levering-en-montage', 'icon' => 'bi-tools',
                 'title' => 'Levering & montage',
                 'summary' => 'Eigen monteurs, afgesproken tijden, een schone werkplek — inclusief fijnafstelling ter plaatse.',
                 'content' => "De montage wordt gedaan door onze eigen monteurs, niet door steeds wisselende "
@@ -314,7 +314,7 @@ class DatabaseSeeder extends Seeder
                     . "İsterseniz eski perde raylarını ve storları sökme ve bertaraf işini de aynı gün yapıyoruz.",
             ],
             [
-                'slug' => 'sonnen-und-hitzeschutz', 'icon' => 'bi-brightness-high',
+                'slug' => 'zon-en-warmtewering', 'icon' => 'bi-brightness-high',
                 'title' => 'Zon-, warmte- & inkijkwering',
                 'summary' => 'Warme zolderkamers, spiegeling op beeldschermen, inkijk vanaf de straat — voor elk daarvan is er een eigen oplossing.',
                 'content' => "Warmte houdt u het beste buiten voordat die door het glas komt: duette-plissés met een "
@@ -345,7 +345,7 @@ class DatabaseSeeder extends Seeder
                     . "görüş engeli, akşam tam kapanma.",
             ],
             [
-                'slug' => 'reinigung-und-aenderung', 'icon' => 'bi-arrow-repeat',
+                'slug' => 'vermaken-en-reinigen', 'icon' => 'bi-arrow-repeat',
                 'title' => 'Vermaken & reinigen',
                 'summary' => 'Verhuisd of gordijn te lang? Wij korten in, veranderen de ophanging en reinigen uw stoffen.',
                 'content' => "Na een verhuizing passen gordijnen bijna nooit op de nieuwe ramen. Vaak is het de moeite "
@@ -375,7 +375,7 @@ class DatabaseSeeder extends Seeder
                     . "Sökme, uygun yöntemle temizleme ve tekrar takma işini de biz yapıyoruz — hiçbir şey taşımanız gerekmiyor.",
             ],
             [
-                'slug' => 'objekte-und-gewerbe', 'icon' => 'bi-building',
+                'slug' => 'kantoor-en-projecten', 'icon' => 'bi-building',
                 'title' => 'Kantoor, praktijk & projecten',
                 'summary' => 'Meerdere ruimtes, één aanspreekpunt: lichtwering, akoestiek en brandvertragende stoffen voor bedrijfsruimtes.',
                 'content' => "Voor kantoren, praktijken, vakantiewoningen en horeca plannen wij complete ruimtes: één "
@@ -650,93 +650,93 @@ class DatabaseSeeder extends Seeder
 
         /* Ürünlerin Hollandacası — slug'a göre [ad, kısa açıklama] */
         $productNl = [
-            'vorhang-leinenoptik-creme' => ['Gordijn linnenlook, crème',
+            'gordijn-linnenlook-creme' => ['Gordijn linnenlook, crème',
                 'Mooie val in een licht gestructureerde stof in warm crème — de klassieker voor de woonkamer.'],
-            'vorhang-blickdicht-greige' => ['Gordijn niet doorschijnend, greige',
+            'gordijn-lichtdicht-greige' => ['Gordijn niet doorschijnend, greige',
                 'Dichte decoratiestof in greige: houdt inkijk buiten, maar laat nog daglicht door.'],
-            'verdunkelungsvorhang-anthrazit' => ['Verduisterend gordijn, antraciet',
+            'verduisterend-gordijn-antraciet' => ['Verduisterend gordijn, antraciet',
                 'Drielaagse verduisterende stof voor de slaapkamer — donker, zwaar en geluiddempend.'],
-            'store-tuell-goldschimmer' => ['Vitrage met goudglans',
+            'vitrage-goudglans' => ['Vitrage met goudglans',
                 'Fijne vitrage met een subtiele gouddraad — filtert het licht zacht zonder de kamer te verduisteren.'],
-            'plissee-weiss-lichtdurchlaessig' => ['Plisségordijn wit, lichtdoorlatend',
+            'plisse-wit-lichtdoorlatend' => ['Plisségordijn wit, lichtdoorlatend',
                 'Van boven en van onder verstelbaar — het antwoord voor dakramen en badkamers.'],
-            'wabenplissee-sand-thermo' => ['Duette-plissé zand, isolerend',
+            'duette-plisse-zand-isolerend' => ['Duette-plissé zand, isolerend',
                 'Dubbele honingraatstructuur met luchtkussen: houdt in de zomer de warmte buiten en in de winter binnen.'],
-            'seitenzugrollo-creme' => ['Rolgordijn met kettingbediening, crème',
+            'rolgordijn-ketting-creme' => ['Rolgordijn met kettingbediening, crème',
                 'Een eenvoudig rolgordijn met kettingbediening in warm crème — de voordeligste maatwerkoplossing.'],
-            'verdunkelungsrollo-anthrazit' => ['Verduisterend rolgordijn, antraciet',
+            'verduisterend-rolgordijn-antraciet' => ['Verduisterend rolgordijn, antraciet',
                 'Gecoate stof die vrijwel al het licht buitensluit — voor slaap- en kinderkamers.'],
-            'doppelrollo-greige' => ['Duo-rolgordijn, greige',
+            'duo-rolgordijn-greige' => ['Duo-rolgordijn, greige',
                 'Twee lagen met transparante en dichte banen: regel de lichtinval in elke stand.'],
-            'holzjalousie-50mm-natur' => ['Houten jaloezie 50 mm, naturel',
+            'houten-jaloezie-50mm-naturel' => ['Houten jaloezie 50 mm, naturel',
                 'Echt houten lamellen met ladderband — warm, hoogwaardig en traploos kantelbaar.'],
-            'aluminiumjalousie-25mm' => ['Aluminium jaloezie 25 mm',
+            'aluminium-jaloezie-25mm' => ['Aluminium jaloezie 25 mm',
                 'Smalle aluminium lamellen: slank, geschikt voor vochtige ruimtes en ideaal tegen spiegeling op beeldschermen.'],
-            'lamellenvorhang-127mm-weiss' => ['Verticale lamellen 127 mm, wit',
+            'verticale-lamellen-127mm-wit' => ['Verticale lamellen 127 mm, wit',
                 'Voor brede raampartijen en terrasdeuren: draaiende lamellen die volledig naar de zijkant schuiven.'],
-            'kelim-teppich-terra' => ['Kelimtapijt, terracotta',
+            'kelimtapijt-terracotta' => ['Kelimtapijt, terracotta',
                 'Vlakgeweven kelim in terracotta, antraciet en goud — slijtvast en geschikt voor vloerverwarming.'],
-            'wollteppich-natur-kurzflor' => ['Wollen tapijt naturel, laagpolig',
+            'wollen-tapijt-naturel-laagpolig' => ['Wollen tapijt naturel, laagpolig',
                 'Handgeweven scheerwol in natuurtinten: warm onder de voet en dempt contactgeluid.'],
-            'laeufer-vintage-mass' => ['Vintage loper, op maat',
+            'vintage-loper-op-maat' => ['Vintage loper, op maat',
                 'Hal en trap op maat: uw eigen lengte, omgezoomde rand, gedempte vintagelook.'],
         ];
 
         /* Ürünlerin İngilizcesi — slug'a göre [ad, kısa açıklama] */
         $productEn = [
-            'vorhang-leinenoptik-creme' => ['Linen-look Curtain, Cream',
+            'gordijn-linnenlook-creme' => ['Linen-look Curtain, Cream',
                 'Soft drape in a lightly textured fabric in warm cream — the living-room classic.'],
-            'vorhang-blickdicht-greige' => ['Opaque Curtain, Greige',
+            'gordijn-lichtdicht-greige' => ['Opaque Curtain, Greige',
                 'Dense decorative fabric in greige: keeps prying eyes out while still letting daylight in.'],
-            'verdunkelungsvorhang-anthrazit' => ['Blackout Curtain, Anthracite',
+            'verduisterend-gordijn-antraciet' => ['Blackout Curtain, Anthracite',
                 'Three-layer blackout fabric for the bedroom — dark, heavy and sound-absorbing.'],
-            'store-tuell-goldschimmer' => ['Voile with Gold Shimmer',
+            'vitrage-goudglans' => ['Voile with Gold Shimmer',
                 'Fine voile with a subtle gold thread — filters light softly without darkening the room.'],
-            'plissee-weiss-lichtdurchlaessig' => ['Pleated Blind, White, Light-filtering',
+            'plisse-wit-lichtdoorlatend' => ['Pleated Blind, White, Light-filtering',
                 'Adjustable from the top and the bottom — the answer for roof windows and bathrooms.'],
-            'wabenplissee-sand-thermo' => ['Honeycomb Pleated Blind, Sand, Thermal',
+            'duette-plisse-zand-isolerend' => ['Honeycomb Pleated Blind, Sand, Thermal',
                 'Double honeycomb structure with an air cushion: keeps heat out in summer and warmth in during winter.'],
-            'seitenzugrollo-creme' => ['Chain-operated Roller Blind, Cream',
+            'rolgordijn-ketting-creme' => ['Chain-operated Roller Blind, Cream',
                 'A simple chain-operated roller blind in warm cream — the most affordable made-to-measure option.'],
-            'verdunkelungsrollo-anthrazit' => ['Blackout Roller Blind, Anthracite',
+            'verduisterend-rolgordijn-antraciet' => ['Blackout Roller Blind, Anthracite',
                 'Coated fabric that shuts out almost all light — for bedrooms and children rooms.'],
-            'doppelrollo-greige' => ['Double Roller Blind, Greige',
+            'duo-rolgordijn-greige' => ['Double Roller Blind, Greige',
                 'Two layers with transparent and opaque stripes: adjust the amount of light through any position.'],
-            'holzjalousie-50mm-natur' => ['Wooden Venetian Blind 50 mm, Natural',
+            'houten-jaloezie-50mm-naturel' => ['Wooden Venetian Blind 50 mm, Natural',
                 'Real wood slats with ladder tape — warm, high quality and tilting through any angle.'],
-            'aluminiumjalousie-25mm' => ['Aluminium Venetian Blind 25 mm',
+            'aluminium-jaloezie-25mm' => ['Aluminium Venetian Blind 25 mm',
                 'Narrow aluminium slats: slim, suitable for damp rooms and ideal against screen glare.'],
-            'lamellenvorhang-127mm-weiss' => ['Vertical Blind 127 mm, White',
+            'verticale-lamellen-127mm-wit' => ['Vertical Blind 127 mm, White',
                 'For wide window fronts and patio doors: rotating slats that slide fully to one side.'],
-            'kelim-teppich-terra' => ['Kilim Rug, Terracotta',
+            'kelimtapijt-terracotta' => ['Kilim Rug, Terracotta',
                 'Flat-woven kilim in terracotta, anthracite and gold — hard-wearing and suitable for underfloor heating.'],
-            'wollteppich-natur-kurzflor' => ['Wool Rug, Natural, Short Pile',
+            'wollen-tapijt-naturel-laagpolig' => ['Wool Rug, Natural, Short Pile',
                 'Hand-woven pure wool in natural tones: warm underfoot and absorbs impact noise.'],
-            'laeufer-vintage-mass' => ['Vintage Runner, Made to Measure',
+            'vintage-loper-op-maat' => ['Vintage Runner, Made to Measure',
                 'Hallways and stairs to measure: your chosen length, bound edge, muted vintage look.'],
         ];
 
         $products = [
             // Gardinen & Vorhänge
-            ['gardinen', 'p-vorhang-creme', 'vorhang-leinenoptik-creme', true, 34.90, 'm²',
+            ['gordijnen', 'p-vorhang-creme', 'gordijn-linnenlook-creme', true, 34.90, 'm²',
                 'Vorhang Leinenoptik Creme', 'Keten Görünümlü Fon Perde — Krem',
                 'Weicher Fallschwung, leicht strukturierter Stoff in warmem Creme — der Klassiker fürs Wohnzimmer.',
                 'Yumuşak döküm, hafif dokulu kumaş, sıcak krem ton — salon için klasik tercih.',
                 ['Material' => '70% Polyester, 30% Leinen', 'Lichtdurchlässigkeit' => 'halbtransparent', 'Aufhängung' => 'Faltenband oder Wellenband', 'Montage' => 'Schiene oder Stange', 'Pflege' => '30° Feinwäsche'],
             ],
-            ['gardinen', 'p-vorhang-greige', 'vorhang-blickdicht-greige', true, 39.90, 'm²',
+            ['gordijnen', 'p-vorhang-greige', 'gordijn-lichtdicht-greige', true, 39.90, 'm²',
                 'Vorhang blickdicht Greige', 'Işık Geçirmez Fon Perde — Greige',
                 'Dichter Dekostoff in Greige: hält Blicke draußen, lässt aber noch Tageslicht durch.',
                 'Greige tonunda yoğun dekor kumaşı: dışarıdan görüşü keser, gün ışığını yine de içeri alır.',
                 ['Material' => '100% Polyester', 'Lichtdurchlässigkeit' => 'blickdicht', 'Aufhängung' => 'Ösen, Faltenband, Wellenband', 'Montage' => 'Schiene oder Stange', 'Pflege' => '30° Feinwäsche'],
             ],
-            ['gardinen', 'p-vorhang-anthrazit', 'verdunkelungsvorhang-anthrazit', false, 46.90, 'm²',
+            ['gordijnen', 'p-vorhang-anthrazit', 'verduisterend-gordijn-antraciet', false, 46.90, 'm²',
                 'Verdunkelungsvorhang Anthrazit', 'Karartma Fon Perde — Antrasit',
                 'Dreilagiger Verdunkelungsstoff fürs Schlafzimmer — dunkel, schwer und schalldämpfend.',
                 'Yatak odası için üç katmanlı karartma kumaşı — karanlık, ağır ve sesi yumuşatan.',
                 ['Material' => '100% Polyester, 3-lagig', 'Lichtdurchlässigkeit' => 'verdunkelnd', 'Extra' => 'thermisch und schalldämpfend', 'Montage' => 'Schiene oder Stange', 'Pflege' => '30° Feinwäsche'],
             ],
-            ['gardinen', 'p-tuell-gold', 'store-tuell-goldschimmer', false, 0, null,
+            ['gordijnen', 'p-tuell-gold', 'vitrage-goudglans', false, 0, null,
                 'Store Tüll mit Goldschimmer', 'Altın Işıltılı Tül',
                 'Feiner Tüll mit dezentem Goldfaden — filtert Licht weich, ohne den Raum zu verdunkeln.',
                 'İnce dokulu, hafif altın iplikli tül — odayı karartmadan ışığı yumuşakça süzer.',
@@ -744,13 +744,13 @@ class DatabaseSeeder extends Seeder
             ],
 
             // Plissees
-            ['plissees', 'p-plissee-weiss', 'plissee-weiss-lichtdurchlaessig', true, 89.00, 'Stück',
+            ['plissegordijnen', 'p-plissee-weiss', 'plisse-wit-lichtdoorlatend', true, 89.00, 'Stück',
                 'Plissee Weiß lichtdurchlässig', 'Beyaz Plise — Işık Geçirgen',
                 'Von oben und unten verstellbar — die Lösung für Dachfenster und Bäder.',
                 'Alttan ve üstten ayarlanabilir — çatı pencereleri ve banyolar için çözüm.',
                 ['Material' => 'Polyester, plissiert 20 mm', 'Lichtdurchlässigkeit' => 'lichtdurchlässig', 'Bedienung' => 'Griffbedienung oder Kordel', 'Montage' => 'Bohren oder Klemmträger', 'Sonderformen' => 'Dachschräge, Trapez, Dreieck'],
             ],
-            ['plissees', 'p-plissee-sand', 'wabenplissee-sand-thermo', true, 119.00, 'Stück',
+            ['plissegordijnen', 'p-plissee-sand', 'duette-plisse-zand-isolerend', true, 119.00, 'Stück',
                 'Wabenplissee Sand Thermo', 'Petek Plise — Kum, Isı Yalıtımlı',
                 'Doppelte Wabenstruktur mit Luftpolster: hält im Sommer Hitze draußen, im Winter Wärme drinnen.',
                 'Hava yastığı oluşturan çift petek yapısı: yazın ısıyı dışarıda, kışın sıcağı içeride tutar.',
@@ -758,19 +758,19 @@ class DatabaseSeeder extends Seeder
             ],
 
             // Rollos
-            ['rollos', 'p-rollo-creme', 'seitenzugrollo-creme', true, 59.00, 'Stück',
+            ['rolgordijnen', 'p-rollo-creme', 'rolgordijn-ketting-creme', true, 59.00, 'Stück',
                 'Seitenzugrollo Creme', 'Zincirli Stor — Krem',
                 'Schlichtes Kettenzugrollo in warmem Creme — die günstigste Maßlösung fürs Fenster.',
                 'Sıcak krem tonunda sade zincirli stor — pencere için en ekonomik ölçüye özel çözüm.',
                 ['Material' => '100% Polyester' , 'Lichtdurchlässigkeit' => 'halbtransparent', 'Bedienung' => 'Kettenzug links oder rechts', 'Montage' => 'Wand, Decke oder Klemmträger'],
             ],
-            ['rollos', 'p-rollo-verdunkelung', 'verdunkelungsrollo-anthrazit', true, 79.00, 'Stück',
+            ['rolgordijnen', 'p-rollo-verdunkelung', 'verduisterend-rolgordijn-antraciet', true, 79.00, 'Stück',
                 'Verdunkelungsrollo Anthrazit', 'Karartma Stor — Antrasit',
                 'Beschichteter Stoff, der Licht nahezu vollständig aussperrt — für Schlaf- und Kinderzimmer.',
                 'Işığı neredeyse tamamen kesen kaplamalı kumaş — yatak ve çocuk odaları için.',
                 ['Material' => 'Polyester mit Verdunkelungsbeschichtung', 'Lichtdurchlässigkeit' => 'verdunkelnd', 'Extra' => 'auch mit seitlicher Führungsschiene', 'Bedienung' => 'Kettenzug oder Motor', 'Montage' => 'Wand oder Decke'],
             ],
-            ['rollos', 'p-rollo-doppel', 'doppelrollo-greige', false, 94.00, 'Stück',
+            ['rolgordijnen', 'p-rollo-doppel', 'duo-rolgordijn-greige', false, 94.00, 'Stück',
                 'Doppelrollo Greige', 'Zebra Stor — Greige',
                 'Zwei Stoffbahnen mit transparenten und deckenden Streifen: Lichtmenge stufenlos regeln.',
                 'Şeffaf ve kapalı şeritli iki kumaş katı: ışık miktarını kademesiz ayarlayın.',
@@ -778,13 +778,13 @@ class DatabaseSeeder extends Seeder
             ],
 
             // Jalousien
-            ['jalousien', 'p-jalousie-holz', 'holzjalousie-50mm-natur', true, 149.00, 'Stück',
+            ['jaloezieen', 'p-jalousie-holz', 'houten-jaloezie-50mm-naturel', true, 149.00, 'Stück',
                 'Holzjalousie 50 mm Natur', 'Ahşap Jaluzi 50 mm — Natürel',
                 'Echtholzlamellen mit Leiterband — warm, wertig und stufenlos kippbar.',
                 'Şeritli gerçek ahşap lameller — sıcak, kaliteli ve kademesiz açı ayarlı.',
                 ['Material' => 'Echtholz (Basswood), lackiert', 'Lamellenbreite' => '50 mm', 'Bedienung' => 'Wendestab und Zugschnur', 'Montage' => 'Wand, Decke oder Nische', 'Hinweis' => 'nicht für Feuchträume'],
             ],
-            ['jalousien', 'p-jalousie-alu', 'aluminiumjalousie-25mm', false, 69.00, 'Stück',
+            ['jaloezieen', 'p-jalousie-alu', 'aluminium-jaloezie-25mm', false, 69.00, 'Stück',
                 'Aluminiumjalousie 25 mm', 'Alüminyum Jaluzi 25 mm',
                 'Schmale Alulamellen: schlank, feuchtraumgeeignet und ideal gegen Bildschirmblendung.',
                 'İnce alüminyum lameller: zarif, ıslak hacme uygun ve ekran parlamasına karşı ideal.',
@@ -792,7 +792,7 @@ class DatabaseSeeder extends Seeder
             ],
 
             // Lamellenvorhänge
-            ['lamellenvorhaenge', 'p-lamellen-weiss', 'lamellenvorhang-127mm-weiss', false, 0, null,
+            ['verticale-lamellen', 'p-lamellen-weiss', 'verticale-lamellen-127mm-wit', false, 0, null,
                 'Lamellenvorhang 127 mm Weiß', 'Dikey Lamelli Perde 127 mm — Beyaz',
                 'Für breite Fensterfronten und Terrassentüren: drehbar und komplett zur Seite schiebbar.',
                 'Geniş pencere cepheleri ve teras kapıları için: dönebilir ve tamamen yana toplanabilir.',
@@ -800,19 +800,19 @@ class DatabaseSeeder extends Seeder
             ],
 
             // Teppiche
-            ['teppiche', 'p-teppich-kelim', 'kelim-teppich-terra', true, 0, null,
+            ['tapijten', 'p-teppich-kelim', 'kelimtapijt-terracotta', true, 0, null,
                 'Kelim-Teppich Terra', 'Kilim — Terra',
                 'Flachgewebter Kelim in Terra, Anthrazit und Gold — robust und für Fußbodenheizung geeignet.',
                 'Terra, antrasit ve altın tonlarında düz dokuma kilim — dayanıklı, yerden ısıtmaya uygun.',
                 ['Material' => 'Wolle-Baumwoll-Mischung', 'Florhöhe' => 'flach gewebt', 'Größen' => '120×180, 160×230, 200×290 cm', 'Extra' => 'für Fußbodenheizung geeignet', 'Pflege' => 'saugen, professionell reinigen'],
             ],
-            ['teppiche', 'p-teppich-wolle', 'wollteppich-natur-kurzflor', false, 0, null,
+            ['tapijten', 'p-teppich-wolle', 'wollen-tapijt-naturel-laagpolig', false, 0, null,
                 'Wollteppich Natur Kurzflor', 'Yün Halı — Natürel Kısa Hav',
                 'Handgewebte Schurwolle in Naturtönen: warm unter den Füßen, dämpft Trittschall.',
                 'Doğal tonlarda el dokuma saf yün: ayak altında sıcak, adım sesini yumuşatır.',
                 ['Material' => '100% Schurwolle', 'Florhöhe' => 'ca. 12 mm', 'Größen' => 'Standardmaße und Maßanfertigung', 'Extra' => 'schalldämpfend', 'Pflege' => 'saugen, professionell reinigen'],
             ],
-            ['teppiche', 'p-teppich-vintage', 'laeufer-vintage-mass', false, 0, null,
+            ['tapijten', 'p-teppich-vintage', 'vintage-loper-op-maat', false, 0, null,
                 'Läufer Vintage nach Maß', 'Vintage Yol Halısı — Ölçüye Özel',
                 'Flur und Treppe nach Maß: Wunschlänge, eingefasste Kante, gedeckte Vintage-Optik.',
                 'Koridor ve merdiven için ölçüye özel: istediğiniz boy, overloklu kenar, mat vintage görünüm.',
@@ -872,58 +872,58 @@ class DatabaseSeeder extends Seeder
         /* ---------------- Yapılan işler ---------------- */
         /* Projelerin Hollandacası — slug'a göre [başlık, tür, özet] */
         $projectNl = [
-            'wohnzimmer-wellenvorhang-greige' => ['Woonkamer met golfgordijn', 'Gordijnen',
+            'woonkamer-golfgordijn-greige' => ['Woonkamer met golfgordijn', 'Gordijnen',
                 'Raampartij van 4,20 m breed met golfgordijn in greige, plafondrails vlak tegen de wand.'],
-            'holzjalousien-altbau' => ['Houten jaloezieën in een oud pand', 'Jaloezieën',
+            'houten-jaloezieen-oud-pand' => ['Houten jaloezieën in een oud pand', 'Jaloezieën',
                 'Zes ramen met houten jaloezieën van 50 mm in de dagkant gemonteerd — lamelkleur afgestemd op de kozijnen.'],
-            'dachfenster-wabenplissee' => ['Dakramen met duette-plissé', 'Plisségordijnen',
+            'dakramen-duette-plisse' => ['Dakramen met duette-plissé', 'Plisségordijnen',
                 'Een warme zolder: vier dakschuintes met isolerend duette-plissé, bediening met een telescoopstok.'],
-            'buero-lamellenvorhang' => ['Kantoor met verticale lamellen', 'Verticale lamellen',
+            'kantoor-verticale-lamellen' => ['Kantoor met verticale lamellen', 'Verticale lamellen',
                 'Twaalf werkplekken, zuidgevel: lamellen van 127 mm tegen spiegeling op beeldschermen, montage in het weekend.'],
-            'schlafzimmer-verdunkelung' => ['Slaapkamer volledig verduisterd', 'Rolgordijnen',
+            'slaapkamer-verduistering' => ['Slaapkamer volledig verduisterd', 'Rolgordijnen',
                 'Verduisterend rolgordijn met zijgeleiding plus een zwaar gordijn — geen lichtkier aan de randen.'],
-            'flur-laeufer-nach-mass' => ['Hal met een loper op maat', 'Tapijten',
+            'hal-loper-op-maat' => ['Hal met een loper op maat', 'Tapijten',
                 'Smalle hal in een oud pand, 9,40 m: loper op maat gesneden en omgezoomd, traptreden passend belegd.'],
         ];
 
         /* Projelerin İngilizcesi — slug'a göre [başlık, tür, özet] */
         $projectEn = [
-            'wohnzimmer-wellenvorhang-greige' => ['Living room with wave curtains', 'Curtains',
+            'woonkamer-golfgordijn-greige' => ['Living room with wave curtains', 'Curtains',
                 'A 4.20 m wide window front with wave-heading curtains in greige, ceiling track flush to the wall.'],
-            'holzjalousien-altbau' => ['Wooden blinds in a period building', 'Venetian Blinds',
+            'houten-jaloezieen-oud-pand' => ['Wooden blinds in a period building', 'Venetian Blinds',
                 'Six windows with 50 mm wooden blinds fitted in the recess — slat colour matched to the window frames.'],
-            'dachfenster-wabenplissee' => ['Roof windows with honeycomb blinds', 'Pleated Blinds',
+            'dakramen-duette-plisse' => ['Roof windows with honeycomb blinds', 'Pleated Blinds',
                 'An overheated loft: four sloping windows with thermal honeycomb pleated blinds, operated by telescopic rod.'],
-            'buero-lamellenvorhang' => ['Office with vertical blinds', 'Vertical Blinds',
+            'kantoor-verticale-lamellen' => ['Office with vertical blinds', 'Vertical Blinds',
                 'Twelve desks, south-facing facade: 127 mm slats against screen glare, fitted over the weekend.'],
-            'schlafzimmer-verdunkelung' => ['Fully blacked-out bedroom', 'Roller Blinds',
+            'slaapkamer-verduistering' => ['Fully blacked-out bedroom', 'Roller Blinds',
                 'Blackout roller blind with side guide rails plus a heavy curtain — no gap of light at the edges.'],
-            'flur-laeufer-nach-mass' => ['Hallway with a made-to-measure runner', 'Rugs',
+            'hal-loper-op-maat' => ['Hallway with a made-to-measure runner', 'Rugs',
                 'A narrow 9.40 m period hallway: runner cut and bound to measure, stairs covered to match.'],
         ];
 
         $projects = [
-            ['proj-1', 'wohnzimmer-wellenvorhang-greige', 'Wohnzimmer mit Wellenvorhang', 'Dalga Perdeli Salon',
+            ['proj-1', 'woonkamer-golfgordijn-greige', 'Wohnzimmer mit Wellenvorhang', 'Dalga Perdeli Salon',
                 'Gardinen', 'Fon Perde', 'Amsterdam', true,
                 'Fensterfront von 4,20 m Breite mit Wellenband-Vorhang in Greige, Deckenschiene bündig zur Wand.',
                 '4,20 m genişliğinde pencere cephesi; greige dalga bantlı fon perde, duvarla hizalı tavan rayı.'],
-            ['proj-2', 'holzjalousien-altbau', 'Holzjalousien im Altbau', 'Eski Binada Ahşap Jaluzi',
+            ['proj-2', 'houten-jaloezieen-oud-pand', 'Holzjalousien im Altbau', 'Eski Binada Ahşap Jaluzi',
                 'Jalousien', 'Jaluzi', 'Utrecht', true,
                 'Sechs Fenster mit 50-mm-Holzjalousien in Nischenmontage — Lamellenfarbe an die Fensterrahmen angepasst.',
                 'Nişe monte 50 mm ahşap jaluziyle altı pencere — lamel rengi pencere doğramasına göre seçildi.'],
-            ['proj-3', 'dachfenster-wabenplissee', 'Dachfenster mit Wabenplissee', 'Çatı Penceresinde Petek Plise',
+            ['proj-3', 'dakramen-duette-plisse', 'Dachfenster mit Wabenplissee', 'Çatı Penceresinde Petek Plise',
                 'Plissees', 'Plise', 'Almere', true,
                 'Aufgeheiztes Dachgeschoss: vier Dachschrägen mit Thermo-Wabenplissee, Bedienung per Teleskopstab.',
                 'Isınan çatı katı: dört çatı eğimine ısı yalıtımlı petek plise, teleskopik çubukla kumanda.'],
-            ['proj-4', 'buero-lamellenvorhang', 'Büro mit Lamellenvorhang', 'Ofiste Dikey Lamelli Perde',
+            ['proj-4', 'kantoor-verticale-lamellen', 'Büro mit Lamellenvorhang', 'Ofiste Dikey Lamelli Perde',
                 'Lamellenvorhänge', 'Dikey Lamel', 'Rotterdam', false,
                 'Zwölf Arbeitsplätze, Südfassade: 127-mm-Lamellen gegen Bildschirmblendung, Montage am Wochenende.',
                 'On iki çalışma alanı, güney cephe: ekran parlamasına karşı 127 mm lamel, montaj hafta sonu yapıldı.'],
-            ['proj-5', 'schlafzimmer-verdunkelung', 'Schlafzimmer komplett verdunkelt', 'Tam Karartmalı Yatak Odası',
+            ['proj-5', 'slaapkamer-verduistering', 'Schlafzimmer komplett verdunkelt', 'Tam Karartmalı Yatak Odası',
                 'Rollos', 'Stor', 'Haarlem', false,
                 'Verdunkelungsrollo mit seitlichen Führungsschienen plus schwerer Vorhang — kein Lichtspalt am Rand.',
                 'Yan kılavuz raylı karartma storu ve ağır fon perde — kenarda ışık sızıntısı yok.'],
-            ['proj-6', 'flur-laeufer-nach-mass', 'Flur mit Läufer nach Maß', 'Ölçüye Özel Yol Halılı Koridor',
+            ['proj-6', 'hal-loper-op-maat', 'Flur mit Läufer nach Maß', 'Ölçüye Özel Yol Halılı Koridor',
                 'Teppiche', 'Halı', 'Zaanstad', false,
                 'Schmaler Altbauflur, 9,40 m: Läufer auf Maß geschnitten und eingefasst, Treppenstufen passend belegt.',
                 'Dar eski bina koridoru, 9,40 m: yol halısı ölçüye göre kesilip overloklandı, merdiven basamakları uyumlu kaplandı.'],
@@ -967,7 +967,7 @@ class DatabaseSeeder extends Seeder
         /* ---------------- Rehber yazıları ---------------- */
         /* Yazıların Hollandacası — slug'a göre [kategori, başlık, özet, içerik] */
         $postNl = [
-            'vorhang-richtig-ausmessen' => [
+            'gordijnen-goed-opmeten' => [
                 'Advies',
                 'Gordijnen goed opmeten — de vier meestgemaakte fouten',
                 'Te kort, te smal, de rails op de verkeerde hoogte: wie zelf meet, trapt meestal in dezelfde valkuilen. Waar u op moet letten.',
@@ -981,7 +981,7 @@ class DatabaseSeeder extends Seeder
                 . "er bewust op rusten. Alles daartussen ziet uit als een vergissing.\n\n"
                 . "Bij twijfel: tijdens de gratis inmeetafspraak meten wij zelf — en dan zijn wij ook aansprakelijk voor de maten.",
             ],
-            'welcher-sonnenschutz-passt' => [
+            'welke-zonwering-past' => [
                 'Materiaalkennis',
                 'Plissé, rolgordijn of jaloezie — wat past bij welke ruimte?',
                 'Alle drie zitten direct tegen het glas en kosten ongeveer hetzelfde. Het verschil zit in wat ze met het licht doen.',
@@ -997,7 +997,7 @@ class DatabaseSeeder extends Seeder
                 . "en in de keuken — aluminium kan daar tegen vocht, echt hout niet.\n\n"
                 . "Kort: bijzondere vorm → plissé. Rustig vlak en verduistering → rolgordijn. Lichtwering met uitzicht → jaloezie.",
             ],
-            'teppich-pflege-und-groesse' => [
+            'tapijt-onderhoud-en-maat' => [
                 'Tapijten',
                 'De juiste tapijtmaat kiezen — en uw tapijt mooi houden',
                 'De meestgemaakte fout bij het kopen van een tapijt is niet de kleur maar de maat. En verder: wat wol echt nodig heeft.',
@@ -1018,7 +1018,7 @@ class DatabaseSeeder extends Seeder
 
         /* Yazıların İngilizcesi — slug'a göre [kategori, başlık, özet, içerik] */
         $postEn = [
-            'vorhang-richtig-ausmessen' => [
+            'gordijnen-goed-opmeten' => [
                 'Guide',
                 'Measuring curtains correctly — the four most common mistakes',
                 'Too short, too narrow, the track at the wrong height: people who measure themselves usually fall into the same traps. What to watch out for.',
@@ -1032,7 +1032,7 @@ class DatabaseSeeder extends Seeder
                 . "floor or deliberately rest on it. Anything in between looks like a mistake.\n\n"
                 . "If in doubt: we take the measurements at the free measuring visit — and then we are liable for them.",
             ],
-            'welcher-sonnenschutz-passt' => [
+            'welke-zonwering-past' => [
                 'Materials',
                 'Pleated, roller or venetian — which suits which room?',
                 'All three sit right against the glass and cost about the same. The difference lies in what they do with the light.',
@@ -1048,7 +1048,7 @@ class DatabaseSeeder extends Seeder
                 . "in the kitchen — aluminium copes with moisture there, real wood does not.\n\n"
                 . "In short: unusual shape → pleated. Calm surface and blackout → roller. Glare protection with a view → venetian.",
             ],
-            'teppich-pflege-und-groesse' => [
+            'tapijt-onderhoud-en-maat' => [
                 'Rugs',
                 'Choosing the right rug size — and keeping a rug looking good',
                 'The most common mistake when buying a rug is not the colour but the size. Plus: what wool really needs.',
@@ -1069,7 +1069,7 @@ class DatabaseSeeder extends Seeder
         ];
 
         $posts = [
-            ['blog-1', 'vorhang-richtig-ausmessen', 'Ratgeber', 'Rehber',
+            ['blog-1', 'gordijnen-goed-opmeten', 'Ratgeber', 'Rehber',
                 'Vorhänge richtig ausmessen — die vier häufigsten Fehler',
                 'Fon perdeyi doğru ölçmek — en sık yapılan dört hata',
                 'Zu kurz, zu schmal, falsche Schienenhöhe: Wer selbst misst, tappt meist in dieselben Fallen. Was Sie beachten sollten.',
@@ -1093,7 +1093,7 @@ class DatabaseSeeder extends Seeder
                 . "bilinçli olarak yere değmelidir. Arası kaza gibi görünür.\n\n"
                 . "Tereddüt varsa: ücretsiz ölçü randevusunda ölçüyü biz alıyoruz — ve ölçüden biz sorumlu oluyoruz."],
 
-            ['blog-2', 'welcher-sonnenschutz-passt', 'Materialkunde', 'Malzeme Bilgisi',
+            ['blog-2', 'welke-zonwering-past', 'Materialkunde', 'Malzeme Bilgisi',
                 'Plissee, Rollo oder Jalousie — was passt zu welchem Raum?',
                 'Plise, stor mu jaluzi mi — hangi odaya hangisi?',
                 'Alle drei sitzen direkt am Glas und kosten ähnlich viel. Der Unterschied liegt darin, was sie mit dem Licht machen.',
@@ -1119,7 +1119,7 @@ class DatabaseSeeder extends Seeder
                 . "nemi kaldırır, gerçek ahşap kaldırmaz.\n\n"
                 . "Kısaca: özel form → plise. Sakin yüzey ve karartma → stor. Manzarayla birlikte parlama koruması → jaluzi."],
 
-            ['blog-3', 'teppich-pflege-und-groesse', 'Teppiche', 'Halı',
+            ['blog-3', 'tapijt-onderhoud-en-maat', 'Teppiche', 'Halı',
                 'Teppichgröße richtig wählen — und den Teppich lange schön halten',
                 'Halı ölçüsünü doğru seçmek — ve halıyı uzun süre güzel tutmak',
                 'Der häufigste Fehler beim Teppichkauf ist nicht die Farbe, sondern die Größe. Dazu: was Wolle wirklich braucht.',
