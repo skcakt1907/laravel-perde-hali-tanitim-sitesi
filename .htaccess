@@ -1,4 +1,66 @@
+# ============================================================
+# PROJE KÖKÜ — .htaccess
+#
+# Bu dosya YALNIZCA alan adı proje köküne bakıyorsa devreye girer
+# (paylaşımlı hostingde sık olan durum). Doğrusu docroot'u `public`
+# klasörüne çevirmektir; bu dosya o yapılamadığında güvenlik ağıdır.
+#
+# KURAL SIRASI ÖNEMLİ:
+#   1) public/ altında GERÇEKTEN var olan dosya/klasör → servis et
+#      (public/vendor, public/fonts, public/img, public/uploads … böyle çalışır)
+#   2) kalanlarda uygulama klasörleri ve gizli dosyalar → yasak
+#   3) geri kalan her şey → public/index.php
+#
+# Sıra ters olsa `vendor` engeli public/vendor içindeki Bootstrap ve
+# ikon dosyalarını da 403 yapardı.
+# ============================================================
+
+Options -Indexes -MultiViews
+
+# ─── Gizli dosyalar (.env, .git …) — .well-known hariç ───
+<FilesMatch "^\.(?!well-known)">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# ─── Kökteki hassas dosyalar ───
+<FilesMatch "(?i)^(composer\.(json|lock)|package(-lock)?\.json|artisan|phpunit\.xml|playwright\.config\.js|vite\.config\.js|.*\.(sqlite|sqlite3|db|log|bak|sql|ini|yml|yaml|md|cjs))$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # 1) public/ altında var olan dosya veya klasörse oradan servis et
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -f [OR]
+    RewriteCond %{DOCUMENT_ROOT}/public%{REQUEST_URI} -d
+    RewriteRule ^ public%{REQUEST_URI} [L]
+
+    # 1b) public/vendor altındaki YAYIN varlıkları serbest.
+    # Bunlar `vendor` adını taşıyor ama Composer'ın vendor'ı DEĞİL —
+    # aşağıdaki genel `vendor` engeli bunları da 403 yapardı ve sitede
+    # Bootstrap ile ikonlar kaybolurdu. (Bu tam olarak yaşandı.)
+    RewriteRule ^vendor/(bootstrap|bootstrap-icons|lucide)/(.*)$ public/vendor/$1/$2 [L]
+
+    # 2) public'te olmayan istekler: uygulama klasörleri yasak
+    RewriteRule ^(app|bootstrap|config|database|lang|resources|routes|storage|tests|vendor|node_modules)(/|$) - [F,L]
+
+    # Gizli klasörler (.git, .github, .claude …)
+    RewriteRule (^|/)\.(?!well-known) - [F,L]
+
+    # 3) Geri kalan her şey Laravel'e
+    RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ public/$1 [QSA,L]
 </IfModule>

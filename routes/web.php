@@ -74,7 +74,11 @@ Route::prefix('{locale}')
 /* ---------------- Yönetim girişi (Türkçe panel) ---------------- */
 Route::middleware('guest')->group(function () {
     Route::get('/giris', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/giris', [AuthController::class, 'login']);
+
+    // Kaba kuvvete karsi ASIL koruma AuthController'da: e-posta+IP basina
+    // 5 BASARISIZ deneme -> 1 dakika kilit. Buradaki sinir sadece sel/bot freni;
+    // dusuk tutmak ortak IP arkasindaki mesru kullaniciyi da cezalandirirdi.
+    Route::post('/giris', [AuthController::class, 'login'])->middleware('throttle:30,1');
 });
 Route::post('/cikis', [AuthController::class, 'logout'])->name('logout');
 

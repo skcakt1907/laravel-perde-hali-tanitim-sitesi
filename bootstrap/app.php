@@ -15,6 +15,10 @@ return Application::configure(basePath: dirname(__DIR__))
         // Dili yönlendirmeden ÖNCE belirler — hata sayfaları da doğru dilde gelsin diye
         $middleware->prepend(\App\Http\Middleware\DetectLocaleFromPath::class);
 
+        // Güvenlik başlıkları (CSP, nosniff, HSTS…) — sunucudan bağımsız çalışsın diye
+        // .htaccess'te değil burada. Hata sayfalarına da uygulanması için global.
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+
         $middleware->alias([
             'admin'     => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'setlocale' => \App\Http\Middleware\SetLocale::class,

@@ -23,11 +23,14 @@ class ProfileController extends Controller
             'email'            => 'required|email|max:120|unique:users,email,' . $user->id,
             'phone'            => 'nullable|string|max:30',
             'current_password' => ['nullable', 'required_with:password', 'current_password'],
-            'password'         => ['nullable', 'confirmed', Password::min(6)],
+            'password'         => ['nullable', 'confirmed', Password::min(10)->letters()->numbers()],
         ], [
             'current_password.current_password' => 'Mevcut şifreniz hatalı.',
             'current_password.required_with'    => 'Şifre değiştirmek için mevcut şifrenizi girin.',
             'password.confirmed'                => 'Yeni şifre tekrarı eşleşmiyor.',
+            'password.min'                      => 'Yeni şifre en az 10 karakter olmalı.',
+            'password.letters'                  => 'Yeni şifre en az bir harf içermeli.',
+            'password.numbers'                  => 'Yeni şifre en az bir rakam içermeli.',
         ]);
 
         // role mass-assign edilmez; alanlar explicit atanır.

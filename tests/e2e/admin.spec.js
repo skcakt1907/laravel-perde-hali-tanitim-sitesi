@@ -490,6 +490,70 @@ test.describe('Dış bağımlılık ve hata sayfaları', () => {
     });
 });
 
+test.describe('Güvenlik — başlıklar ve erişim', () => {
+    test('güvenlik başlıkları gönderiliyor', async ({ request }) => {
+        const resp = await request.get('/de');
+        const h = resp.headers();
+
+        expect(h['content-security-policy'], 'CSP').toBeTruthy();
+        expect(h['content-security-policy']).toContain("default-src 'self'");
+        expect(h['x-content-type-options']).toBe('nosniff');
+        expect(h['x-frame-options']).toBe('SAMEORIGIN');
+        expect(h['referrer-policy']).toBe('strict-origin-when-cross-origin');
+        expect(h['permissions-policy'], 'Permissions-Policy').toBeTruthy();
+
+        // PHP sürümü sızmasın
+        expect(h['x-powered-by'], 'X-Powered-By kaldırılmış olmalı').toBeUndefined();
+    });
+
+    test('CSP dış script/stil kaynağına izin vermiyor', async ({ request }) => {
+        const resp = await request.get('/de');
+        const csp = resp.headers()['content-security-policy'];
+
+        // Yalnızca kendi sunucumuz (satır içi kod hariç) — CDN adresi geçmemeli
+        expect(csp).toContain("script-src 'self'");
+        expect(csp).not.toContain('jsdelivr');
+        expect(csp).not.toContain('googleapis');
+    });
+
+    test('hata sayfaları da güvenlik başlığı taşıyor', async ({ request }) => {
+        const resp = await request.get('/de/olmayan-sayfa');
+        expect(resp.status()).toBe(404);
+        expect(resp.headers()['content-security-policy']).toBeTruthy();
+    });
+
+    test('yüklenen klasörde PHP çalıştırılamıyor', async ({ request }) => {
+        // uploads/.htaccess çalıştırmayı engelliyor; dosya olmasa da 403 dönmeli
+        const resp = await request.get('/uploads/deneme.php');
+        expect([403, 404], 'PHP dosyası servis edilmemeli').toContain(resp.status());
+    });
+
+    test('panel arama motorlarına kapalı', async ({ page, request }) => {
+        await loginAs(page, ADMIN.email, ADMIN.password);
+        await page.goto('/yonetim');
+        await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+
+        const robots = await (await request.get('/robots.txt')).text();
+        expect(robots).toContain('Disallow: /yonetim');
+        expect(robots).toContain('Disallow: /giris');
+    });
+
+    test('yanlış şifreyle giriş hesap varlığını sızdırmıyor', async ({ page }) => {
+        // Var olan hesap ile olmayan hesap AYNI mesajı vermeli
+        const mesajlar = [];
+
+        for (const email of [ADMIN.email, 'olmayan-hesap@example.com']) {
+            await page.goto('/giris');
+            await page.fill('input[name="email"]', email);
+            await page.fill('input[name="password"]', 'kesinlikle-yanlis-sifre');
+            await page.click('button[type="submit"]');
+            mesajlar.push((await page.locator('.alert-danger').textContent()).trim());
+        }
+
+        expect(mesajlar[0]).toBe(mesajlar[1]);
+    });
+});
+
 test.describe('Güvenlik — yetki kontrolü', () => {
     test('giriş yapmamış kullanıcı /yonetim göremez', async ({ page }) => {
         await page.goto('/yonetim');
