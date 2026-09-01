@@ -30,10 +30,10 @@ return [
 
     /* ---- Home ---- */
     'home' => [
-        'hero_eyebrow' => 'Gordijnen · Jaloezieën · Tapijten',
+        'hero_eyebrow' => 'Gordijnen · Plissé · Jaloezieën',
         'hero_title'   => 'Raamdecoratie op maat voor uw woning',
-        'hero_text'    => 'Van plissé- en rolgordijnen tot overgordijnen en zorgvuldig uitgezochte '
-            . 'tapijten: wij meten gratis bij u thuis in, nemen de tijd voor advies en monteren alles vakkundig.',
+        'hero_text'    => 'Van plissé- en rolgordijnen tot overgordijnen en jaloezieën: wij meten '
+            . 'gratis bij u thuis in, nemen de tijd voor advies en monteren alles vakkundig.',
         'usp_1_title' => 'Gratis inmeten',
         'usp_1_text'  => 'Wij komen naar u toe, meten nauwkeurig in en adviseren u zonder verplichtingen — geen voorrijkosten.',
         'usp_2_title' => 'Op maat gemaakt',
@@ -106,7 +106,7 @@ return [
     /* ---- Diensten ---- */
     'services' => [
         'title'  => 'Diensten',
-        'lead'   => 'Alles rondom raamdecoratie en tapijten — door één team.',
+        'lead'   => 'Alles rondom raamdecoratie — door één team.',
         'others' => 'Meer diensten',
     ],
 

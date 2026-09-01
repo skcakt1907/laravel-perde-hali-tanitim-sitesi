@@ -29,7 +29,7 @@
                      'placeholder_tr' => 'örn. Fon perdeyi doğru ölçmek'],
                     ['name' => 'category', 'label' => 'Kategori etiketi',
                      'placeholder' => 'Ratgeber / Materialkunde / Teppiche',
-                     'placeholder_nl' => 'Advies / Materiaalkennis / Tapijten',
+                     'placeholder_nl' => 'Advies / Materiaalkennis / Raamdecoratie',
                      'placeholder_en' => 'Guide / Materials / Rugs',
                      'placeholder_tr' => 'Rehber / Malzeme Bilgisi / Halı',
                      'help' => 'Görsel üstünde küçük etiket olarak çıkar.'],

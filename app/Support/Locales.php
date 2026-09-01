@@ -24,11 +24,20 @@ final class Locales
      * dilin KENDİ adıdır (Nederlands, değil "Niederländisch") — ziyaretçi
      * hangi dili bilmiyorsa da kendi dilini tanır.
      */
+    /*
+     * 01.09.2026 — MÜŞTERİ İSTEĞİ: site yalnızca Hollandaca + İngilizce olacak.
+     * Almanca ve Türkçe listeden çıkarıldı. Bu satırları geri eklemek dilleri
+     * geri getirmeye YETER; çünkü:
+     *   · `_de` / `_tr` kolonları veritabanında DURUYOR (silinmedi, veri kaybı yok)
+     *   · lang/de, lang/tr ve legal/de, legal/tr klasörleri DURUYOR
+     *   · Yollar.php ve LegalController'daki de/tr slug eşlemeleri DURUYOR
+     * Yani karar geri alınırsa tek yapılacak iş bu iki satırı geri koymaktır.
+     */
     public const ALL = [
         'nl' => ['Nederlands', 'nl', 'nl_NL'],
-        'de' => ['Deutsch',    'de', 'de_DE'],
         'en' => ['English',    'en', 'en_US'],
-        'tr' => ['Türkçe',     'tr', 'tr_TR'],
+        // 'de' => ['Deutsch',    'de', 'de_DE'],   // müşteri isteğiyle kapatıldı
+        // 'tr' => ['Türkçe',     'tr', 'tr_TR'],   // müşteri isteğiyle kapatıldı
     ];
 
     /** @return array<string,string> kod => etiket */

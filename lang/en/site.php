@@ -30,9 +30,9 @@ return [
 
     /* ---- Home ---- */
     'home' => [
-        'hero_eyebrow' => 'Curtains · Blinds · Rugs',
+        'hero_eyebrow' => 'Curtains · Pleated · Blinds',
         'hero_title'   => 'Made-to-measure window dressing for your home',
-        'hero_text'    => 'From pleated and roller blinds to curtains and hand-picked rugs: we measure at '
+        'hero_text'    => 'From pleated and roller blinds to curtains and venetian blinds: we measure at '
             . 'your home free of charge, take the time to advise you and fit everything properly.',
         'usp_1_title' => 'Free measuring',
         'usp_1_text'  => 'We come to you, measure precisely and advise you with no obligation — no call-out charge.',
@@ -106,7 +106,7 @@ return [
     /* ---- Services ---- */
     'services' => [
         'title'  => 'Services',
-        'lead'   => 'Everything to do with window dressing and rugs — from one team.',
+        'lead'   => 'Everything to do with window dressing — from one team.',
         'others' => 'More services',
     ],
 

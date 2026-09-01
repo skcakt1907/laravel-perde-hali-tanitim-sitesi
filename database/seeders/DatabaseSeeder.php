@@ -68,7 +68,7 @@ class DatabaseSeeder extends Seeder
 
             'site_aciklama_de' => 'Maßgefertigte Gardinen, Plissees, Rollos, Jalousien und Teppiche. '
                 . 'Kostenloses Aufmaß und Beratung bei Ihnen zu Hause, fachgerechte Montage aus einer Hand.',
-            'site_aciklama' => 'Gordijnen, plissé- en rolgordijnen, jaloezieën en tapijten op maat. '
+            'site_aciklama' => 'Gordijnen, plissé- en rolgordijnen en jaloezieën op maat. '
                 . 'Gratis inmeten en advies bij u thuis, vakkundige montage door één team.',
             'site_aciklama_en' => 'Made-to-measure curtains, pleated blinds, roller blinds, venetian '
                 . 'blinds and rugs. Free measuring and advice at your home, expert fitting from one team.',
@@ -93,7 +93,7 @@ class DatabaseSeeder extends Seeder
             'hero_metin_de'  => 'Von Plissees und Rollos bis zu Vorhängen und handverlesenen Teppichen: '
                 . 'Wir messen kostenlos bei Ihnen aus, beraten Sie in Ruhe und montieren fachgerecht.',
             'hero_baslik' => "Raamdecoratie op maat\nvoor uw woning",
-            'hero_metin'  => 'Van plissé- en rolgordijnen tot overgordijnen en zorgvuldig uitgezochte tapijten: '
+            'hero_metin'  => 'Van plissé- en rolgordijnen tot overgordijnen en jaloezieën: '
                 . 'wij meten gratis bij u thuis in, nemen de tijd voor advies en monteren alles vakkundig.',
             'hero_baslik_en' => "Made-to-measure window dressing\nfor your home",
             'hero_metin_en'  => 'From pleated and roller blinds to curtains and hand-picked rugs: '
@@ -122,7 +122,7 @@ class DatabaseSeeder extends Seeder
                 . "Montage durch eigene Monteure\nStoffmuster zum Vergleich vor Ort\n"
                 . "Feste Preise im schriftlichen Angebot\nBeratung auf Deutsch, Niederländisch, Englisch und Türkisch",
             'hakkimizda_baslik' => 'Een familiebedrijf voor raamdecoratie — bij u langs met rolmaat en stalenboek',
-            'hakkimizda_metin'  => "MC Gordijnen is een familiebedrijf voor gordijnen, zonwering en tapijten. "
+            'hakkimizda_metin'  => "MC Gordijnen is een familiebedrijf voor gordijnen en zonwering. "
                 . "Wij komen bij u thuis, meten elk raam zelf op en nemen stofstalen mee — "
                 . "want een kleur werkt in uw eigen woonkamer altijd anders dan in de winkel.\n\n"
                 . "Wij werken zonder tussenhandel: advies, inmeten, productie en montage lopen via ons. "
@@ -226,6 +226,9 @@ class DatabaseSeeder extends Seeder
                 'description_tr' => 'Geniş pencere cepheleri ve teras kapıları için: dönebilen ve tamamen yana toplanabilen dikey lameller.',
             ],
             [
+                // 01.09.2026 musteri istegi: hali hizmeti verilmiyor -> kategori PASIF kuruluyor
+                // (tanim silinmedi; durum=1 yapilinca urunleriyle birlikte geri gelir)
+                'durum' => false,
                 'slug' => 'tapijten', 'slug_de' => 'teppiche', 'slug_en' => 'rugs-runners', 'slug_tr' => 'hali-yol-halisi', 'icon' => 'bi-grid-3x3', 'image' => $img('kat-teppiche'),
                 'name' => 'Tapijten & Lopers',
                 'description' => 'Wol, kelim en laagpolig — van standaardmaten tot tapijt op maat met omgezoomde rand voor trap en hal.',
@@ -1218,7 +1221,9 @@ class DatabaseSeeder extends Seeder
                     ? $foto(substr($image, 5))
                     : $img($image),
                 'tarih'       => now()->subWeeks(($i + 1) * 3),
-                'durum'       => true,
+                // 01.09.2026: hali hizmeti verilmiyor -> hali yazisi PASIF kurulur.
+                // Yazi silinmedi; hali geri gelirse panelden aktif edilir.
+                'durum'       => $slug !== 'tapijt-onderhoud-en-maat',
             ]);
         }
 

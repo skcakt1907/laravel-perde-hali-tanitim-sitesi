@@ -29,7 +29,7 @@
                      'placeholder_tr' => 'örn. Sıra evde plise perde'],
                     ['name' => 'kind', 'label' => 'İşin türü (galeri filtresi)',
                      'placeholder' => 'Plissees / Rollos / Teppiche',
-                     'placeholder_nl' => 'Plisségordijnen / Rolgordijnen / Tapijten',
+                     'placeholder_nl' => 'Plisségordijnen / Rolgordijnen / Jaloezieën',
                      'placeholder_en' => 'Pleated Blinds / Roller Blinds / Rugs',
                      'placeholder_tr' => 'Plise / Stor / Halı',
                      'help' => 'Galeri sayfasındaki filtre çipleri bu değerden üretilir — mevcutlarla aynı yazın.'],

@@ -14,7 +14,7 @@
 <p>
     There is <strong>no</strong> right of withdrawal for contracts for the supply of goods made
     to the customer's specifications or clearly tailored to personal requirements. As curtains,
-    pleated blinds, roller blinds, venetian blinds and made-to-measure rugs are produced for
+    pleated blinds, roller blinds and venetian blinds are produced for
     your specific window or room, withdrawal is excluded once production has begun.
 </p>
 
@@ -26,7 +26,7 @@
 
 <h2>Stock items</h2>
 <p>
-    For items that are not made to measure (for example standard-size rugs), the statutory
+    For items that are not made to measure (for example stock items), the statutory
     14-day right of withdrawal applies from receipt of the goods.
 </p>
 

@@ -14,7 +14,7 @@
 <p>
     Er bestaat <strong>geen</strong> herroepingsrecht bij overeenkomsten voor de levering van
     zaken die volgens specificaties van de klant zijn vervaardigd of duidelijk op persoonlijke
-    wensen zijn afgestemd. Omdat gordijnen, plissé- en rolgordijnen, jaloezieën en tapijten op
+    wensen zijn afgestemd. Omdat gordijnen, plissé- en rolgordijnen en jaloezieën op
     maat voor uw specifieke raam of ruimte worden geproduceerd, is herroeping uitgesloten zodra
     de productie is begonnen.
 </p>
@@ -27,7 +27,7 @@
 
 <h2>Voorraadartikelen</h2>
 <p>
-    Voor artikelen die niet op maat worden gemaakt (bijvoorbeeld tapijten in standaardmaten)
+    Voor artikelen die niet op maat worden gemaakt (bijvoorbeeld artikelen uit voorraad)
     geldt het wettelijke herroepingsrecht van 14 dagen vanaf ontvangst van de zaken.
 </p>
 
