@@ -29,10 +29,10 @@ class SettingController extends Controller
         $pages = [
             'genel' => [
                 'title'    => 'Genel Ayarlar',
-                'subtitle' => 'Site adı ve arama motorlarında görünen açıklama',
+                'subtitle' => 'Site adı, site adresi ve arama motorlarında görünen açıklama',
                 'icon'     => 'settings',
                 'group'    => 'SİTE',
-                'keys'     => ['site_adi'],
+                'keys'     => ['site_adi', 'site_adresi'],
                 't_keys'   => ['site_aciklama'],
             ],
             'iletisim' => [

@@ -65,7 +65,11 @@ Yapı: İş Ortağım panel mimarisi · Palet: mavi/beyaz
                     @endif
                 </a>
 
-                <a href="{{ route('home') }}" target="_blank" rel="noopener" class="icon-btn"
+                {{-- Siteyi aç: önce Ayarlar > Genel > "Site adresi", yoksa route('home').
+                     route('home') isteğin geldiği alan adını üretir; panele geçici/önizleme
+                     bir adresten girilince buton da oraya gidiyordu. Ayara gerçek adres
+                     yazılınca buton, panele nereden girildiğinden bağımsız hâle gelir. --}}
+                <a href="{{ setting('site_adresi') ?: route('home') }}" target="_blank" rel="noopener" class="icon-btn"
                    title="Siteyi yeni sekmede aç">
                     <i data-lucide="external-link"></i>
                 </a>

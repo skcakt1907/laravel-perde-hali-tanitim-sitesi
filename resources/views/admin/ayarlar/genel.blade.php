@@ -13,6 +13,18 @@
                    placeholder="MC Gordijnen">
             <div class="form-help">Sekme başlığında, alt bilgide ve e-postalarda görünür — tüm dillerde aynıdır.</div>
         </div>
+
+        <div class="form-group full mb-0">
+            <label class="form-label">Site adresi</label>
+            <input type="url" name="site_adresi" class="form-input" value="{{ $s('site_adresi') }}"
+                   placeholder="https://ornekperde.com" inputmode="url">
+            <div class="form-help">
+                Panelin sağ üstündeki <strong>“Siteyi yeni sekmede aç”</strong> butonu buraya gider.
+                Boş bırakılırsa panele hangi adresten girdiysen buton da oraya gider —
+                geçici/önizleme bir adresten girildiğinde yanlış yere gitmesinin sebebi budur.
+                Buraya sitenin <strong>gerçek adresini</strong> yazmanı öneririm.
+            </div>
+        </div>
     </div>
 </div>
 
