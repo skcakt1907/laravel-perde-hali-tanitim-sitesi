@@ -145,7 +145,47 @@ foreach (Locales::codes() as $kod) {
 
 /* ---------------- Yönetim girişi (Türkçe panel) ---------------- */
 Route::middleware('guest')->group(function () {
-    Route::get('/giris', [AuthController::class, 'showLogin'])->name('login');
+    /*
+ |--------------------------------------------------------------------------
+ | KAPATILAN DİLLERİN ESKİ ADRESLERİ (301)
+ |--------------------------------------------------------------------------
+ | Almanca ve Türkçe kapatıldı; o dillerdeki 96 adres Google'da kayıtlı.
+ | Yönlendirilmezse hepsi 404 verir. Aşağıdaki döngü yalnızca ARTIK AKTİF
+ | OLMAYAN diller için rota kaydeder — diller geri açılırsa kendiliğinden
+ | devre dışı kalır (bkz. EskiDilYonlendirmeController::kapatilanDiller).
+ |
+ | Yol parçaları tüm diller arasında benzersiz olduğu için (Yollar sınıfı
+ | bunu şart koşar) aktif rotalarla çakışma olmaz.
+ */
+foreach (\App\Http\Controllers\EskiDilYonlendirmeController::kapatilanDiller() as $eskiDil) {
+    $ep = fn (string $sayfa) => '/' . Yollar::parca($sayfa, $eskiDil);
+    $ey = fn () => app(\App\Http\Controllers\EskiDilYonlendirmeController::class);
+
+    // NOT: Denetleyici metotları KAPANIŞ İÇİNDEN açıkça çağrılıyor.
+    // Doğrudan [Controller::class, 'metot'] + ->defaults('sayfa', ...) ile
+    // bağlarsak Laravel tip belirtilmemiş parametreleri İSME GÖRE DEĞİL
+    // SIRAYA GÖRE geçiriyor; rota parametreleri (slug, sayfa) sırasında
+    // geldiği için $sayfa ile $slug yer değiştiriyordu.
+    foreach (['catalog', 'services', 'gallery', 'blog'] as $sayfa) {
+        Route::get($ep($sayfa), fn () => $ey()->liste($sayfa));
+        Route::get($ep($sayfa) . '/{slug}', fn (string $slug) => $ey()->detay($sayfa, $slug));
+    }
+
+    // Ürün detayı ayrı bir yol parçası kullanır (/produkt, /urun)
+    Route::get($ep('product') . '/{slug}', fn (string $slug) => $ey()->detay('product', $slug));
+
+    // Slug'sız tek sayfalar
+    foreach (['about', 'contact', 'aufmass'] as $sayfa) {
+        Route::get($ep($sayfa), fn () => $ey()->liste($sayfa));
+    }
+
+    // Yasal sayfalar: slug'ları dile göre tamamen farklı
+    Route::get($ep('legal') . '/{slug}', fn (string $slug) => $ey()->yasal($slug));
+    Route::get($ep('legal'), fn () => $ey()->liste('legal'));
+}
+
+
+Route::get('/giris', [AuthController::class, 'showLogin'])->name('login');
 
     // Kaba kuvvete karsi ASIL koruma AuthController'da: e-posta+IP basina
     // 5 BASARISIZ deneme -> 1 dakika kilit. Buradaki sinir sadece sel/bot freni;
