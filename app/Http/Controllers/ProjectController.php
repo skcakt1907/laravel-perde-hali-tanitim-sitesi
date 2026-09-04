@@ -21,7 +21,10 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        abort_unless($project->durum, 404);
+        // Pasife alinmis icerik: 404 yerine liste sayfasi (bkz. PasifIcerik)
+        if (! $project->durum) {
+            return \App\Support\PasifIcerik::listeyeGonder('gallery');
+        }
 
         return view('projects.show', [
             'project' => $project,

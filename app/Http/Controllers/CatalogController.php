@@ -18,7 +18,10 @@ class CatalogController extends Controller
 
     public function category(Category $category)
     {
-        abort_unless($category->durum, 404);
+        // Pasife alinmis icerik: 404 yerine liste sayfasi (bkz. PasifIcerik)
+        if (! $category->durum) {
+            return \App\Support\PasifIcerik::listeyeGonder('catalog');
+        }
 
         // Alt kategoriler varsa onların ürünleri de listelenir
         $ids = $category->children()->pluck('id')->push($category->id);
@@ -33,7 +36,10 @@ class CatalogController extends Controller
 
     public function show(Product $product)
     {
-        abort_unless($product->durum, 404);
+        // Pasife alinmis icerik: 404 yerine liste sayfasi (bkz. PasifIcerik)
+        if (! $product->durum) {
+            return \App\Support\PasifIcerik::listeyeGonder('catalog');
+        }
 
         return view('catalog.show', [
             'product' => $product->load('category'),

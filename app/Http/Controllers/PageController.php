@@ -33,7 +33,10 @@ class PageController extends Controller
 
     public function serviceShow(Service $service)
     {
-        abort_unless($service->durum, 404);
+        // Pasife alinmis icerik: 404 yerine liste sayfasi (bkz. PasifIcerik)
+        if (! $service->durum) {
+            return \App\Support\PasifIcerik::listeyeGonder('services');
+        }
 
         return view('pages.service-show', [
             'service' => $service,
@@ -48,7 +51,10 @@ class PageController extends Controller
 
     public function blogShow(Post $post)
     {
-        abort_unless($post->durum, 404);
+        // Pasife alinmis icerik: 404 yerine liste sayfasi (bkz. PasifIcerik)
+        if (! $post->durum) {
+            return \App\Support\PasifIcerik::listeyeGonder('blog');
+        }
 
         return view('pages.blog-show', [
             'post'   => $post,

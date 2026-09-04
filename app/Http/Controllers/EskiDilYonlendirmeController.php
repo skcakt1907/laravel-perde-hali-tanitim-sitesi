@@ -60,7 +60,7 @@ class EskiDilYonlendirmeController extends Controller
     {
         $this->anaDileGec();
 
-        return redirect()->to('/' . Yollar::parca($sayfa, Locales::primary()), 301);
+        return redirect()->to('/' . Yollar::parca($this->listeSayfasi($sayfa), Locales::primary()), 301);
     }
 
     /** Detay sayfaları: /urun/<türkçe-slug> → /product/<hollandaca-slug> */
@@ -79,11 +79,14 @@ class EskiDilYonlendirmeController extends Controller
 
         $kayit = $model ? $this->slugIleBul($model, $slug) : null;
 
-        // Kayıt bulunamadıysa (silinmiş içerik) liste sayfasına düş —
-        // 404 vermektense ilgili bölüme göndermek hem ziyaretçi hem
-        // arama motoru için daha iyi.
-        if (! $kayit) {
-            return redirect()->to('/' . Yollar::parca($sayfa, Locales::primary()), 301);
+        // Kayıt yoksa VEYA pasife alınmışsa doğrudan listeye gönder.
+        //
+        // Pasif kontrolü şart: halı içeriği silinmedi, `durum=0` yapıldı.
+        // Kayıt bulunduğu için eskiden ana dildeki detay adresine
+        // yönlendiriliyor, o sayfa da pasif olduğu için 404 veriyordu —
+        // ziyaretçi iki atlama sonunda yine boş sayfaya düşüyordu.
+        if (! $kayit || ! ($kayit->durum ?? true)) {
+            return redirect()->to('/' . Yollar::parca($this->listeSayfasi($sayfa), Locales::primary()), 301);
         }
 
         $yol = $sayfa === 'catalog' ? 'catalog' : $sayfa;
@@ -92,6 +95,19 @@ class EskiDilYonlendirmeController extends Controller
             '/' . Yollar::parca($yol, Locales::primary()) . '/' . $kayit->slugFor(Locales::primary()),
             301
         );
+    }
+
+    /**
+     * Bir içerik türünün LİSTE sayfası.
+     *
+     * 'product' bir detay yolu ('/product/{slug}'); tek başına '/product'
+     * diye bir sayfa YOK. Ürünlerin listesi 'catalog' ('/producten').
+     * Bu ayrım atlandığında kayıt bulunamayan ürünler '/product' adresine
+     * gönderiliyor ve orada 404 alıyordu.
+     */
+    private function listeSayfasi(string $sayfa): string
+    {
+        return $sayfa === 'product' ? 'catalog' : $sayfa;
     }
 
     /** Yasal sayfalar: /seite/widerruf → /pagina/herroepingsrecht */
