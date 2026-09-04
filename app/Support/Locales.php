@@ -52,10 +52,27 @@ final class Locales
         return array_keys(self::ALL);
     }
 
-    /** Birincil (yedek) dil — DB'de sonek almayan kolonlar bu dile aittir. */
+    /**
+     * Birincil (yedek) dil — DB'de sonek almayan kolonlar bu dile aittir.
+     *
+     * KORUMA: Ayarlardaki dil KAPATILMIS olabilir. Almanca kapatildiginda
+     * .env'de APP_FALLBACK_LOCALE=de kalmisti; primary() 'de' donuyor ama
+     * 'de' artik ALL icinde olmadigi icin routes/web.php hicbir rotaya
+     * kanonik ad veremiyordu (rotalar yalnizca primary'ye 'catalog' adini
+     * verir). Sonuc: route('catalog') tanimsiz -> TUM SITE 500.
+     *
+     * Ayardaki dil aktif degilse listedeki ilk dile duseriz; site ayakta
+     * kalir. .env duzeltilince yine ayardaki dil kullanilir.
+     */
     public static function primary(): string
     {
-        return config('app.fallback_locale', 'nl');
+        $ayar = config('app.fallback_locale', 'nl');
+
+        if (isset(self::ALL[$ayar])) {
+            return $ayar;
+        }
+
+        return (string) array_key_first(self::ALL);
     }
 
     /**
