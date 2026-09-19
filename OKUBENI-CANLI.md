@@ -24,7 +24,10 @@ Tüm proje köküyle birlikte yüklenir (`app/`, `bootstrap/`, `config/`, `datab
 ```bash
 cp .env.canli.ornek .env
 # <> içindeki yerleri doldur (alan adı, veritabanı, SMTP)
-php artisan key:generate      # komut satırı varsa; yoksa şablondaki hazır APP_KEY kullanılır
+php artisan key:generate      # komut satırı varsa
+# Komut satırı yoksa: yerelde `php artisan key:generate --show` çalıştırıp
+# çıkan değeri .env içindeki APP_KEY satırına yapıştır.
+# (Şablonda hazır anahtar ARTIK YOK — 18.09.2026'da sızdığı için kaldırıldı.)
 ```
 
 **Kontrol et:**
